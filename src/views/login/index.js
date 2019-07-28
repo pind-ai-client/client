@@ -13,14 +13,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const Login = ({ navigation }) => {
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-        console.log("We are authenticated now!");
-      }
-      // Do other things
-    });
-  }, []);
 
    loginWithGoogle = async () => {
     try {
@@ -29,7 +21,6 @@ const Login = ({ navigation }) => {
           "304290495073-17lh08lqersl4rpqlq9rqdc0hqos47ap.apps.googleusercontent.com",
         scopes: ["profile", "email"]
       })
-
       if (result.type === "success") {
         console.log('login google')
         console.log(result.user)
