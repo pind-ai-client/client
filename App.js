@@ -3,6 +3,9 @@ import * as Font from "expo-font";
 import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native";
 import Pindai from "./src/navigation";
 
+import { Provider } from 'react-redux'
+import store from './store'
+
 const dimens = Dimensions.get('window')
 console.log(dimens, '====================')
 
@@ -16,9 +19,11 @@ export default function App() {
     });
   }, []);
   return (
-    <View style={styles.container}>
-      <Pindai />
-    </View>
+    <Provider store={store} >
+      <View style={styles.container}>
+        <Pindai />
+      </View>
+    </Provider>
   );
 }
 

@@ -4,6 +4,10 @@ import style from "./style";
 import * as firebase from 'firebase';
 import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
+
+import { connect } from 'react-redux'
+import { login } from '../../../store/action'
+
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDoyydLwwVoReuTTiinYw7UBZ4CdaWOrTM",
@@ -12,7 +16,16 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, login }) => {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+        console.log("We are authenticated now!");
+      }
+      // Do other things
+    });
+    console.log(login)
+  }, []);
 
    loginWithGoogle = async () => {
     try {
@@ -24,6 +37,11 @@ const Login = ({ navigation }) => {
       if (result.type === "success") {
         console.log('login google')
         console.log(result.user)
+        login({
+          userName: result.user.name,
+          email: result.user.email,
+          UserId: result.user.id
+        })
         navigation.navigate('dashboard')
       } else {
         console.log("cancelled")
@@ -58,6 +76,15 @@ const Login = ({ navigation }) => {
       <Button title="Sign in with Google" onPress={() => loginWithGoogle()} />
     </View>
   );
+  
 };
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    ...state
+  }
+}
+
+const mapDispatchToProps = { login }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

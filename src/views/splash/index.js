@@ -12,6 +12,7 @@ const index = (props) => {
   checkLoggedIn = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log(user)
         props.navigation.navigate('dashboard')
       } else {
         props.navigation.navigate('login')
@@ -23,7 +24,7 @@ const index = (props) => {
     checkLoggedIn()
     setTimeout(() => {
       props.navigation.navigate('login')
-    }, 2000)
+    }, 2500)
   }, [])
 
 
