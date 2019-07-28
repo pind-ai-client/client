@@ -36,7 +36,7 @@ let data = {
 
 let user = {
     id: 1,
-    name: 'dion michael',
+    name: 'rizky andi jani',
     photoURL: 'https://cdn0.iconfinder.com/data/icons/unigrid-flat-human-vol-2/90/011_101_anonymous_anonym_hacker_vendetta_user_human_avatar-512.png'
 }
 
@@ -83,6 +83,41 @@ let masters = [{
         length: 60
     }, {
         id: 9,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
+        name: 'Calculus III',
+        createdAt: new Date(),
+        length: 60
+    }, {
+        id: 10,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60

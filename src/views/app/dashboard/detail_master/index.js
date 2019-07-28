@@ -20,10 +20,10 @@ const DetailAnswer = ({ navigation }) => {
       <Text> {id} </Text>
       <ProgressChart
         data={[0.4, 0.6, 0.8]}
-        width={Dimensions.get('window').width - 16}
+        width={Dimensions.get('window').width}
         height={220}
         chartConfig={{
-          backgroundColor: '#1cc910',
+          backgroundColor: '#fff',
           backgroundGradientFrom: '#eff3ff',
           backgroundGradientTo: '#efefef',
           decimalPlaces: 2,
