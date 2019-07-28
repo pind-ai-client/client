@@ -21,6 +21,7 @@ import DetailAnswer from "./views/app/dashboard/detail_master/detail_answer";
 import NewMaster from "./views/app/dashboard/new_master";
 import Settings from "./views/app/dashboard/settings";
 import Login from "./views/login";
+import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
 
@@ -51,6 +52,7 @@ let Dashboard = createStackNavigator({
 );
 
 let App = createSwitchNavigator({
+  splash: Splash,
   login: Login,
   dashboard: Dashboard
 });
