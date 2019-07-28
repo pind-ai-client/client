@@ -1,6 +1,11 @@
 const initialState = {
   isLogin: false,
-  isLoading: false
+  isLoading: false,
+  user: {},
+  answer: {},
+  answers: [],
+  setSoal: {},
+  setSoals: []
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +27,48 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: true
       };
+
+    case "LOADING_DONE": 
+      return {
+        ...state,
+        isLoading: false
+      }
+
+    case "SUCCESS_LOGIN":
+      return {
+        ...state,
+        user: action.data,
+        isLoading: false
+      }
+    
+    case "SUCCESS_FETCH_SOALS":
+      return {
+        ...state,
+        setSoals: action.data,
+        isLoading: false
+      }
+
+    case "SUCCESS_FETCH_SOAL":
+      return {
+        ...state,
+        setSoal: action.data,
+        isLoading: false
+      }
+
+    case "SUCCESS_FETCH_ANSWERS":
+      return {
+        ...state,
+        answers: action.data,
+        isLoading: false
+      }
+
+    case "SUCCESS_FETCH_ANSWER":
+      return {
+        ...state,
+        answer: action.data,
+        isLoading: false
+      }
+
     default:
       return state;
   }
