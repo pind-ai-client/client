@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Button } from "react-native";
 import style from "./style";
 import Listitem from "./listitem";
 import { AntDesign } from "@expo/vector-icons";
@@ -22,6 +22,12 @@ const Dashboard = ({ navigation }) => {
           </TouchableWithoutFeedback>
           <View style={style.logocontainer}>
             <Text style={style.logo}>pind.ai</Text>
+          </View>
+          <View>
+            <Button
+            title="New"
+            onPress={()=> navigation.navigate("newmaster")}
+            />
           </View>
         </View>
         <View style={style.avatarcontainer}>

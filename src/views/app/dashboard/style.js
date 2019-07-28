@@ -19,7 +19,7 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        marginLeft: -35
+        marginLeft: 20
     },
     logo: {
         fontSize: 20,

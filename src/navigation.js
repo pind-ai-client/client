@@ -24,6 +24,7 @@ import Login from "./views/login";
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
 
+
 let no_appbar = {
   headerMode: "none",
   defaultNavigationOptions: () => ({
