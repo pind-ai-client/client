@@ -45,7 +45,7 @@ const Login = ({ navigation }) => {
   loginWithFacebook = async () => {
     const result = await Facebook.logInWithReadPermissionsAsync(
       '588718061654132',
-      { permissions: ['public_profile'] }
+      { permissions: ['public_profile', "email", "user_friends"] }
     );
   
     if (result.type === 'success') {
