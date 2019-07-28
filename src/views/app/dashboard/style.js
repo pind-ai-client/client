@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     container: {
         height: Dimensions.get('window').height,
-        backgroundColor: '#1c1c26'
+        backgroundColor: '#fff'
     },
     btn: {
         margin: 20
@@ -35,11 +35,23 @@ export default StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 4
         },
-        shadowOpacity: 0.2,
-        shadowRadius: 2.6,
-        elevation: 4
+        shadowOpacity: 1,
+        shadowRadius: 4.5,
+        elevation: 7,
+        left: -20,
+        height: 125
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 4
+        },
+        shadowOpacity: 1,
+        shadowRadius: 4.5,
+        elevation: 7,
     },
     navcontainer: {
         flexDirection: "row",
@@ -65,11 +77,30 @@ export default StyleSheet.create({
         paddingBottom: 20,
     },
     listcontainer: {
-        marginBottom: 50
+        marginBottom: 50,
+        marginTop: -220,
     },
     hello: {
         fontFamily: 'montserrat-regular',
         textTransform: 'uppercase',
         fontSize: 20
+    },
+    categories: {
+        paddingHorizontal: 20, 
+        paddingVertical: 10, 
+        flexDirection: 'row', 
+        alignItems: 'flex-end', 
+        borderBottomEndRadius: 50, 
+        backgroundColor: 'orange', 
+        marginTop: -125, 
+        height: 170,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 4
+        },
+        shadowOpacity: 1,
+        shadowRadius: 4.5,
+        elevation: 5,
     }
 })
