@@ -21,13 +21,13 @@ const Listitem = ({ master, navigation }) => {
           borderRadius: 10,
           minHeight: 75,
           margin: 10,
-          padding: 20
+          padding: 20,
+          justifyContent: 'center'
         }}
       >
         <View
           style={{
             flexDirection: "row",
-            alignContent: "center",
             justifyContent: "space-between"
           }}
         >
