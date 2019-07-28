@@ -32,7 +32,8 @@ const Login = ({ navigation, login }) => {
         login({
           userName: result.user.name,
           email: result.user.email,
-          UserId: result.user.id
+          UserId: result.user.id,
+          photoUrl: result .user.photoUrl
         })
         navigation.navigate('dashboard')
       } else {

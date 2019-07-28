@@ -27,6 +27,7 @@ import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
 
+let showBottomTab = true
 
 let no_appbar = {
   headerMode: "none",
@@ -50,6 +51,7 @@ let Dashboard = createStackNavigator({
   },
   no_appbar
 );
+
 
 let BottomNav = createBottomTabNavigator({
   Dashboard,
@@ -88,7 +90,7 @@ let BottomNav = createBottomTabNavigator({
       activeTintColor: "orange",
       inactiveTintColor: "rgba(255,255,255,0.5)",
       style: {
-        backgroundColor: "#203A43",
+        backgroundColor: "#0F2027",
         padding: 10,
         height: 60
       }
