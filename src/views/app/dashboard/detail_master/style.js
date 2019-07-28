@@ -9,6 +9,6 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     container: {
-        height: Dimensions.get('window').height
+        height: Dimensions.get('window').height - 60
     }
 })

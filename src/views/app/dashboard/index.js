@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, Image, Button } from "react-native";
+import { View, Text, Image, Button, ImageBackground } from "react-native";
 import style from "./style";
 import Listitem from "./listitem";
 import { AntDesign } from "@expo/vector-icons";
 import {
   TouchableHighlight,
   TouchableWithoutFeedback,
-  FlatList
+  FlatList,
+  TouchableOpacity
 } from "react-native-gesture-handler";
 import {LinearGradient} from 'expo-linear-gradient'
 import { data, user, masters } from "../../../../mockdata";
@@ -15,51 +16,49 @@ let name = user.name.split(' ')
 let firstName = name[0]
 let lastName = name[1]
 
+
 const Dashboard = ({ navigation }) => {
+
   return (
     
     <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
-      <View style={style.topcontainer}>
-        <View style={style.navcontainer}>
-          
+    <ImageBackground 
+      source={require('../../../../assets/exam.jpg')} 
+      style={style.topcontainer}
+      imageStyle={{
+        borderBottomRightRadius: 50
+      }}
+      >
+      <View style={{width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.75)', borderBottomRightRadius: 50}}>
+        <View style={style.navcontainer}>          
           <View style={style.logocontainer}>
-            <Text style={style.logo}>pindai</Text>
+            <TouchableWithoutFeedback hitSlop={{left: -20, right: -20, top: -20, bottom: -20}} onPress={() => {navigation.navigate('settings')}}>
+              <Text style={style.logo}>pindai</Text>
+            </TouchableWithoutFeedback>
           </View>
         </View>
         <View style={[style.avatarcontainer, {marginHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('settings')}>
+            <TouchableOpacity onPress={ () => navigation.navigate('settings') }>
+              <View>
               <Image
                 source={{
                   uri: user.photoURL
                 }}
                 style={style.avatar}
               />
-            </TouchableWithoutFeedback>
+              </View>
+            </TouchableOpacity>
             <View>
               <Text style={style.hello}>Hi, <Text style={{fontFamily: 'montserrat-black', fontSize: 20}}>{firstName}</Text>{lastName && (<Text>{lastName}</Text>)}</Text>
-              <Text>yomann</Text>
+              <Text style={{color: 'white', fontFamily:'montserrat-regular'}}>Welcome back!</Text>
             </View>
-          </View>
-          <View>
-            <TouchableWithoutFeedback
-              onPress={() => navigation.navigate("newmaster")}
-            >
-              <AntDesign name="plus" size={20} color="#a9a9a9" />
-            </TouchableWithoutFeedback>
           </View>
         </View>
       </View>
+      </ImageBackground>
       <View style={style.categories}>
-        <View style={{flexDirection: 'row', alignItems:'center'}}>
-          <Text style={{color: 'white', marginRight: 5}}>Sort: </Text>
-          <View style={{marginRight: 5, padding: 5, borderColor: 'white', borderRadius: 25, borderWidth: 1}}>
-            <Text style={{color: 'white', fontSize: 10}}>Ascending</Text>
-          </View>
-          <View style={{marginRight: 5, padding: 5, borderColor: 'white', borderRadius: 25, borderWidth: 1}}>
-            <Text style={{color: 'white', fontSize: 10}}>Descending</Text>
-          </View>
-        </View>
+        <Text style={{color: 'white'}}>You have {masters.length} Answer Keys in total</Text>
       </View>
       <View style={style.listcontainer}>
         <View style={{height: 165}}/>

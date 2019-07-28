@@ -31,14 +31,14 @@ const Listitem = ({ master, navigation }) => {
             justifyContent: "space-between"
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#9cbdc8" }}>
+          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#2C5364" }}>
             {master.name}
           </Text>
           <Text style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>
             {master.length} questions
           </Text>
         </View>
-        <Text>{moment(master.createdAt).fromNow()}</Text>
+        <Text style={{color: 'rgba(0,0,0,0.5)'}}>{moment(master.createdAt).fromNow()}</Text>
       </View>
     </TouchableNativeFeedback>
   );

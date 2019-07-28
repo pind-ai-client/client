@@ -25,12 +25,11 @@ export default StyleSheet.create({
     logo: {
         fontSize: 20,
         fontFamily: "montserrat-regular",
-        color: "grey",
+        color: "white",
         textTransform: 'uppercase',
         letterSpacing: 4
     },
     topcontainer: {
-        backgroundColor: "white",
         borderBottomEndRadius: 50,
         shadowColor: '#000',
         shadowOffset: {
@@ -77,13 +76,14 @@ export default StyleSheet.create({
         paddingBottom: 20,
     },
     listcontainer: {
-        marginBottom: 50,
+        marginBottom: 130,
         marginTop: -220,
     },
     hello: {
         fontFamily: 'montserrat-regular',
         textTransform: 'uppercase',
-        fontSize: 20
+        fontSize: 20,
+        color: 'white'
     },
     categories: {
         paddingHorizontal: 20, 
@@ -93,7 +93,7 @@ export default StyleSheet.create({
         borderBottomEndRadius: 50, 
         backgroundColor: 'orange', 
         marginTop: -125, 
-        height: 170,
+        height: 165,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,

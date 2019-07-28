@@ -3,7 +3,8 @@ import React from "react";
 import {
   createSwitchNavigator,
   createStackNavigator,
-  createAppContainer
+  createAppContainer,
+  createBottomTabNavigator
 } from "react-navigation";
 
 import {
@@ -11,7 +12,8 @@ import {
   FontAwesome,
   MaterialIcons,
   Foundation,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
+  AntDesign
 } from "@expo/vector-icons";
 
 // IMPORT VIEWS
@@ -43,16 +45,67 @@ const Details = createStackNavigator({
 
 let Dashboard = createStackNavigator({
     dash: Dash,
-    settings: Settings,
-    newmaster: NewMaster,
     detail: Details
   },
   no_appbar
 );
 
+let BottomNav = createBottomTabNavigator({
+  Dashboard,
+  New: NewMaster,
+  Settings
+},
+{
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let icon;
+        switch (routeName) {
+          case "Dashboard":
+            icon = <Foundation name="home" size={25} color={tintColor} />;
+            break;
+          case "New":
+            icon = (
+              <AntDesign
+                name={"pluscircle"}
+                size={25}
+                color={tintColor}
+              />
+            );
+            break;
+          case "Settings":
+            icon = (
+              <Ionicons name="ios-settings" size={25} color={tintColor} />
+            );
+            break;
+        }
+        return icon;
+      }
+    }),
+    tabBarOptions: {
+      initialRouteName: "Trending",
+      activeTintColor: "orange",
+      inactiveTintColor: "rgba(255,255,255,0.5)",
+      style: {
+        backgroundColor: "#203A43",
+        padding: 10,
+        height: 60
+      }
+    }
+  }
+)
+
 let App = createSwitchNavigator({
   login: Login,
-  dashboard: Dashboard
+  dashboard: BottomNav
 });
 
 export default createAppContainer(App);
+
+//dashboard
+  //stacknav
+    //index
+    //detail
+
+//new
+//settings
