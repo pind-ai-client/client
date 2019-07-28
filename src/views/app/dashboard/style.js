@@ -3,6 +3,8 @@ import {
     Dimensions
 } from 'react-native'
 
+let {width, height} = Dimensions.get('window')
+
 export default StyleSheet.create({
     title: {
         fontSize: 20,
@@ -10,7 +12,7 @@ export default StyleSheet.create({
     },
     container: {
         height: Dimensions.get('window').height,
-        backgroundColor: '#e5e5e5'
+        backgroundColor: '#1c1c26'
     },
     btn: {
         margin: 20
@@ -19,7 +21,6 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        marginLeft: -35
     },
     logo: {
         fontSize: 20,
@@ -29,19 +30,29 @@ export default StyleSheet.create({
         letterSpacing: 4
     },
     topcontainer: {
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "white",
+        borderBottomEndRadius: 50,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 2.6,
+        elevation: 4
     },
     navcontainer: {
         flexDirection: "row",
-        alignItems: "center",
+        alignItems: "flex-start",
+        justifyContent: 'flex-start',
         padding: 10
     },
     avatar: {
-        width: 120,
-        height: 120,
-        borderColor: "#a9a9a9",
-        borderWidth: 10,
-        borderRadius: 100
+        width: 60,
+        height: 60,
+        marginRight: 10,
+        borderColor: "#e5e5e5",
+        borderRadius: 100,
     },
     username: {
         marginVertical: 5,
@@ -50,11 +61,15 @@ export default StyleSheet.create({
         fontFamily: 'montserrat-regular'
     },
     avatarcontainer: {
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 20
+        paddingHorizontal: 20,
+        paddingBottom: 20,
     },
     listcontainer: {
-        padding: 20
+        marginBottom: 50
+    },
+    hello: {
+        fontFamily: 'montserrat-regular',
+        textTransform: 'uppercase',
+        fontSize: 20
     }
 })

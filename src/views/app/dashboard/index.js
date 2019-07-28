@@ -8,30 +8,41 @@ import {
   TouchableWithoutFeedback,
   FlatList
 } from "react-native-gesture-handler";
+import {LinearGradient} from 'expo-linear-gradient'
 import { data, user, masters } from "../../../../mockdata";
 
 const Dashboard = ({ navigation }) => {
   return (
-    <View style={style.container}>
+    <LinearGradient colors={['#0F2027', '#203A43', '#2C5364']}>
       <View style={style.topcontainer}>
         <View style={style.navcontainer}>
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("settings")}
-          >
-            <AntDesign name="setting" size={25} color="#a9a9a9" />
-          </TouchableWithoutFeedback>
+          
           <View style={style.logocontainer}>
             <Text style={style.logo}>pind.ai</Text>
           </View>
         </View>
-        <View style={style.avatarcontainer}>
-          <Image
-            source={{
-              uri: user.photoURL
-            }}
-            style={style.avatar}
-          />
-          <Text style={style.username}>{user.name}</Text>
+        <View style={[style.avatarcontainer, {marginHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View>
+              <Image
+                source={{
+                  uri: user.photoURL
+                }}
+                style={style.avatar}
+              />
+            </View>
+            <View>
+              <Text style={style.hello}>{user.name}</Text>
+              <Text>yomann</Text>
+            </View>
+          </View>
+          <View>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("settings")}
+            >
+              <AntDesign name="setting" size={30} color="#a9a9a9" />
+            </TouchableWithoutFeedback>
+          </View>
         </View>
       </View>
       <View style={style.listcontainer}>
@@ -47,8 +58,9 @@ const Dashboard = ({ navigation }) => {
           }}
         />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
+// <Text style={style.username}>{user.name}</Text>
 export default Dashboard;
