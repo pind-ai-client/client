@@ -3,10 +3,16 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList
+  FlatList,
+  Dimensions,
+  ImageBackground,
+
 } from "react-native";
 import axios from 'axios'
 import Listitem from './listitem'
+import {LinearGradient} from 'expo-linear-gradient'
+import {AnimatedCircularProgress} from 'react-native-circular-progress'
+import {withNavigation} from 'react-navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +37,12 @@ const styles = StyleSheet.create({
   }
 })
 
-const DetailAnswer = () => {
+const {width, height} = Dimensions.get('window')
+
+const DetailAnswer = ({navigation}) => {
+
+  let data = navigation.getParam('data')
+  console.log(data)
 
   const [answer, setAnswer] = useState('')
 
@@ -47,43 +58,34 @@ const DetailAnswer = () => {
         console.log(err)
       })
   }, [])
+
   return (
-    <View style={styles.container}>
-      <View style={styles.score}>
-        <Text>{answer.score}</Text>
-      </View>
-      <View style={styles.detailStudent}>
-        <Text>{answer.name}</Text>
-      </View>
-      <View style={styles.listAnswer}>
-        {answer.length === 0 ? <Text>Loading dulu mas</Text> :
-          <>
-            <View style={{
-              flexDirection: "row",
-              justifyContent: "space-around",
-              backgroundColor: 'red',
-              margin: 10
-            }}>
-              <Text>No</Text>
-              <Text>Answer</Text>
-              <Text>Key</Text>
-            </View>
-            <FlatList
-              data={Object.entries(answer.answers)}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => {
-                return (
-                  <View>
-                    <Listitem master={item} />
-                  </View>
-                )
-              }}
-            />
-          </>
-        }
-      </View>
-    </View>
+    <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
+      <ImageBackground
+        source={require('../../../../../../assets/graduate.jpeg')}
+        style={{height, width}}
+        blurRadius={2}
+      >
+        <View style={{backgroundColor: 'rgba(0,0,0,0.75)', height: height-60, width}}>
+          <View style={{height: height/3, width: width, alignItems: 'center', justifyContent: 'center'}}>
+            <AnimatedCircularProgress
+              size={150}
+              width={30}
+              fill={86}
+              tintColor={answer.score <=60 ? ('red') : ("#00e0ff") }
+              onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor='#3d5875'
+            >
+              { () => (
+                <Text style={{fontFamily: 'montserrat-black', color: 'white', fontSize: 30}}>{'86%'}</Text>
+              )}
+            </AnimatedCircularProgress>
+            <Text style={{fontFamily: 'montserrat-black', fontSize: 30, color: 'white'}}>Passed</Text>
+          </View>
+        </View>
+      </ImageBackground>
+    </LinearGradient>
   );
 };
 
-export default DetailAnswer;
+export default withNavigation(DetailAnswer);

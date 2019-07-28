@@ -28,18 +28,20 @@ export function login (user) {
     return (dispatch, state) => {
         console.log('masuk action')
         dispatch(loading())
-        axios.post(baseUrl+'/users/login', {
-            userName: user.userName,
-            email: user.email,
-            UserId: user.UserId
-        })
-        .then(({ data }) => {
-            console.log(data)
-            dispatch(successLogin(data))
-        })
-        .catch(err => {
-            dispatch(errorHitApi(err))
-        })
+        console.log(user, 'from action');
+        dispatch(successLogin(user))
+        // axios.post(baseUrl+'/users/login', {
+        //     userName: user.userName,
+        //     email: user.email,
+        //     UserId: user.UserId
+        // })
+        // .then(({ data }) => {
+        //     console.log(data)
+        //     dispatch(successLogin(data))
+        // })
+        // .catch(err => {
+        //     dispatch(errorHitApi(err))
+        // })
     }
 }
 

@@ -11,7 +11,7 @@ let data = {
     },
     answers: [{
         name: 'Dion Michael',
-        score: '86',
+        score: '57',
         answers: {
             '1': 'A',
             '2': 'D',
@@ -31,10 +31,98 @@ let data = {
             '5': 'E'
         },
         setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
+    },{
+        name: 'Rizky Anas Bukhori',
+        score: '98',
+        answers: {
+            '1': 'B',
+            '2': 'D',
+            '3': 'C',
+            '4': 'A',
+            '5': 'E'
+        },
+        setSoalId: 1
     }]
 }
 
-let user = {
+let usermock = {
     id: 1,
     name: 'rizky andi jani',
     photoURL: 'https://cdn0.iconfinder.com/data/icons/unigrid-flat-human-vol-2/90/011_101_anonymous_anonym_hacker_vendetta_user_human_avatar-512.png'
@@ -92,37 +180,37 @@ let masters = [{
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 11,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 12,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 13,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 14,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 15,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 16,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
     }, {
-        id: 10,
+        id: 17,
         name: 'Calculus III',
         createdAt: new Date(),
         length: 60
@@ -131,6 +219,6 @@ let masters = [{
 
 module.exports = {
     data,
-    user,
+    usermock,
     masters
 }

@@ -5,8 +5,7 @@ import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import moment from "moment-with-locales-es6";
 
 const Listitem = ({ master, navigation }) => {
-  console.log(moment(master.createdAt).fromNow());
-  console.log(moment(master.createdAt));
+  console.log(master.id)
   return (
     <TouchableNativeFeedback
       onPress={() =>
