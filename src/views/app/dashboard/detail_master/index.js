@@ -28,37 +28,9 @@ const DetailAnswer = ({ navigation }) => {
           <Text>{Math.floor(percent) + '%'}</Text>
         )}
       </AnimatedCircularProgress>
-      <ProgressCircle
-        percent={percent}
-        radius={50}
-        borderWidth={20}
-        color="#3399ff"
-        shadowColor="#999"
-        bgColor='#fff'  
-      >
-        <Text>{'30%'}</Text>
-      </ProgressCircle>
-      <ProgressChart
-        data={[percent/100]}
-        width={Dimensions.get('window').width}
-        height={220}
-        chartConfig={{
-          backgroundColor: '#fff',
-          backgroundGradientFrom: '#eff3ff',
-          backgroundGradientTo: '#efefef',
-          decimalPlaces: 2,
-          color: (opacity = 1) => `rgba(57, 128, 209, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-        }}
-        style={{
-          marginVertical: 8,
-          borderRadius: 16,
-        }}
-      />
 
       <Button title='tambah aku mas' onPress={() => setPercent(percent + 5)}/>
+      
       <Button
         title="to answer detail"
         onPress={() => navigation.navigate("detailanswer")}
