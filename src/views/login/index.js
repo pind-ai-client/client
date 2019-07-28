@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableHighlight, Button } from "react-native";
 import style from "./style";
 import * as firebase from 'firebase';
-import { Facebook, Google } from 'expo'
+import { Google } from 'expo'
+import * as Facebook from 'expo-facebook'
 // Initialize Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyDoyydLwwVoReuTTiinYw7UBZ4CdaWOrTM",
@@ -17,12 +18,11 @@ const Login = ({ navigation }) => {
       if (user != null) {
         console.log("We are authenticated now!");
       }
-    
       // Do other things
     });
   }, []);
 
-   async function loginWithGoogle() {
+   loginWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
         androidClientId:
@@ -31,12 +31,9 @@ const Login = ({ navigation }) => {
       })
 
       if (result.type === "success") {
-        console.log('succes login')
-        // this.setState({
-        //   signedIn: true,
-        //   name: result.user.name,
-        //   photoUrl: result.user.photoUrl
-        // })
+        console.log('login google')
+        console.log(result.user)
+        navigation.navigate('dashboard')
       } else {
         console.log("cancelled")
       }
@@ -45,26 +42,28 @@ const Login = ({ navigation }) => {
     }
   }
 
-  async function loginWithFacebook() {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+  loginWithFacebook = async () => {
+    const result = await Facebook.logInWithReadPermissionsAsync(
       '588718061654132',
       { permissions: ['public_profile'] }
     );
   
-    if (type === 'success') {
+    if (result.type === 'success') {
+      console.log('login fb')
+      navigation.navigate('dashboard')
       // Build Firebase credential with the Facebook access token.
-      const credential = firebase.auth.FacebookAuthProvider.credential(token);
+      // const credential = firebase.auth.FacebookAuthProvider.credential(token);
   
       // Sign in with credential from the Facebook user.
-      firebase.auth().signInWithCredential(credential).catch((error) => {
-        console.log('facebook error')
-        // Handle Errors here.
-      });
+      // firebase.auth().signInWithCredential(credential).catch((error) => {
+      //   console.log('facebook error')
+      //   // Handle Errors here.
+      // });
     }
   }
   return (
     <View style={style.container}>
-      <Button title="Login" onPress={() => loginWithFacebook() } />
+      <Button title="Sign in with Facebook" onPress={() => loginWithFacebook() } />
       <Button title="Sign in with Google" onPress={() => loginWithGoogle()} />
     </View>
   );
