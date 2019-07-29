@@ -5,7 +5,8 @@ const initialState = {
   answer: {},
   answers: [],
   setSoal: {},
-  setSoals: []
+  setSoals: [],
+  error: ''
 };
 
 export default (state = initialState, action) => {

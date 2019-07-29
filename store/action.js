@@ -82,7 +82,7 @@ export function createSetSoal (option){
             answers: option.answers
         })
         .then(({ data }) => {
-            console.log('success creating SetSoal', data)
+            console.log('success create setSoal', data)
             dispatch(doneLoading())
         })
         .catch(err => {
@@ -165,7 +165,11 @@ export function createAnswer (formData) {
         dispatch(loading())
         axios.post(baseUrl+'/answers', formData)
         .then(({ data }) => {
-            console.log('success create answer', data)
+            if (data.status === 'success') {
+                console.log('success creating answer', data.data)
+            } else {
+                console.log('error creating answer', data.data)
+            }
             dispatch(doneLoading())
         })
         .catch(err => {
