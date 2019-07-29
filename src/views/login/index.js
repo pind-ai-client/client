@@ -34,9 +34,6 @@ const Login = ({ navigation, login }) => {
           UserId: result.user.id,
           photoUrl: result .user.photoUrl
         }, navigation.navigate)
-        // navigation.navigate('dashboard')
-        // })
-        // navigation.navigate('dashboard')
         firebase.auth().signInWithCredential(credential).catch((error) => {
           // Handle Errors here.
           console.log(error)

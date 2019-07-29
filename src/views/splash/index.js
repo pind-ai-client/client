@@ -19,8 +19,8 @@ const index = (props) => {
           email: user.email,
           UserId: user.uid,
           photoUrl: user.photoURL
-        })
-        props.navigation.navigate('dashboard')
+        }, props.navigation.navigate)
+        // props.navigation.navigate('dashboard')
       } else {
         props.navigation.navigate('login')
       }
@@ -28,7 +28,9 @@ const index = (props) => {
   }
 
   useEffect(() => {
-    checkLoggedIn()
+    setTimeout(() => {
+      checkLoggedIn()
+    }, 3000)
   }, [])
 
 

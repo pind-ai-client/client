@@ -55,13 +55,13 @@ let Dashboard = createStackNavigator({
   no_appbar
 );
 
-let Settings = createStackNavigator({
-  setting: SettingsMaster,
-  acc: Account,
-  help : Help
-},
-no_appbar
-);
+// let Settings = createStackNavigator({
+//   setting: SettingsMaster,
+//   acc: Account,
+//   help : Help
+// },
+// no_appbar
+// );
 
 let BottomNav = createBottomTabNavigator({
   Dashboard,
