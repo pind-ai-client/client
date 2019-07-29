@@ -26,6 +26,8 @@ import Login from "./views/login";
 import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
+import Account from './views/app/dashboard/settings/account'
+import Help from './views/app/dashboard/settings/help'
 
 let showBottomTab = true
 

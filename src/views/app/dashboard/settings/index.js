@@ -63,6 +63,7 @@ const Settings = (props) => {
         </TouchableNativeFeedback>
       </View>
       <FlatList
+        style={{paddingTop : 100}}
         data={listMenus}
         keyExtractor={_keyExtractor}
         renderItem={_renderItem}
@@ -71,4 +72,4 @@ const Settings = (props) => {
   );
 };
 
-export default Settings;
+export default withNavigation(Settings);
