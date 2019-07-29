@@ -5,7 +5,8 @@ const initialState = {
   answer: {},
   answers: [],
   setSoal: {},
-  setSoals: []
+  setSoals: [],
+  error: undefined
 };
 
 export default (state = initialState, action) => {
@@ -19,12 +20,14 @@ export default (state = initialState, action) => {
     case "ERROR_HIT_API":
       return {
         ...state,
+        error: action.error,
         isLoading: false
       };
 
     case "LOADING_HIT_API":
       return {
         ...state,
+        error: undefined,
         isLoading: true
       };
 
@@ -35,7 +38,7 @@ export default (state = initialState, action) => {
       }
 
     case "SUCCESS_LOGIN":
-      console.log(action.data, 'from reducer')
+      // console.log(action.data, 'from reducer')
       return {
         ...state,
         user: action.data,

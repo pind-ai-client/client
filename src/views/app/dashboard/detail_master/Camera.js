@@ -6,9 +6,10 @@ import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
 import * as ImageManipulator from 'expo-image-manipulator'
 import { TouchableOpacity, TouchableNativeFeedback, TouchableHighlight } from "react-native-gesture-handler";
+import { connect } from 'react-redux'
+import { createAnswer } from '../../../../../store/action'
 
-
-const buttonNew = ({navigation}) => {
+const buttonNew = ({navigation, createAnswer}) => {
 
   const {height, width, scale} = Dimensions.get('window')
   const maskRowHeight = Math.round((height - 533)/20)
@@ -55,16 +56,24 @@ const buttonNew = ({navigation}) => {
   async function takePicture(){
     if(camera) {
       setLoading(true)
-      let photo = await camera.takePictureAsync()
-      console.log(photo);
+      let photo = await camera.takePictureAsync({
+        base64: true,
+        quality: 1
+      })
+      // console.log('ini photo ======',photo);
       let manipResult = await ImageManipulator.manipulateAsync(
         photo.uri, 
-        [{resize: {width: width*scale, height: height*scale}}, {crop: {originX: maskColWidth*scale, originY: (maskRowHeight*10)*scale, width: 400*scale, height: 533*scale}}],
-        { compress: 1, format: ImageManipulator.SaveFormat.PNG },
+        [],
+        { compress: 1, format: ImageManipulator.SaveFormat.JPEG },
       )
       setLoading(false)
       console.log(height, width);
-      console.log(manipResult);
+      console.log('ini result ============', manipResult);
+      const image = new File([photo.base64], 'answer.jpg', {type: 'image/jpeg'})
+      console.log(image)
+      let imageForm = new FormData()
+      imageForm.append('image', JSON.stringify(image))
+      createAnswer(photo.uri)
       navigation.navigate('postCapture', {
         uri: manipResult.uri
       })
@@ -181,4 +190,6 @@ const buttonNew = ({navigation}) => {
   
 };
 
-export default buttonNew;
+const mapDispatchToProps = { createAnswer }
+
+export default connect(null, mapDispatchToProps)(buttonNew);

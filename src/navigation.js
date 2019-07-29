@@ -26,6 +26,8 @@ import Login from "./views/login";
 import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
+import Account from './views/app/dashboard/settings/account'
+import Help from './views/app/dashboard/settings/help'
 
 let showBottomTab = true
 
@@ -47,11 +49,19 @@ const Details = createStackNavigator({
 
 let Dashboard = createStackNavigator({
     dash: Dash,
-    detail: Details
+    detail: Details,
+    edit : NewMaster
   },
   no_appbar
 );
 
+// let Settings = createStackNavigator({
+//   setting: SettingsMaster,
+//   acc: Account,
+//   help : Help
+// },
+// no_appbar
+// );
 
 let BottomNav = createBottomTabNavigator({
   Dashboard,

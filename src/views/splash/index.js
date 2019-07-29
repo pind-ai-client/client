@@ -6,13 +6,21 @@ import {
 } from 'react-native'
 import style from "./style"
 import * as firebase from 'firebase'
-
+import { connect } from 'react-redux'
+import { login } from '../../../store/action'
 
 const index = (props) => {
+  const { login } = props
   checkLoggedIn = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        props.navigation.navigate('dashboard')
+        login({
+          userName: user.displayName,
+          email: user.email,
+          UserId: user.uid,
+          photoUrl: user.photoURL
+        }, props.navigation.navigate)
+        // props.navigation.navigate('dashboard')
       } else {
         props.navigation.navigate('login')
       }
@@ -20,11 +28,9 @@ const index = (props) => {
   }
 
   useEffect(() => {
-    // checkLoggedIn() // uComment on development detail answer
-    setTimeout(() => {      
-      // props.navigation.navigate('login') // uComment on development detail answer
-      props.navigation.navigate('detailanswer')
-    }, 2500)
+    setTimeout(() => {
+      checkLoggedIn()
+    }, 3000)
   }, [])
 
 
@@ -36,4 +42,9 @@ const index = (props) => {
   )
 }
 
-export default index
+const mapDispatchToProps = {
+  login
+}
+
+
+export default connect(null, mapDispatchToProps)(index)

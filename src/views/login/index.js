@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableHighlight, Button } from "react-native";
 import style from "./style";
-import * as firebase from 'firebase';
 import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
+import firebase from '../../api/firebase'
 
 import { connect } from 'react-redux'
 import { login } from '../../../store/action'
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDoyydLwwVoReuTTiinYw7UBZ4CdaWOrTM",
-  authDomain: "pindai-bf9cc.firebaseapp.com",
-  databaseURL: "https://pindai-bf9cc.firebaseio.com",
-};
-firebase.initializeApp(firebaseConfig);
 
 const Login = ({ navigation, login }) => {
   useEffect(() => {
@@ -24,26 +16,28 @@ const Login = ({ navigation, login }) => {
       }
       // Do other things
     });
-    console.log(login)
   }, []);
 
-   loginWithGoogle = async () => {
+  // first attempt
+  loginWithGoogle = async () => {
     try {
       const result = await Google.logInAsync({
         androidClientId:
-          "304290495073-17lh08lqersl4rpqlq9rqdc0hqos47ap.apps.googleusercontent.com",
+          "304290495073-kltkc2u9c27gmvan6u2u60rpavh76eq1.apps.googleusercontent.com",
         scopes: ["profile", "email"]
       })
       if (result.type === "success") {
-        console.log('login google')
-        console.log(result.user)
+        const credential = await firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken)
         login({
           userName: result.user.name,
           email: result.user.email,
           UserId: result.user.id,
           photoUrl: result .user.photoUrl
-        })
-        navigation.navigate('dashboard')
+        }, navigation.navigate)
+        firebase.auth().signInWithCredential(credential).catch((error) => {
+          // Handle Errors here.
+          console.log(error)
+        });
       } else {
         console.log("cancelled")
       }
