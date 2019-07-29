@@ -35,6 +35,7 @@ export default (state = initialState, action) => {
       }
 
     case "SUCCESS_LOGIN":
+      console.log(action.data, 'from reducer')
       return {
         ...state,
         user: action.data,

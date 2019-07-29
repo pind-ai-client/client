@@ -29,6 +29,7 @@ import EditImage from "./views/app/dashboard/detail_master/EditImage";
 import Account from './views/app/dashboard/settings/account'
 import Help from './views/app/dashboard/settings/help'
 
+let showBottomTab = true
 
 let no_appbar = {
   headerMode: "none",
@@ -53,13 +54,6 @@ let Dashboard = createStackNavigator({
   no_appbar
 );
 
-let Settings = createStackNavigator({
-  setting: SettingsMaster,
-  acc: Account,
-  help : Help
-},
-no_appbar
-);
 
 let BottomNav = createBottomTabNavigator({
   Dashboard,
@@ -98,7 +92,7 @@ let BottomNav = createBottomTabNavigator({
       activeTintColor: "orange",
       inactiveTintColor: "rgba(255,255,255,0.5)",
       style: {
-        backgroundColor: "#203A43",
+        backgroundColor: "#0F2027",
         padding: 10,
         height: 60
       }

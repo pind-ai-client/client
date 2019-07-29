@@ -10,15 +10,16 @@ import {
   TouchableOpacity
 } from "react-native-gesture-handler";
 import {LinearGradient} from 'expo-linear-gradient'
-import { data, user, masters } from "../../../../mockdata";
-
-let name = user.name.split(' ')
-let firstName = name[0]
-let lastName = name[1]
+import { data, usermock, masters } from "../../../../mockdata";
+import {connect} from 'react-redux';
 
 
-const Dashboard = ({ navigation }) => {
 
+const Dashboard = ({ navigation, user }) => {
+  console.log(user);
+  let name = user.userName.split(' ')
+  let firstName = name[0]
+  let lastName = name[1]
   return (
     
     <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
@@ -43,14 +44,14 @@ const Dashboard = ({ navigation }) => {
               <View>
               <Image
                 source={{
-                  uri: user.photoURL
+                  uri: user.photoUrl
                 }}
                 style={style.avatar}
               />
               </View>
             </TouchableOpacity>
             <View>
-              <Text style={style.hello}>Hi, <Text style={{fontFamily: 'montserrat-black', fontSize: 20}}>{firstName}</Text>{lastName && (<Text>{lastName}</Text>)}</Text>
+              <Text style={style.hello}>Hi, <Text style={{fontFamily: 'montserrat-black', fontSize: 20}}>{firstName}</Text>{lastName && (<Text style={{color: 'orange'}}>{lastName}</Text>)}</Text>
               <Text style={{color: 'white', fontFamily:'montserrat-regular'}}>Welcome back!</Text>
             </View>
           </View>
@@ -79,5 +80,11 @@ const Dashboard = ({ navigation }) => {
   );
 };
 
+const MapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
 // <Text style={style.username}>{user.name}</Text>
-export default Dashboard;
+export default connect(MapStateToProps)(Dashboard);
