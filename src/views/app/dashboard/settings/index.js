@@ -3,17 +3,13 @@ import { TextInput, View, Text, Image, Alert, Modal, Button } from "react-native
 import { FlatList, TouchableNativeFeedback } from "react-native-gesture-handler";
 import Listitem from './listItem'
 import style from "./style";
-import { user } from '../../../../../mockdata'
+import { connect } from 'react-redux'
 import firebase from '../../../../api/firebase'
 
 const Settings = (props) => {
-  const [userLogin, setUserLogin] = useState({
-    username: "robbycp",
-    name: "Robby Caesar",
-    email: "robbycaesar@gmail.com",
-    photoURL: user.photoURL
-  })
-  let name = userLogin.name.split(' ')
+  const { user } = props
+  const [userLogin, setUserLogin] = useState(user)
+  let name = userLogin.userName.split(' ')
   let firstName = name[0]
   let lastName = name[1]
   const [modalVisible, setModalVisible] = useState(false)
@@ -61,7 +57,7 @@ const Settings = (props) => {
   );
 
   const sendUpdateProfile = () => {
-    console.log('ini user send', userLogin)
+    console.log('ini user sens', userLogin)
     setModalVisible(!modalVisible)
   }
 
@@ -70,7 +66,7 @@ const Settings = (props) => {
       <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
         <Image
           source={{
-            uri: user.photoURL
+            uri: user.photoUrl
           }}
           style={style.avatar}
         />
@@ -143,4 +139,13 @@ const Settings = (props) => {
   );
 };
 
-export default Settings;
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapDispatchToProps = {
+  //
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

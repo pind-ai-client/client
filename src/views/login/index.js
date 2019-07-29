@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TouchableHighlight, Button } from "react-native";
 import style from "./style";
 import { Google } from 'expo'
-import * as GoogleSignIn from 'expo-google-sign-in';
 import * as Facebook from 'expo-facebook'
 import firebase from '../../api/firebase'
 
@@ -11,7 +10,6 @@ import { login } from '../../../store/action'
 
 const Login = ({ navigation, login }) => {
   useEffect(() => {
-    // initAsync()
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
         console.log("We are authenticated now!");
@@ -20,32 +18,6 @@ const Login = ({ navigation, login }) => {
     });
     console.log(login)
   }, []);
-
-  // first attempt
-  // loginWithGoogle = async () => {
-  //   try {
-  //     const result = await Google.logInAsync({
-  //       androidClientId:
-  //         "304290495073-17lh08lqersl4rpqlq9rqdc0hqos47ap.apps.googleusercontent.com",
-  //       scopes: ["profile", "email"]
-  //     })
-  //     if (result.type === "success") {
-  //       console.log('login google')
-  //       console.log(result.user)
-  //       login({
-  //         userName: result.user.name,
-  //         email: result.user.email,
-  //         UserId: result.user.id,
-  //         photoUrl: result .user.photoUrl
-  //       })
-  //       navigation.navigate('dashboard')
-  //     } else {
-  //       console.log("cancelled")
-  //     }
-  //   } catch (e) {
-  //     console.log("error", e)
-  //   }
-  // }
 
   // first attempt
   loginWithGoogle = async () => {
@@ -99,8 +71,6 @@ const Login = ({ navigation, login }) => {
     <View style={style.container}>
       <Button title="Sign in with Facebook" onPress={() => loginWithFacebook() } />
       <Button title="Sign in with Google" onPress={() => loginWithGoogle()} />
-      {/* <Button title="Sign in with Google" onPress={() => signInWithGoogleAsync()} /> */}
-      {/* <Button title="Sign in with Google" onPress={() => signInAsync()} /> */}
     </View>
   );
   

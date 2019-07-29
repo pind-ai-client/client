@@ -13,9 +13,7 @@ const index = (props) => {
   const { login } = props
   checkLoggedIn = () => {
     firebase.auth().onAuthStateChanged(user => {
-      console.log('#########################################3masuk checkLoggedin', user)
       if (user) {
-        console.log('######################################### user ada')
         login({
           userName: user.displayName,
           email: user.email,
@@ -24,7 +22,6 @@ const index = (props) => {
         })
         props.navigation.navigate('dashboard')
       } else {
-        console.log('########################################## user ga ada')
         props.navigation.navigate('login')
       }
     })
