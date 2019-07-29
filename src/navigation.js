@@ -21,7 +21,7 @@ import Dash from "./views/app/dashboard";
 import DetailMaster from "./views/app/dashboard/detail_master";
 import DetailAnswer from "./views/app/dashboard/detail_master/detail_answer";
 import NewMaster from "./views/app/dashboard/new_master";
-import SettingsMaster from "./views/app/dashboard/settings";
+import Settings from "./views/app/dashboard/settings";
 import Login from "./views/login";
 import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
