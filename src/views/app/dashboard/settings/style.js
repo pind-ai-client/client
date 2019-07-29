@@ -25,5 +25,11 @@ export default StyleSheet.create({
     },
     itemList: {
         height: 100
-    }
+    },
+    avatar: {
+        width: 120,
+        height: 120,
+        borderColor: "#e5e5e5",
+        borderRadius: 100,
+    },
 })
