@@ -32,4 +32,14 @@ export default StyleSheet.create({
         borderColor: "#e5e5e5",
         borderRadius: 100,
     },
+    formInput: {
+        height: 40,
+        backgroundColor: "#fff",
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+        borderRadius: 10,
+    },
+    formContainer: {
+        marginBottom: 20
+    }
 })
