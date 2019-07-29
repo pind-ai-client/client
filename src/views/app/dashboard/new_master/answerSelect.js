@@ -40,8 +40,9 @@ const answerSelect = ({item, index, edit}) => {
     }, [])
 
     return (
-        <View>
-            <RadioGroup radioButtons={data} onPress={() => console.log('pressed')} flexDirection='row'/>
+        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent:'space-between', padding: 10, borderBottomColor: 'rgba(0,0,0,0.2)', borderBottomWidth: 1}}>
+            <Text style={{fontFamily: 'montserrat-black', fontSize: 20}}>{index + 1}</Text>
+            <RadioGroup radioButtons={data} onPress={onSelected} flexDirection='row'/>
         </View>
     )
 }
