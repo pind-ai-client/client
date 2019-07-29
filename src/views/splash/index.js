@@ -20,10 +20,10 @@ const index = (props) => {
   }
 
   useEffect(() => {
-    // checkLoggedIn() // uComment on development detail answer
+    checkLoggedIn() // uComment on development detail answer
     setTimeout(() => {      
-      // props.navigation.navigate('login') // uComment on development detail answer
-      props.navigation.navigate('detailanswer')
+      props.navigation.navigate('login') // uComment on development detail answer
+      // props.navigation.navigate('detailanswer')
     }, 2500)
   }, [])
 
