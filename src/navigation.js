@@ -21,11 +21,13 @@ import Dash from "./views/app/dashboard";
 import DetailMaster from "./views/app/dashboard/detail_master";
 import DetailAnswer from "./views/app/dashboard/detail_master/detail_answer";
 import NewMaster from "./views/app/dashboard/new_master";
-import Settings from "./views/app/dashboard/settings";
+import SettingsMaster from "./views/app/dashboard/settings";
 import Login from "./views/login";
 import Splash from "./views/splash"
 import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
+import Account from './views/app/dashboard/settings/account'
+import Help from './views/app/dashboard/settings/help'
 
 
 let no_appbar = {
@@ -49,6 +51,14 @@ let Dashboard = createStackNavigator({
     detail: Details
   },
   no_appbar
+);
+
+let Settings = createStackNavigator({
+  setting: SettingsMaster,
+  acc: Account,
+  help : Help
+},
+no_appbar
 );
 
 let BottomNav = createBottomTabNavigator({

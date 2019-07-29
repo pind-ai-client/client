@@ -5,7 +5,9 @@ import {
 export default StyleSheet.create({
     title: {
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingTop : 50
+        
     },
     headerContainer: {
         flex: 1,
