@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, FlatList, Picker } from "react-native";
+import Select from "./answerSelect"
 
 const NewMaster = () => {
   const [totalKey, setTotal] = useState("1")
@@ -29,7 +30,6 @@ const NewMaster = () => {
     await setArray(arraynew)
     await setSelected
     console.log("checccccccccccccck",array);
-
   }
 
   return (
@@ -56,28 +56,9 @@ const NewMaster = () => {
         <FlatList
         horizontal={false}
         data={array}
-        // width={300}
-        numColumns={3}
         keyExtractor={(item,index) => index.toString()}
         renderItem={({item,index})=>(
-          // <Text key={index}>{item}</Text>
-          <View style={{width : 100, alignItems : "center", marginTop : 25}}>
-            <View style={{flexDirection : "row"}}>
-              <Text style={{marginTop : 5}}>{index+1}.</Text>
-              <Picker
-                selectedValue={array[index]}
-                style={{marginRight : 10,height: 30, width: 80, backgroundColor : "antiquewhite"}}
-                onValueChange={(itemValue, itemIndex) =>
-                  // this.setState({language: itemValue})
-                  handleChange(itemValue,index)
-                }>
-                <Picker.Item label="A" value="A" />
-                <Picker.Item label="B" value="B" />
-                <Picker.Item label="C" value="C" />
-                <Picker.Item label="D" value="D" />
-              </Picker>
-            </View>
-          </View>
+          <Select/>
         )}
         />
 
