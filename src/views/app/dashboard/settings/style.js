@@ -27,5 +27,21 @@ export default StyleSheet.create({
     },
     itemList: {
         height: 100
+    },
+    avatar: {
+        width: 120,
+        height: 120,
+        borderColor: "#e5e5e5",
+        borderRadius: 100,
+    },
+    formInput: {
+        height: 40,
+        backgroundColor: "#fff",
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
+        borderRadius: 10,
+    },
+    formContainer: {
+        marginBottom: 20
     }
 })
