@@ -5,6 +5,9 @@ import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
 import firebase from '../../api/firebase'
 
+import { connect } from 'react-redux'
+import { login } from '../../../store/action'
+
 const Login = ({ navigation, login }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
