@@ -1,42 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Dimensions } from "react-native";
 import ActionButton from "react-native-action-button";
 import { AntDesign } from "@expo/vector-icons";
 import style from "./style";
 import { LinearGradient } from "expo-linear-gradient";
 import {data} from '../../../../../mockdata'
-import { FlatList, TouchableOpacity, TouchableNativeFeedback } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity, TouchableNativeFeedback, Text } from "react-native-gesture-handler";
 import HeaderView from './HeaderView'
 import Listitem from './listitem'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import { fetchSetSoal } from '../../../../../store/action'
 
-const DetailAnswer = ({ navigation }) => {
-  let id = navigation.getParam("id");
+const DetailAnswer = (props) => {
+  let id = props.navigation.getParam("id");
+
+  useEffect(()=>{
+    props.fetchSetSoal("5d3eb4af367de44569bf4b28")
+    console.log('ini detaillll trigger');
+    
+  },[])
+
+
   return (
-    <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
-      <View style={style.container}>
-        <HeaderView id={id}/>
-        <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
-          <View style={{zIndex: 3}}>
-            <TouchableOpacity onPress={() => navigation.navigate('camera')} style={{zIndex: 2}}>
-              <View style={{zIndex: 1, borderColor: '#2C5364', borderWidth: 10, backgroundColor: 'white', borderRadius: 100, height: 75, width: 75, alignItems: 'center', justifyContent: 'center'}}>
-                <AntDesign name='camera' size={30} color='#2C5364' />
-              </View>
-            </TouchableOpacity>
-          </View>
+    <>
+      { props.setSoal === {} ? (
+        <View>
+          <Text>Nothing to show</Text>
         </View>
-        <FlatList
-          keyExtractor={(item, index) => index.toString()}
-          data={data.answers}
-          renderItem={({ item }) => {
-            return (
-              <TouchableNativeFeedback onPress={() => navigation.navigate('detailanswer', {data: item})}>
-                <Listitem answer={item} />
-              </TouchableNativeFeedback>
-            );
-          }}
-        />
-      </View>
-    </LinearGradient>
+      ) : (
+      <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
+        <View style={style.container}>
+          <HeaderView id={id} dataSoal={props.setSoal}/>
+          {/* <Text>{JSON.stringify(props.setSoal)}</Text> */}
+          <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
+            <View style={{zIndex: 3}}>
+              <TouchableOpacity onPress={() => navigation.navigate('camera')} style={{zIndex: 2}}>
+                <View style={{zIndex: 1, borderColor: '#2C5364', borderWidth: 10, backgroundColor: 'white', borderRadius: 100, height: 75, width: 75, alignItems: 'center', justifyContent: 'center'}}>
+                  <AntDesign name='camera' size={30} color='#2C5364' />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={data.answers}
+            renderItem={({ item }) => {
+              return (
+                <TouchableNativeFeedback onPress={() => navigation.navigate('detailanswer', {data: item})}>
+                  <Listitem answer={item} />
+                </TouchableNativeFeedback>
+              );
+            }}
+          />
+        </View>
+      </LinearGradient>
+      ) }
+    </>
   );
 };
 
@@ -59,5 +79,16 @@ const DetailAnswer = ({ navigation }) => {
 //                 <Text style={{fontFamily: 'montserrat-black', color: 'white', fontSize: 30}}>{Math.floor(percent) + '%'}</Text>
 //               )}
 //             </AnimatedCircularProgress>
+const mapStatetoProps = state =>{
+  return {
+    setSoal : state.setSoal,
+    loading : state.isLoading
+  }
+}
 
-export default DetailAnswer;
+const mapDispatchtoProps = {
+  fetchSetSoal
+}
+
+
+export default connect(mapStatetoProps,mapDispatchtoProps)(DetailAnswer);
