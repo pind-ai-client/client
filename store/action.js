@@ -158,6 +158,7 @@ export function fetchAnswers () {
 
 export function fetchAnswer (id) {
     return (dispatch, state) => {
+        console.log('fetch answer nih bos',id)
         dispatch(loading())
         axios.get(baseUrl+'/answers/'+id)
         .then(({ data }) => {
