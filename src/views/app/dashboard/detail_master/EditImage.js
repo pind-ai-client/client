@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import { View, Text, Image, ActivityIndicator, Button } from 'react-native'
 
-const EditImage = ({navigation}) => {
+import { connect } from 'react-redux'
+
+const EditImage = ({navigation, isLoading, error}) => {
     let uri = navigation.getParam('uri')
     console.log(uri);
 
@@ -10,7 +12,21 @@ const EditImage = ({navigation}) => {
             <View style={{marginVertical: 20, alignItems: 'center', justifyContent: 'center'}}>
                 <Image
                     source={{uri: uri}}
-                    style={{width: 400, height: 533, resizeMode:'contain', borderRadius: 20}}/>
+                    style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}/>
+                {
+                    isLoading 
+                    ? <View>
+                        <Text>Loading...</Text>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View> 
+                    : error === undefined
+                        ? <Text>Image Is Ok</Text>
+                        : <View>
+                            <Text>Image cannot be processed</Text>
+                            <Text>Please take the picture according to the guide line</Text>
+                            <Button title="Take another picture" onPress={() => navigation.navigate('camera')}/>
+                        </View>
+                }
             </View>
         )
     }
@@ -22,4 +38,10 @@ const EditImage = ({navigation}) => {
     )
 }
 
-export default EditImage
+const mapStateToProps = state => {
+    return {
+        ...state
+    }
+}
+
+export default connect(mapStateToProps, null)(EditImage)

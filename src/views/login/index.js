@@ -24,7 +24,6 @@ const Login = ({ navigation, login }) => {
       }
       // Do other things
     });
-    console.log(login)
   }, []);
 
    loginWithGoogle = async () => {
@@ -36,14 +35,14 @@ const Login = ({ navigation, login }) => {
       })
       if (result.type === "success") {
         console.log('login google')
-        console.log(result.user)
+        // console.log(result.user)
         login({
           userName: result.user.name,
           email: result.user.email,
           UserId: result.user.id,
           photoUrl: result .user.photoUrl
-        })
-        navigation.navigate('dashboard')
+        }, navigation.navigate)
+        // navigation.navigate('dashboard')
       } else {
         console.log("cancelled")
       }

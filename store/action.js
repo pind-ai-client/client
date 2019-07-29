@@ -24,24 +24,26 @@ export function sendPicture(index) {
     };
 }
 
-export function login (user) {
+export function login (user, navigate) {
     return (dispatch, state) => {
         console.log('masuk action')
         dispatch(loading())
         console.log(user, 'from action');
-        dispatch(successLogin(user))
-        // axios.post(baseUrl+'/users/login', {
-        //     userName: user.userName,
-        //     email: user.email,
-        //     UserId: user.UserId
-        // })
-        // .then(({ data }) => {
-        //     console.log(data)
-        //     dispatch(successLogin(data))
-        // })
-        // .catch(err => {
-        //     dispatch(errorHitApi(err))
-        // })
+        axios.post(baseUrl+'/users/login', {
+            userName: user.userName,
+            email: user.email,
+            UserId: user.UserId,
+            photoUrl: user.photoUrl
+        })
+        .then(({ data }) => {
+            console.log(data)
+            dispatch(successLogin(data))
+            navigate('dashboard')
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch(errorHitApi(err))
+        })
     }
 }
 
@@ -160,21 +162,60 @@ export function fetchAnswer (id) {
     }
 }
 
-export function createAnswer (formData) {
+export function createAnswer (uri) {
     return (dispatch, state) => {
+        console.log('masuk create answer client')
+        console.log('ini uri ==========', uri)
         dispatch(loading())
-        axios.post(baseUrl+'/answers', formData)
-        .then(({ data }) => {
-            if (data.status === 'success') {
-                console.log('success creating answer', data.data)
-            } else {
-                console.log('error creating answer', data.data)
+        console.log(baseUrl+'/answers')
+        let formData = new FormData()
+        formData.append('image', {
+            uri,
+            name: 'image.jpg',
+            type: 'image/jpg'
+        })
+        let options = {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
             }
-            dispatch(doneLoading())
+        }
+
+        fetch(baseUrl+'/answers', options)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                dispatch(doneLoading())
+                console.log(data.data)
+            } else {
+                console.log(data.data)
+                dispatch(errorHitApi(data))
+            }
         })
         .catch(err => {
-            dispatch(errorHitApi(err))
+            dispatch(doneLoading())
+            console.log(err)
         })
+        // axios.post(baseUrl+'/answers', formData, {
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        // })
+        // .then(({ data }) => {
+        //     if (data.status === 'success') {
+        //         console.log('success creating answer', data.data)
+        //     } else {
+        //         console.log('error creating answer', data.data)
+        //     }
+        //     dispatch(doneLoading())
+        // })
+        // .catch(err => {
+        //     dispatch(errorHitApi(err))
+        // })
     }
 }
 
