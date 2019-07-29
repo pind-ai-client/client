@@ -1,20 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableHighlight, Button } from "react-native";
 import style from "./style";
-import * as firebase from 'firebase';
 import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
-
-import { connect } from 'react-redux'
-import { login } from '../../../store/action'
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyDoyydLwwVoReuTTiinYw7UBZ4CdaWOrTM",
-  authDomain: "pindai-bf9cc.firebaseapp.com",
-  databaseURL: "https://pindai-bf9cc.firebaseio.com",
-};
-firebase.initializeApp(firebaseConfig);
+import firebase from '../../api/firebase'
 
 const Login = ({ navigation, login }) => {
   useEffect(() => {
