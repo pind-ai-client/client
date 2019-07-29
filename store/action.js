@@ -48,10 +48,12 @@ export function login (user, navigate) {
 }
 
 export function fetchSetSoals () {
+    
     return (dispatch, state) => {
         dispatch(loading())
         axios.get(baseUrl+'/setSoal')
         .then(({ data }) => {
+            console.log('data actioooon soallls', data);
             dispatch(successFetchSoals(data))
         })
         .catch(err => {
@@ -61,10 +63,14 @@ export function fetchSetSoals () {
 }
 
 export function fetchSetSoal (id) {
+    console.log('fetch soal dijalankan',id);
+
     return (dispatch, state) => {
         dispatch(loading())
         axios.get(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
+            console.log('data actioooon', data);
+            
             dispatch(successFetchSoal(data))
         })
         .catch(err => {
