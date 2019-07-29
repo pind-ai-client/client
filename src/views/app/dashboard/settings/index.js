@@ -79,6 +79,7 @@ const Settings = (props) => {
         </Text>
       </View>
       <FlatList
+        style={{paddingTop : 100}}
         data={listMenus}
         keyExtractor={_keyExtractor}
         renderItem={_renderItem}
