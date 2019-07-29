@@ -144,4 +144,4 @@ const Settings = (props) => {
   );
 };
 
-export default withNavigation(Settings);
+export default Settings
