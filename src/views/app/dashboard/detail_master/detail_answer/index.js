@@ -102,7 +102,7 @@ const DetailAnswer = ({ navigation }) => {
             answer.length === 0 ?
               <Text>Loading dulu masnya</Text>
               :
-              <>
+              <View>
                 <View style={styles.detailStudent}>
                   <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <Text style={{
@@ -132,7 +132,7 @@ const DetailAnswer = ({ navigation }) => {
                   )
                   }
                 />
-              </>
+              </View>
           }
         </View>
       </ImageBackground>

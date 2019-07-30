@@ -65,11 +65,11 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
       </ImageBackground>
       <View style={style.categories}>
         <Text style={{color: 'white'}}>You have {masters.length} Answer Keys in total</Text>
-      </View>
+      </View> 
       <View style={style.listcontainer}>
-        <View style={{height: 165}}/>
+        
         <FlatList
-          style={{paddingTop: 65}}
+
           keyExtractor={(item, index) => index.toString()}
           data={setSoals}
           renderItem={({ item }) => {

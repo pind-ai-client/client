@@ -76,8 +76,9 @@ export default StyleSheet.create({
         paddingBottom: 20,
     },
     listcontainer: {
-        marginBottom: 130,
-        marginTop: -220,
+        height:height-245
+        // marginBottom: 130,
+        // marginTop: -220,
     },
     hello: {
         fontFamily: 'montserrat-regular',

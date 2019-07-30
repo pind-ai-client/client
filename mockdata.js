@@ -128,93 +128,337 @@ let usermock = {
     photoURL: 'https://cdn0.iconfinder.com/data/icons/unigrid-flat-human-vol-2/90/011_101_anonymous_anonym_hacker_vendetta_user_human_avatar-512.png'
 }
 
-let masters = [{
-        id: 1,
-        name: 'Intro to Programming',
-        createdAt: new Date(),
-        length: 60
+let masters = [
+  {
+    "answers": [],
+    "_id": "5d3fed3e232d881d8a2ef963",
+    "title": "Sains",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
     },
-    {
-        id: 2,
-        name: 'Calculus III',
-        createdAt: "2019-07-27T09:59:39.403Z",
-        length: 60
-    }, {
-        id: 3,
-        name: 'Calculus III',
-        createdAt: "2019-06-27T12:59:39.403Z",
-        length: 60
-    }, {
-        id: 4,
-        name: 'Calculus III',
-        createdAt: "2019-06-27T09:59:39.403Z",
-        length: 60
-    }, {
-        id: 5,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 6,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 7,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 8,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 9,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 10,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 11,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 12,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 13,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 14,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 15,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 16,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }, {
-        id: 17,
-        name: 'Calculus III',
-        createdAt: new Date(),
-        length: 60
-    }
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:09:50.131Z",
+    "updatedAt": "2019-07-30T07:09:50.131Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed46232d881d8a2ef964",
+    "title": "MTk",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:09:58.080Z",
+    "updatedAt": "2019-07-30T07:09:58.080Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed49232d881d8a2ef965",
+    "title": "IPA",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:01.316Z",
+    "updatedAt": "2019-07-30T07:10:01.316Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed4c232d881d8a2ef966",
+    "title": "IPS",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:04.486Z",
+    "updatedAt": "2019-07-30T07:10:04.486Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed54232d881d8a2ef967",
+    "title": "KM",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:12.673Z",
+    "updatedAt": "2019-07-30T07:10:12.673Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed5a232d881d8a2ef968",
+    "title": "KTDKJ",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:18.053Z",
+    "updatedAt": "2019-07-30T07:10:18.053Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "JSMN",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "YOUNGLEX lop awkarin",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "JSMN",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "JSMN",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "JSMN",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "JSMN",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "YOUNGLE0",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "YOUNGLEX1",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  },
+  {
+    "answers": [],
+    "_id": "5d3fed60232d881d8a2ef969",
+    "title": "YOUNGLEX",
+    "folderName": "Ujian Akhir Sekolah",
+    "answerKey": {
+      "1": "A",
+      "2": "B",
+      "3": "C",
+      "4": "D",
+      "5": "E",
+      "6": "E",
+      "7": "A",
+      "8": "A",
+      "9": "A",
+      "10": "A"
+    },
+    "UserId": "5d3fed23232d881d8a2ef962",
+    "createdAt": "2019-07-30T07:10:24.028Z",
+    "updatedAt": "2019-07-30T07:10:24.028Z",
+    "__v": 0
+  }
 ]
 
 module.exports = {
