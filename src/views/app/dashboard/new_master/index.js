@@ -50,6 +50,7 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
       newobj[parseInt(index+1)] = arr
     })
     console.log(newobj);
+    console.log(title)
     createSetSoal({
       UserId: user.UserId,
       title: title,
@@ -114,8 +115,7 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
             <Text style={{color: 'white', fontFamily: 'montserrat-regular', marginBottom: 10, textAlign: 'center'}}>Subject Name: </Text>  
             <TextInput
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              keyboardType="numeric"
+              onChangeText={(e) => setTitle(e)}
               style={{borderColor : "white", borderWidth : 2, padding : 5, borderRadius: 10, color: 'white', textAlign: 'center'}}
               placeholder="Number of questions"
             />
