@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableHighlight, Button } from "react-native";
+import { View, Text, TouchableHighlight, Button, ImageBackground, Dimensions, Image } from "react-native";
 import style from "./style";
 import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
 import firebase from '../../api/firebase'
+import { LinearGradient } from 'expo-linear-gradient'
 
 import { connect } from 'react-redux'
 import { login } from '../../../store/action'
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
+
+let {width, height} = Dimensions.get('window')
 
 const Login = ({ navigation, login }) => {
   useEffect(() => {
@@ -65,11 +69,28 @@ const Login = ({ navigation, login }) => {
       // });
     }
   }
+  
   return (
-    <View style={style.container}>
-      <Button title="Sign in with Facebook" onPress={() => loginWithFacebook() } />
-      <Button title="Sign in with Google" onPress={() => loginWithGoogle()} />
-    </View>
+      <ImageBackground source={require('../../../assets/loginbg.jpg')} style={style.container}>
+        <View style={{backgroundColor: 'rgba(0,0,0,0.75)', height: height, width: width, padding: 20}}>
+          <View style={{height: (height/3)*2, justifyContent:'center'}}>
+            <Text style={{fontFamily: 'montserrat-regular', textTransform:'uppercase', color: 'white', fontSize: 25}}>Pandai</Text>
+            <Text style={{fontFamily: 'montserrat-regular', textTransform:'uppercase', color: 'white', fontSize: 25}}>dengan</Text>
+            <Text style={{fontFamily: 'montserrat-black', textTransform:'uppercase', color: 'white', fontSize: 35}}>Pindai</Text>
+            <Text style={{marginVertical: 20, fontFamily: 'montserrat-regular', fontSize: 25, color: 'white'}}>Start Now</Text>
+          </View>
+          <TouchableNativeFeedback onPress={loginWithGoogle}>
+            <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with google</Text>
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={loginWithFacebook}>
+            <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with facebook</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
+      </ImageBackground>
   );
   
 };
@@ -83,3 +104,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = { login }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
+
+// <Image
+//           source={require('../../../assets/frontlogo.png')}  
+//           style={{width: 250, height: 40}}
+//         />

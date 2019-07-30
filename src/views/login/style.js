@@ -9,8 +9,8 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     container: {
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
         height: Dimensions.get('window').height
     }
 })

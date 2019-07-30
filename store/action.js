@@ -1,7 +1,7 @@
 import {mock} from '../src/api/pindai'
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://172.16.4.24:3000'
 
 export function sendPicture(index) {
     console.log("masuk");
@@ -80,6 +80,7 @@ export function fetchSetSoal (id) {
 }
 
 export function createSetSoal (option){
+    console.log(option, 'in action');
     return (dispatch, state) => {
         dispatch(loading())
         axios.post(baseUrl+'/setSoal', {
@@ -90,7 +91,7 @@ export function createSetSoal (option){
             answers: option.answers
         })
         .then(({ data }) => {
-            console.log('success create setSoal', data)
+            console.warn('success create setSoal', data)
             dispatch(doneLoading())
         })
         .catch(err => {
