@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { createAnswer } from '../../../../../store/action'
 
 const buttonNew = ({navigation, createAnswer}) => {
+  let id = navigation.getParam('id')
 
   const {height, width, scale} = Dimensions.get('window')
   const maskRowHeight = Math.round((height - 533)/20)
@@ -76,7 +77,7 @@ const buttonNew = ({navigation, createAnswer}) => {
       console.log(image)
       let imageForm = new FormData()
       imageForm.append('image', JSON.stringify(image))
-      createAnswer(photo.uri, 'tesSoalIdNich')
+      createAnswer(photo.uri, id)
       navigation.navigate('postCapture', {
         uri: photo.uri
       })
@@ -91,10 +92,11 @@ const buttonNew = ({navigation, createAnswer}) => {
   }
 
   useEffect(() => {
+    console.log('dari cameraaaaaaa ', id)
     // console.log(navigation)
     // if (navigation.state.routeName === 'camera') {
-      console.log('masuk camera dari effect')
-      askPermission();
+    console.log('masuk camera dari effect')
+    askPermission();
     // }
   }, []);
 

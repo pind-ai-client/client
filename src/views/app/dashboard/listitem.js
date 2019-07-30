@@ -7,10 +7,12 @@ import moment from "moment-with-locales-es6";
 const Listitem = ({ master, navigation }) => {
   return (
     <TouchableNativeFeedback
-      onPress={() =>
+      onPress={() => {
+        console.log(master._id)
         navigation.navigate("detail", {
           id: master._id // ngirim id set soal
         })
+      }
       }
     >
       <View
