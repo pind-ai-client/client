@@ -44,6 +44,7 @@ const DetailAnswer = ({navigation}) => {
   let data = navigation.getParam('data')
   console.log(data)
 
+<<<<<<< HEAD
   const [answer, setAnswer] = useState('')
 
   useEffect(() => {
@@ -58,6 +59,21 @@ const DetailAnswer = ({navigation}) => {
         console.log(err)
       })
   }, [])
+=======
+  const [answer, setAnswer] = useState({
+    score: 0
+  })
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/answers/5d3da92e08d53f13eb74c036')
+      .then( ({data}) => {
+        console.log(data);
+        setAnswer(data)
+      }).catch(err => {
+        console.log(err)
+      })
+  }, [])  
+>>>>>>> be2c91682d1869e6259c4745aa9a9df8426c704e
 
   return (
     <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
@@ -72,7 +88,7 @@ const DetailAnswer = ({navigation}) => {
               size={150}
               width={30}
               fill={86}
-              tintColor={answer.score <=60 ? ('red') : ("#00e0ff") }
+              tintColor={ answer.score <=60 ? ('red') : ("#00e0ff") }
               onAnimationComplete={() => console.log('onAnimationComplete')}
               backgroundColor='#3d5875'
             >

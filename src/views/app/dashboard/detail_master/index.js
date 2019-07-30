@@ -35,7 +35,7 @@ const DetailAnswer = (props) => {
           {/* <Text>{JSON.stringify(props.setSoal)}</Text> */}
           <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
             <View style={{zIndex: 3}}>
-              <TouchableOpacity onPress={() => navigation.navigate('camera')} style={{zIndex: 2}}>
+              <TouchableOpacity onPress={() => props.navigation.navigate('camera')} style={{zIndex: 2}}>
                 <View style={{zIndex: 1, borderColor: '#2C5364', borderWidth: 10, backgroundColor: 'white', borderRadius: 100, height: 75, width: 75, alignItems: 'center', justifyContent: 'center'}}>
                   <AntDesign name='camera' size={30} color='#2C5364' />
                 </View>
@@ -47,7 +47,7 @@ const DetailAnswer = (props) => {
             data={data.answers}
             renderItem={({ item }) => {
               return (
-                <TouchableNativeFeedback onPress={() => navigation.navigate('detailanswer', {data: item})}>
+                <TouchableNativeFeedback onPress={() => props.navigation.navigate('detailanswer', {data: item})}>
                   <Listitem answer={item} />
                 </TouchableNativeFeedback>
               );
