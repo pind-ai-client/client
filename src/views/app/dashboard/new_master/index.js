@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Picker } from "react-native";
+import { View, Text, TextInput, FlatList, Picker, Button } from "react-native";
 import Select from "./answerSelect"
 import { connect } from 'react-redux'
+import { editSetSoal } from '../../../../../store/action'
 
 const NewMaster = (props) => {
   const [totalKey, setTotal] = useState("1")
-  const [array, setArray] = useState(["A"])
+  const [array, setArray] = useState([])
   const [selected, setSelected] = useState("A")
   const [title, setTitle] = useState('')
   const [folderName, setfolderName] = useState('')
@@ -13,7 +14,12 @@ const NewMaster = (props) => {
 
   let dataEdit = {}
   useEffect(()=>{
+    setArray([])
+    console.log('use', array);
+    
     dataEdit = props.navigation.getParam('data','no-data')
+    console.log('ini data edit di form ',dataEdit);
+    
     setEdit(props.navigation.getParam('data','no-data'))
     setTitle(dataEdit.title)
     setfolderName(dataEdit.folderName)
@@ -23,7 +29,11 @@ const NewMaster = (props) => {
     for(var key in dataEdit.answerKey){
       value.push(dataEdit.answerKey[key].toUpperCase())
     }
+    console.log('ini value', value, dataEdit.answerKey);
+    
     setArray(value)
+    console.log('ini array baru', array);
+
     setTotal(value.length.toString())
     
   },[])
@@ -38,23 +48,50 @@ const NewMaster = (props) => {
   }
 
   function handleChange(value, index){
+    console.log('ini array sebelum',array);        
     let arraynew = array
     arraynew[index] = value
     setArray(arraynew)
-    setSelected
+    console.log('ini array updated',array);
+    
+    // setSelected
   }
+
+  function saveEdit(){
+    console.log('hei',array,title, folderName,dataEdit2._id)
+    let answerKey = {}
+    array.forEach((el,index) =>{
+      answerKey[index+1] = el
+    })
+    console.log(answerKey);
+    let option = {
+      data : {
+        title : title,
+        folderName : folderName,
+        answerKey : answerKey
+      },
+      navigate : props.navigation.navigate
+    }
+    
+    props.editSetSoal(dataEdit2._id,option)
+  }
+  
   
   return (
     <View style={{marginTop : 150, justifyContent : "center", alignItems : "center"}}>
       <Text>Form Create Soal</Text>
+      <Button
+      onPress={saveEdit}
+      title="save"
+      />
       <TextInput
-        onchangeText={(text) => setTitle({text})}
+        onChangeText={(text) => setTitle(text)}
         style={{height : 40, borderColor : "gray", borderWidth : 1, width : 300, marginTop : 10, padding : 10}}
         placeholder="title.."
         value={title}
       />
       <TextInput
-        onchangeText={(text) => setfolderName({text})}        
+        onChangeText={(text) => setfolderName({text})}        
         style={{height : 40, borderColor : "gray", borderWidth : 1, width : 300, marginTop : 10, padding : 10}}
         placeholder="folder name.."
         value={folderName}
@@ -73,13 +110,10 @@ const NewMaster = (props) => {
         data={array}
         keyExtractor={(item,index) => index.toString()}
         renderItem={({item,index})=>(
-          <Select item={item} index={index} edit={true}/>
+          <Select change={handleChange} item={item} index={index} edit={true}/>
         )}
         />
-
       </View>
-
-
     </View>
   );
 };
@@ -90,4 +124,8 @@ const mapStatetoProps = state =>{
   }
 }
 
-export default connect(mapStatetoProps,null)(NewMaster);
+mapDispatchtoProps = {
+  editSetSoal
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(NewMaster);

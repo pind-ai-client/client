@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { View, Text } from 'react-native'
 import RadioGroup from 'react-native-radio-buttons-group';
 
-const answerSelect = ({item, index, edit}) => {
+const answerSelect = ({item, index, edit, change}) => {
 
     let data = [
         {
@@ -23,6 +23,8 @@ const answerSelect = ({item, index, edit}) => {
     ]
     
     useEffect( () => {
+        console.log("---",item);
+        
         let newdata = data
         let idx
         if(edit){
@@ -38,10 +40,17 @@ const answerSelect = ({item, index, edit}) => {
         data[idx].selected = true
         // console.log(data)
     }, [])
+    
+    const press = data =>{
+        data = data
+        let selected = data.find(e => e.selected == true)
+        console.log(selected.value)
+        change(selected.value,index)
+    }
 
     return (
-        <View>
-            <RadioGroup radioButtons={data} onPress={() => console.log('pressed')} flexDirection='row'/>
+        <View style={{flexDirection : "row"}}>
+            <RadioGroup radioButtons={data} onPress={press} flexDirection='row'/>
         </View>
     )
 }

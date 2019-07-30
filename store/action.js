@@ -98,12 +98,17 @@ export function createSetSoal (option){
 }
 
 export function editSetSoal (id, option) {
+    // console.log('di actionnnn', id, option);
+    
     return (dispatch, state) => {
+        
         dispatch(loading())
-        axios.put(baseUrl+'/setSoal/'+id, option)
+        
+        axios.put(baseUrl+'/setSoal/'+id, option.data)
         .then(({ data }) => {
             console.log('success edit setsoal', data)
             dispatch(doneLoading())
+            option.navigate('dash')
         })
         .catch(err => {
             dispatch(errorHitApi(err))
