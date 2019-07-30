@@ -66,6 +66,7 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
     setSelected
   }
   
+  
   // return (
   //   <View style={{marginTop : 150, justifyContent : "center", alignItems : "center"}}>
   //     <Text>Form Create Soal</Text>
