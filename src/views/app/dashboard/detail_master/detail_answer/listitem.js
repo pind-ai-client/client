@@ -6,7 +6,7 @@ import moment from "moment-with-locales-es6";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import axios from "axios";
 
-const Listitem = ({ master, navigation, answerKey, index, fullAnswer, fetchData }) => {
+const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, fetchData }) => {
   const kamusHuruf = {
     A : 0,
     B : 1,
@@ -20,15 +20,15 @@ const Listitem = ({ master, navigation, answerKey, index, fullAnswer, fetchData 
     2 : 'C',
     3 : 'D',
     4 : 'E',
+    
   }
   const [modalVisible, setModalVisible] = useState(false)
-  // const [newAnswer, setNewAnswer ] = useState({})
   const [value, setValue] = useState(kamusHuruf[master[1]])
 
   saveUpdate = () => {
     setModalVisible(false)
     fullAnswer[index + 1] = kamusAngka[value]
-    axios.put('http://localhost:3000/answers/5d3de345b6643c3db4651915', { answers: fullAnswer })
+    axios.put(`http://localhost:3000/answers/${answerId}`, { answers: fullAnswer })
     .then(({ data }) => {
       fetchData()
     })
@@ -44,7 +44,6 @@ const Listitem = ({ master, navigation, answerKey, index, fullAnswer, fetchData 
     {label: 'D', value: 3 },
     {label: 'E', value: 4 }
   ]
-
   return (
     <TouchableNativeFeedback
       onPress={() =>

@@ -51,21 +51,22 @@ const DetailAnswer = ({ navigation }) => {
   const [name, setName] = useState('')
 
   fetchData = () => {
-    axios.get('http://localhost:3000/answers/5d3de345b6643c3db4651915')
+    axios.get(`http://localhost:3000/answers/${data._id}`)
       .then(({ data }) => {
         setAnswer(data)
         setName(data.name)
       })
       .catch(err => {
-        console.log('error fetch one answer')
         console.log(err)
       })
   }
+
   useEffect(() => {
     fetchData()
   }, [])
+
   editName = () => {
-    axios.put('http://localhost:3000/answers/5d3de345b6643c3db4651915', {name})
+    axios.put('http://localhost:3000/answers/'+ data._id, {name})
     .then(({data}) => {
       setModalVisible(false)
       fetchData()
@@ -127,7 +128,7 @@ const DetailAnswer = ({ navigation }) => {
                   data={Object.entries(answer.answers)}
                   keyExtractor={(item, index) => index.toString()}
                   renderItem={({ item, index }) => (
-                    <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData}></Listitem>
+                    <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
                   )
                   }
                 />

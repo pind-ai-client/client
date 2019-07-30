@@ -16,8 +16,8 @@ const DetailAnswer = (props) => {
   let id = props.navigation.getParam("id");
 
   useEffect(()=>{
-    props.fetchSetSoal("5d3eb4af367de44569bf4b28")
-    console.log('ini detaillll trigger');
+    props.fetchSetSoal(id) 
+    // console.log('ini detaillll trigger');
     
   },[])
 
@@ -44,8 +44,8 @@ const DetailAnswer = (props) => {
           </View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
-            data={data.answers}
-            renderItem={({ item }) => {
+            data={props.setSoal.answers}
+            renderItem={({ item,index }) => {
               return (
                 <TouchableNativeFeedback onPress={() => props.navigation.navigate('detailanswer', {data: item})}>
                   <Listitem answer={item} />

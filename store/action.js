@@ -4,7 +4,7 @@ import axios from 'axios'
 const baseUrl = 'http://localhost:3000'
 
 export function sendPicture(index) {
-    console.log("masuk");
+    // console.log("masuk");
     return async (dispatch, payload) => {
         dispatch({
             type: "LOADING_HIT_API"
@@ -26,9 +26,9 @@ export function sendPicture(index) {
 
 export function login (user, navigate) {
     return (dispatch, state) => {
-        console.log('masuk action')
+        // console.log('masuk action')
         dispatch(loading())
-        console.log(user, 'from action');
+        // console.log(user, 'from action');
         axios.post(baseUrl+'/users/login', {
             userName: user.userName,
             email: user.email,
@@ -47,13 +47,13 @@ export function login (user, navigate) {
     }
 }
 
-export function fetchSetSoals () {
+export function fetchSetSoals (userId) {
     
     return (dispatch, state) => {
         dispatch(loading())
-        axios.get(baseUrl+'/setSoal')
+        axios.get(baseUrl+'/setSoal/'+userId+'/users')
         .then(({ data }) => {
-            console.log('data actioooon soallls', data);
+            // console.log('data actioooon soallls', data);
             dispatch(successFetchSoals(data))
         })
         .catch(err => {
@@ -70,7 +70,6 @@ export function fetchSetSoal (id) {
         axios.get(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
             console.log('data actioooon', data);
-            
             dispatch(successFetchSoal(data))
         })
         .catch(err => {
