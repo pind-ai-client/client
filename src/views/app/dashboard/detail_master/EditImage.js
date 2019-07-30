@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, Text, Image, ActivityIndicator, Button } from 'react-native'
 
 import { connect } from 'react-redux'
 
 const EditImage = ({navigation, isLoading, error}) => {
+    const [Info, setInfo] = useState('Loading')
     let uri = navigation.getParam('uri')
     console.log(uri);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setInfo('Uploading')
+            setTimeout(() => {
+                setInfo('Analyzing Image')
+            }, 5000)
+        }, 5000)
+    }, [])
 
     function _renderImage() {
         return (
@@ -16,7 +26,7 @@ const EditImage = ({navigation, isLoading, error}) => {
                 {
                     isLoading 
                     ? <View>
-                        <Text>Loading...</Text>
+                        <Text>{Info}</Text>
                         <ActivityIndicator size="large" color="#0000ff" />
                     </View> 
                     : error === undefined

@@ -169,18 +169,17 @@ export function fetchAnswer (id) {
     }
 }
 
-export function createAnswer (uri) {
+export function createAnswer (uri, setSoalId) {
     return (dispatch, state) => {
         console.log('masuk create answer client')
-        console.log('ini uri ==========', uri)
         dispatch(loading())
-        console.log(baseUrl+'/answers')
         let formData = new FormData()
         formData.append('image', {
             uri,
             name: 'image.jpg',
             type: 'image/jpg'
         })
+        formData.append('setSoalId', setSoalId)
         let options = {
             method: 'POST',
             body: formData,

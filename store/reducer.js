@@ -4,6 +4,7 @@ const initialState = {
   user: {},
   answer: {},
   answers: [],
+  createdAnswer: {},
   setSoal: {},
   setSoals: [],
   error: undefined

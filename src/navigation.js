@@ -47,6 +47,7 @@ const Details = createStackNavigator({
   no_appbar
 );
 
+
 let Dashboard = createStackNavigator({
     dash: Dash,
     detail: Details,
