@@ -15,6 +15,7 @@ import {connect} from 'react-redux';
 import axios from 'axios'
 import { fetchSetSoals } from '../../../../store/action'
 
+
 const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
   // console.log(user);
   let name = user.userName.split(' ')
@@ -22,7 +23,8 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
   let lastName = name[1]
 
   useEffect(() => {
-    fetchSetSoals('5d3fed23232d881d8a2ef962') // ini ngefetch set soal based user id nya
+    console.log('ini user dari redux', user)
+    fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
   }, [])
 
   return (

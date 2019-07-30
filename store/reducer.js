@@ -74,6 +74,12 @@ export default (state = initialState, action) => {
         isLoading: false
       }
 
+    case "SUCCESS_CREATE_ANSWER":
+      return {
+        ...state,
+        createdAnswer: action.data
+      }
+
     default:
       return state;
   }

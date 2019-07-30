@@ -90,7 +90,8 @@ export function createSetSoal (option){
             answers: option.answers
         })
         .then(({ data }) => {
-            console.warn('success create setSoal', data)
+            // console.warn('success create setSoal', data)
+            dispatch(fetchSetSoals(option.UserId))
             dispatch(doneLoading())
         })
         .catch(err => {
@@ -197,6 +198,7 @@ export function createAnswer (uri, setSoalId) {
             if (data.status === 'success') {
                 dispatch(doneLoading())
                 console.log(data.data)
+                dispatch(answerCreated(data.data))
             } else {
                 console.log(data.data)
                 dispatch(errorHitApi(data))
@@ -302,6 +304,13 @@ export function successFetchAnswers(data) {
 export function successFetchAnswer(data) {
     return {
         type: "SUCCESS_FETCH_ANSWER",
+        data
+    }
+}
+
+export function answerCreated(data) {
+    return {
+        type: "SUCCESS_CREATE_ANSWER",
         data
     }
 }
