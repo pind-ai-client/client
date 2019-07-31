@@ -47,6 +47,7 @@ export default (state = initialState, action) => {
       }
     
     case "SUCCESS_FETCH_SOALS":
+      // console.log('ini action data', action.data)
       return {
         ...state,
         setSoals: action.data,

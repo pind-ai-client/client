@@ -13,19 +13,49 @@ import {LinearGradient} from 'expo-linear-gradient'
 import { data, usermock, masters } from "../../../../mockdata";
 import {connect} from 'react-redux';
 import axios from 'axios'
-import { fetchSetSoals } from '../../../../store/action'
+import { fetchSetSoals, successFetchSoals } from '../../../../store/action'
 
 
-const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
-  // console.log(user);
+const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoals }) => {
+  const [sortedSetsoals, setSortedSetsoals] = useState({data:setSoals})
+  const [pickSortBy, setPickSortBy] = useState()
+  console.log('###################################################3re render')
+  // console.log('ini di global setsoals y', setSoals);
+  console.log('ini di global srotedsetsoals', sortedSetsoals);
+  // console.log('ini di global user', user);
   let name = user.userName.split(' ')
   let firstName = name[0]
   let lastName = name[1]
 
   useEffect(() => {
-    console.log('ini user dari redux', user)
+    console.log('##########################masuk use effect user', user)
     fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
   }, [])
+
+  useEffect(() => {
+    console.log('##########################masuk set useeffect sorted')
+    setSortedSetsoals({data: setSoals})
+  }, [setSoals])
+
+  const sortByNewest = () => {
+    let sorted = setSoals.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
+    setSortedSetsoals({data: sorted})
+  }
+
+  const sortByOldest = () => {
+    let sorted = setSoals.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))    
+    setSortedSetsoals({data: sorted})
+  }
+
+  const sortByAsc = () => {
+    let sorted = setSoals.sort((x, y) => x.title > y.title)    
+    setSortedSetsoals({data: sorted})
+  }
+
+  const sortByDesc = () => {
+    let sorted = setSoals.sort((x, y) => x.title < y.title)    
+    setSortedSetsoals({data: sorted})
+  }
 
   return (
     
@@ -66,14 +96,19 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
       </View>
       </ImageBackground>
       <View style={style.categories}>
-        <Text style={{color: 'white'}}>You have {setSoals.length} Answer Keys in total</Text>
+        <Text style={{color: 'white'}}>You have {sortedSetsoals.data.length} Question Sets in total</Text>
       </View> 
       <View style={style.listcontainer}>
-        
+        <View style={{ flexDirection: 'row' }}>
+          <Button title="Latest" onPress={sortByNewest} />
+          <Button title="Oldest" onPress={sortByOldest} />
+          <Button title="Asc" onPress={sortByAsc} />
+          <Button title="Desc" onPress={sortByDesc} />
+        </View>
         <FlatList
 
           keyExtractor={(item, index) => index.toString()}
-          data={setSoals}
+          data={sortedSetsoals.data}
           renderItem={({ item }) => {
             return (
               <View>
@@ -94,7 +129,8 @@ const MapStateToProps = state => {
   }
 }
 const mapDispatchtoProps = {
-  fetchSetSoals
+  fetchSetSoals,
+  successFetchSoals
 }
 
 // <Text style={style.username}>{user.name}</Text>
