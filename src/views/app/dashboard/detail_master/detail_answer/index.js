@@ -18,6 +18,8 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import { withNavigation } from 'react-navigation'
 
+let baseurl = 'http://35.240.166.155:3000'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -45,19 +47,45 @@ const { width, height } = Dimensions.get('window')
 const DetailAnswer = ({ navigation }) => {
 
   let data = navigation.getParam('data')
-  // console.log(data)
+  console.log(data, 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
   const [answer, setAnswer] = useState('')
   const [modalVisible, setModalVisible] = useState(false)
   const [type, setType] = useState('edit')
   const [name, setName] = useState('')
+  const [answerCount, setAnswerCount] = useState({
+    correct: 0,
+    wrong: 0,
+    empty: 0
+  })
+
+  function calculateAnswer(studentAnswer, answerKey){
+    let obj = {
+      correct: 0,
+      wrong: 0,
+      empty: 0
+    }
+    let length = Object.keys(studentAnswer).length
+    for( let i=1; i<=length; i++ ){
+      if(studentAnswer[i.toString()] === answerKey[i.toString()]){
+        obj.correct++
+      }else if(studentAnswer[i.toString()] === ''){
+        obj.empty++
+      }else{
+        obj.wrong++
+      }
+    }
+    setAnswerCount(obj)
+    console.log(answerCount, '========================xxxxxxxxxxxxxx========================');
+  }
 
   fetchData = () => {
     axios.get(`http://35.240.166.155:3000/answers/${data._id}`)
       .then(({ data }) => {
         setAnswer(data)
-        console.log(data)
+        console.log(data, 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
         setName(data.name)
+        calculateAnswer(data.answers, data.setSoalId.answerKey)
       })
       .catch(err => {
         console.log(err)
@@ -98,15 +126,13 @@ const DetailAnswer = ({ navigation }) => {
         blurRadius={2}
       >
         <View style={{ backgroundColor: 'rgba(0,0,0,0.75)', height: height - 60, width }}>
-          <View style={{ height: height / 3, width: width, alignItems: 'center', justifyContent: 'center' }}>
-            <TouchableHighlight
-              onPress={() => setType('image')}
-            >
+          <View style={{ height: height / 4, width: width, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <AnimatedCircularProgress
                 size={150}
                 width={30}
                 fill={answer.score ? answer.score : 0}
-                tintColor={ !answer.score ? 'red' : answer.score < 60 ? 'red' : '#00e0ff' }
+                tintColor={ !answer.score ? 'red' : answer.score < answer.setSoalId.passingGrade ? 'red' : '#00e0ff' }
                 onAnimationComplete={() => console.log('onAnimationComplete')}
                 backgroundColor='#3d5875'
               >
@@ -114,43 +140,69 @@ const DetailAnswer = ({ navigation }) => {
                   <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
                 )}
               </AnimatedCircularProgress>
-            </TouchableHighlight>
-            <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>{!answer.score ? 'loading...' : answer.score<60 ? 'Failed' : 'Passed' }</Text>
-          </View>
-          {
-            answer.length === 0 ?
-              <></>
-              :
-              <View>
-                <View style={styles.detailStudent}>
+              <View style={{padding: 20}}>
+                <View>
                   <TouchableOpacity onPress={() => setModalVisible(true)}>
                     <Text style={{
                       fontSize: 20,
-                      fontWeight: 'bold',
+                      fontFamily: 'montserrat-black',
                       color: 'white'
-                    }}>{answer.name}</Text>
+                    }}>{!answer.name ? 'loading...' : answer.name}</Text>
                   </TouchableOpacity>
                 </View>
-                <View style={{
-                  justifyContent: 'space-around',
-                  backgroundColor: 'black',
-                  flexDirection: 'row',
-                  margin: 10,
-                  padding: 5,
-                  borderRadius: 7
-                }}>
-                  <Text style={{ color: 'white' }}>No</Text>
-                  <Text style={{ color: 'white' }}>Answer</Text>
-                  <Text style={{ color: 'white' }}>Key</Text>
+                <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>
+                  {!answer.score ? 'loading...' : answer.score<answer.setSoalId.passingGrade ? 'Failed' : 'Passed' }
+                </Text>
+                <View style={{flexDirection: 'row', marginTop: 5}}>
+                  <View style={{width: 15, height: 15, backgroundColor: 'green', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
+                  <Text style={{color: 'white', fontFamily: 'montserrat-regular'}}>{answerCount.correct} Correct</Text>
                 </View>
-                <View style={{height: ((height/3) *2) - 60}}>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{width: 15, height: 15, backgroundColor: 'yellow', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
+                  <Text style={{color: 'white', fontFamily: 'montserrat-regular'}}>{answerCount.wrong} Wrong</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{width: 15, height: 15, backgroundColor: 'red', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
+                  <Text style={{color: 'white', fontFamily: 'montserrat-regular'}}>{answerCount.empty} Empty</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          {
+            answer.length === 0 ?
+              <Text>Loading dulu masnya</Text>
+              :
+              <View>
+                <View style={{height: 50}}>
+                  
+                  <View style={{
+                    justifyContent: 'space-around',
+                    backgroundColor: 'white',
+                    flexDirection: 'row',
+                    margin: 10,
+                    padding: 5,
+                    borderRadius: 7
+                  }}>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>No</Text>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>Answer</Text>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>Key</Text>
+                  </View>
+                </View>
+                <View style={{height: ((height/4) *3) - 145}}>
                   <FlatList
                     data={Object.entries(answer.answers)}
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({ item, index }) => (
-                      <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
-                    )
-                    }
+                      <Listitem 
+                        master={item} 
+                        passing={ answer.score < answer.setSoalId.passingGrade ? false : true } 
+                        answerKey={Object.entries(answer.setSoalId.answerKey)} 
+                        index={index} 
+                        fullAnswer={answer.answers} 
+                        fetchData={fetchData} 
+                        answerId={answer._id}>
+                      </Listitem>
+                    )}
                   />
                 </View>
               </View>

@@ -27,6 +27,8 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
 
   saveUpdate = () => {
     setModalVisible(false)
+    console.log(fullAnswer, '0000000000000000000000000000')
+    console.log(answerId)
     fullAnswer[index + 1] = kamusAngka[value]
     axios.put(`http://35.240.166.155:3000/answers/${answerId}`, { answers: fullAnswer })
     .then(({ data }) => {
@@ -47,14 +49,17 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
   // console.log(answerKey[index],'07070707======70707070')
   return (
     <TouchableNativeFeedback
-      onPress={() =>
+      onLongPress={() =>
         setModalVisible(true)
       }
     >
       <View
         style={{
-          backgroundColor: master[1] === answerKey[index][1] ? "green" : master[1].length == 0 ? 'red' : 'yellow',
-          borderRadius: 10,
+          backgroundColor: 'white',
+          borderLeftColor:  master[1] === answerKey[index][1] ? "green" : master[1].length == 0 ? 'red' : 'yellow',
+          borderLeftWidth: 10,
+          borderTopRightRadius: 10,
+          borderBottomRightRadius: 10,
           minHeight: 75,
           margin: 10,
           justifyContent: 'center'
@@ -66,13 +71,13 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
             justifyContent: "space-around"
           }}
         >
-          <Text style={{ fontSize: 14, fontWeight: "bold", color: "black" }}>
+          <Text style={{ fontSize: 20, color: "rgba(0,0,0,0.75)", fontFamily: master[1] === answerKey[index][1] ? "montserrat-regular" : master[1].length == 0 ? 'montserrat-black' : 'montserrat-black' }}>
             {master[0]}
           </Text>
-          <Text style={{ fontSize: 14, color: "rgba(0,0,0,0.5)" }}>
+          <Text style={{ fontSize: 18, color: 'rgba(0,0,0,0.75)', fontFamily: master[1] === answerKey[index][1] ? "montserrat-regular" : master[1].length == 0 ? 'montserrat-black' : 'montserrat-black', }}>
             {master[1]}
           </Text>
-          <Text style={{ fontSize: 14, color: "rgba(0,0,0,0.5)" }}>
+          <Text style={{ fontSize: 18, color: 'rgba(0,0,0,0.75)', fontFamily: master[1] === answerKey[index][1] ? "montserrat-regular" : master[1].length == 0 ? 'montserrat-black' : 'montserrat-black' }}>
             {answerKey[index][1]}
           </Text>
         </View>
