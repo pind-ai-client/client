@@ -14,11 +14,13 @@ import { fetchSetSoal } from '../../../../../store/action'
 
 const DetailAnswer = (props) => {
   let id = props.navigation.getParam("id");
+  let totalQuestion = props.navigation.getParam("questions");
 
   useEffect(()=>{
     props.fetchSetSoal(id) 
     // console.log('ini detaillll trigger');
     console.log('dari detail  ', id)
+    console.log('dari detail  ', totalQuestion)
     
   },[])
 
@@ -32,7 +34,7 @@ const DetailAnswer = (props) => {
       ) : (
       <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
         <View style={style.container}>
-          <HeaderView id={id} dataSoal={props.setSoal}/>
+          <HeaderView id={id} dataSoal={props.setSoal} question={totalQuestion}/>
           {/* <Text>{JSON.stringify(props.setSoal)}</Text> */}
           <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
             <View style={{zIndex: 3}}>

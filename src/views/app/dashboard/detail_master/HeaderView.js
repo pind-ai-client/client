@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {withNavigation} from 'react-navigation'
 import { View, Text, ImageBackground, Dimensions, Button } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
@@ -7,9 +7,21 @@ import moment from 'moment-with-locales-es6'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {masters} from '../../../../../mockdata'
 
-const HeaderView = ({navigation, id, dataSoal}) => {
+const HeaderView = ({navigation, id, dataSoal, question}) => {
     let data = masters[id-1]
     let {height, width} = Dimensions.get('window')
+    // const[keyTotal,setKeyTotal] = useState(0)
+    
+    // useEffect(()=>{
+    //     console.log(dataSoal,"=====");
+    //     key = 0
+    //     for(key in dataSoal.answerKey){
+    //         key+1
+    //     }
+    //     setKeyTotal(key)
+    //     console.log(keyTotal);
+        
+    // }, [])
 
     function editData(){
         console.log(dataSoal);
@@ -17,6 +29,8 @@ const HeaderView = ({navigation, id, dataSoal}) => {
             data : dataSoal
         })
     }
+
+    
 
     return (
         <View>
@@ -49,7 +63,7 @@ const HeaderView = ({navigation, id, dataSoal}) => {
                     </Text>
                     <Text>{'    '}</Text>
                     <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 15}}>
-                        {'#'}{dataSoal.length} questions
+                        {'#'}{question} questions
                     </Text>
                     </View>
                 </View>
