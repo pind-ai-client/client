@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { withNavigation } from "react-navigation";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import moment from "moment-with-locales-es6";
+import {deleteSetSoal, fetchSetSoals} from '../../../../store/action'
+import {connect} from 'react-redux'
 
-const Listitem = ({ master, navigation }) => {
+
+const Listitem = ({ master, navigation, deleteSetSoal, user, getSoals }) => {
   const[keyTotal,setKeyTotal] = useState(0)
 
 
@@ -19,43 +22,76 @@ const Listitem = ({ master, navigation }) => {
     
   },[])
 
+  function deleteHandler(id){
+    deleteSetSoal(id, user._id)
+    getSoals()
+  }
+
+  function showAlert(selected){
+    console.log('alert supposed to be triggered')
+    Alert.alert(
+      selected.title,
+      'What do you want to do?',
+      [
+        {text: 'Cancel', onPress: () => console.log('Ask me later pressed'), style: 'cancel'},
+        {
+          text: 'Edit',
+          onPress: () => console.log('Edit Pressed'),
+        },
+        {
+          text: 'Delete',
+          onPress: () => Alert.alert('Delete', 'Are you sure?', [{text: 'Yes', onPress: () => deleteHandler(selected._id)}, {text: 'Cancel'}]),
+        },
+      ],
+      {cancelable: true},
+    );
+  }
+
   return (
     <TouchableNativeFeedback
+      onLongPress={() => showAlert(master)}
       onPress={() => {
         console.log(master._id)
         navigation.navigate("detail", {
           id: master._id, questions : keyTotal // ngirim id set soal
-        })
-      }
-      }
-    >
-      <View
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: 10,
-          minHeight: 75,
-          margin: 10,
-          padding: 20,
-          justifyContent: 'center'
-        }}
-      >
+          })
+        }
+      }>
         <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between"
+            backgroundColor: "#fff",
+            borderRadius: 10,
+            minHeight: 75,
+            margin: 10,
+            padding: 20,
+            justifyContent: 'center'
           }}
         >
-          <Text style={{ fontSize: 20, fontWeight: "bold", color: "#2C5364" }}>
-            {master.title}
-          </Text>
-          <Text style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>
-            {keyTotal} questions
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text style={{ fontSize: 20, fontWeight: "bold", color: "#2C5364" }}>
+              {master.title}
+            </Text>
+            <Text style={{ fontSize: 12, color: "rgba(0,0,0,0.5)" }}>
+              {keyTotal} questions
+            </Text>
+          </View>
+          <Text style={{color: 'rgba(0,0,0,0.5)'}}>{moment(master.createdAt).fromNow()}</Text>
         </View>
-        <Text style={{color: 'rgba(0,0,0,0.5)'}}>{moment(master.createdAt).fromNow()}</Text>
-      </View>
     </TouchableNativeFeedback>
   );
 };
 
-export default withNavigation(Listitem);
+const mapDispatchToProps = {
+  deleteSetSoal
+}
+
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(Listitem));

@@ -51,9 +51,10 @@ const DetailAnswer = ({ navigation }) => {
   const [name, setName] = useState('')
 
   fetchData = () => {
-    axios.get(`http://localhost:3000/answers/${data._id}`)
+    axios.get(`http://172.16.4.24:3000/answers/${data._id}`)
       .then(({ data }) => {
         setAnswer(data)
+        console.log(data)
         setName(data.name)
       })
       .catch(err => {
@@ -66,7 +67,7 @@ const DetailAnswer = ({ navigation }) => {
   }, [])
 
   editName = () => {
-    axios.put('http://localhost:3000/answers/'+ data._id, {name})
+    axios.put('http://172.16.4.24:3000/answers/'+ data._id, {name})
     .then(({data}) => {
       setModalVisible(false)
       fetchData()
@@ -87,8 +88,8 @@ const DetailAnswer = ({ navigation }) => {
             <AnimatedCircularProgress
               size={150}
               width={30}
-              fill={86}
-              tintColor="#00e0ff"
+              fill={answer.score ? answer.score : 0}
+              tintColor={ !answer.score ? 'red' : answer.score < 60 ? 'red' : '#00e0ff' }
               onAnimationComplete={() => console.log('onAnimationComplete')}
               backgroundColor='#3d5875'
             >
@@ -96,7 +97,7 @@ const DetailAnswer = ({ navigation }) => {
                 <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
               )}
             </AnimatedCircularProgress>
-            <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>Passed</Text>
+            <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>{!answer.score ? 'loading...' : answer.score<60 ? 'Failed' : 'Passed' }</Text>
           </View>
           {
             answer.length === 0 ?
