@@ -5,8 +5,6 @@ import Listitem from './listItem'
 import style from "./style";
 import { connect } from 'react-redux'
 import firebase from '../../../../api/firebase'
-import * as FileSystem from 'expo-file-system'
-import * as WebBrowser from 'expo-web-browser';
 
 const Settings = (props) => {
   const { user } = props
@@ -20,7 +18,6 @@ const Settings = (props) => {
   let firstName = name[0]
   let lastName = name[1]
   const [modalVisible, setModalVisible] = useState(false)
-  const [csv, setCsv] = useState('')
 
   const logoutFirebase = () => {
     firebase.auth().signOut().then(function() {
@@ -51,7 +48,7 @@ const Settings = (props) => {
   }
 
   const listMenus = [
-    { id: 1, title: 'Edit Profile', onPress: _editProfile },
+    // { id: 1, title: 'Edit Profile', onPress: _editProfile },
     // { id: 2, title: 'Help', onPress: () => console.log('masuk help') },
     { id: 3, title: 'Logout', onPress: pressLogout },
   ]
@@ -67,23 +64,6 @@ const Settings = (props) => {
   const sendUpdateProfile = () => {
     console.log('ini user sens', userLogin)
     setModalVisible(!modalVisible)
-  }
-
-  const generateReport = () => {
-
-    WebBrowser.openBrowserAsync(`http://localhost:3000/setSoal`)
-    // FileSystem.downloadAsync(
-    //   "http://localhost:3000/setSoal",
-    //   // FileSystem.documentDirectory +  "small.csv"
-    //   "file:///internal storage/Download/" + "test.csv"
-    // )
-    // .then(async ({uri})=>{
-    //   console.log('ini uri filesystem' ,uri);
-    //   // WebBrowser.openBrowserAsync(uri)
-    // })
-    // .catch(err =>{
-    //   console.log(err)
-    // })
   }
 
   return (
@@ -158,14 +138,9 @@ const Settings = (props) => {
             <View style={{ marginTop: 20 }}>
               <Button title="Update" onPress={sendUpdateProfile}/>
             </View>
-            <View style={{ marginTop: 20 }}>
-              <Button title="generate report" onPress={generateReport}/>
-            </View>
           </View>
         </View>
       </Modal>
-      <Button title='generate report' onPress={generateReport}/>
-      <Text>{csv}</Text>
     </View>
   );
 };

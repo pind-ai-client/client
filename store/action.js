@@ -1,7 +1,12 @@
 import {mock} from '../src/api/pindai'
 import axios from 'axios'
+import * as WebBrowser from 'expo-web-browser';
 
 const baseUrl = 'http://localhost:3000'
+
+export function generateCSV(soalId) {
+    WebBrowser.openBrowserAsync(`${baseUrl}/answers/${soalId}/csv`)
+}
 
 export function sendPicture(index) {
     // console.log("masuk");
