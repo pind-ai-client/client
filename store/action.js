@@ -281,6 +281,7 @@ export function successLogin (data) {
 }
 
 export function successFetchSoals(data) {
+    // console.log('masuk action success', data)
     return {
         type: "SUCCESS_FETCH_SOALS",
         data
