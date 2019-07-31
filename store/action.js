@@ -1,7 +1,7 @@
 import {mock} from '../src/api/pindai'
 import axios from 'axios'
 
-const baseUrl = 'http://172.16.4.24:3000'
+const baseUrl = 'http://localhost:3000'
 
 export function sendPicture(index) {
     // console.log("masuk");

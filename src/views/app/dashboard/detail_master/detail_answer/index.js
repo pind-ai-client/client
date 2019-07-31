@@ -51,7 +51,7 @@ const DetailAnswer = ({ navigation }) => {
   const [name, setName] = useState('')
 
   fetchData = () => {
-    axios.get(`http://172.16.4.24:3000/answers/${data._id}`)
+    axios.get(`http://localhost:3000/answers/${data._id}`)
       .then(({ data }) => {
         setAnswer(data)
         console.log(data)
@@ -67,7 +67,7 @@ const DetailAnswer = ({ navigation }) => {
   }, [])
 
   editName = () => {
-    axios.put('http://172.16.4.24:3000/answers/'+ data._id, {name})
+    axios.put('http://localhost:3000/answers/'+ data._id, {name})
     .then(({data}) => {
       setModalVisible(false)
       fetchData()

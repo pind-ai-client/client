@@ -11,12 +11,12 @@ const dimens = Dimensions.get('window')
 
 export default function App() {
   useEffect(() => {
-    Font.loadAsync({
-      "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
-      "montserrat-black": require("./assets/fonts/Montserrat-Black.ttf"),
-      "montserrat-thin": require("./assets/fonts/Montserrat-Thin.ttf"),
-      pacifico: require("./assets/fonts/Pacifico-Regular.ttf")
-    });
+    // Font.loadAsync({
+    //   "montserrat-regular": require("./assets/fonts/Montserrat-Regular.ttf"),
+    //   "montserrat-black": require("./assets/fonts/Montserrat-Black.ttf"),
+    //   "montserrat-thin": require("./assets/fonts/Montserrat-Thin.ttf"),
+    //   pacifico: require("./assets/fonts/Pacifico-Regular.ttf")
+    // });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // console.log(user, 'from appjs')

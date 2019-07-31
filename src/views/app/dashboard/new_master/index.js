@@ -60,7 +60,10 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
       answers: [],
       passingGrade
     })
-    
+    setTotal('')
+    setTitle('')
+    setArray(['A'])
+    setPassingGrade(70)
     navigation.navigate('Dashboard')
   }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableHighlight, Button, ImageBackground, Dimensions, Image } from "react-native";
+import { View, Text, TouchableHighlight, Button, ImageBackground, Dimensions, Image, ActivityIndicator } from "react-native";
 import style from "./style";
 import { Google } from 'expo'
 import * as Facebook from 'expo-facebook'
@@ -13,6 +13,9 @@ import { TouchableNativeFeedback } from "react-native-gesture-handler";
 let {width, height} = Dimensions.get('window')
 
 const Login = ({ navigation, login }) => {
+
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
@@ -32,6 +35,7 @@ const Login = ({ navigation, login }) => {
       })
       if (result.type === "success") {
         const credential = await firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken)
+        setLoading(true)        
         login({
           userName: result.user.name,
           email: result.user.email,
@@ -46,6 +50,7 @@ const Login = ({ navigation, login }) => {
         console.log("cancelled")
       }
     } catch (e) {
+      setLoading(false)
       console.log("error", e)
     }
   }
@@ -79,16 +84,25 @@ const Login = ({ navigation, login }) => {
             <Text style={{fontFamily: 'montserrat-black', textTransform:'uppercase', color: 'white', fontSize: 35}}>Pindai</Text>
             <Text style={{marginVertical: 20, fontFamily: 'montserrat-regular', fontSize: 25, color: 'white'}}>Start Now</Text>
           </View>
-          <TouchableNativeFeedback onPress={loginWithGoogle}>
-            <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with google</Text>
-            </View>
-          </TouchableNativeFeedback>
-          <TouchableNativeFeedback onPress={loginWithFacebook}>
-            <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
-              <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with facebook</Text>
-            </View>
-          </TouchableNativeFeedback>
+          {
+            !loading ?
+            <>
+              <TouchableNativeFeedback onPress={loginWithGoogle}>
+                <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
+                  <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with google</Text>
+                </View>
+              </TouchableNativeFeedback>
+              <TouchableNativeFeedback onPress={loginWithFacebook}>
+                <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
+                  <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with facebook</Text>
+                </View>
+              </TouchableNativeFeedback>
+            </>
+            : <ActivityIndicator size="large" color="white" />
+ 
+
+            
+          }
         </View>
       </ImageBackground>
   );
