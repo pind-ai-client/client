@@ -14,6 +14,7 @@ import axios from 'axios'
 import { fetchSetSoal } from '../../../../../store/action'
 
 const DetailAnswer = (props) => {
+  console.log(props.setSoal.UserId, 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
   let id = props.navigation.getParam("id");
   let totalQuestion = props.navigation.getParam("questions");
 
@@ -38,7 +39,7 @@ const DetailAnswer = (props) => {
       ) : (
       <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
         <View style={style.container}>
-          <HeaderView id={id} dataSoal={props.setSoal} question={totalQuestion}/>
+          <HeaderView id={id} dataSoal={props.setSoal} question={totalQuestion} userid={props.setSoal.UserId}/>
           {/* <Text>{JSON.stringify(props.setSoal)}</Text> */}
           <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
             <View style={{zIndex: 3}}>

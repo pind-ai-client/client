@@ -1,15 +1,31 @@
 import React, { useEffect, useState } from "react";
 import {withNavigation} from 'react-navigation'
-import { View, Text, ImageBackground, Dimensions, Button } from "react-native";
+import { View, Text, ImageBackground, Dimensions, Button, Alert } from "react-native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import moment from 'moment-with-locales-es6'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {masters} from '../../../../../mockdata'
+import Menu, { MenuItem, MenuDivider, Position } from 'react-native-enhanced-popup-menu'
+import {deleteSetSoal} from '../../../../../store/action'
+import {connect} from 'react-redux'
 
-const HeaderView = ({navigation, id, dataSoal, question}) => {
+const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid}) => {
     let data = masters[id-1]
     let {height, width} = Dimensions.get('window')
+
+    let textRef = React.createRef();
+    let menuRef = null;
+    
+    const setMenuRef = ref => menuRef = ref;
+    const hideMenu = () => menuRef.hide();
+    const showMenu = () => {
+        console.log('triggered menu');
+        menuRef.show(textRef.current, stickTo = Position.TOP_LEFT)
+    };
+    
+    const onPress = () => showMenu();
+
     // const[keyTotal,setKeyTotal] = useState(0)
     
     // useEffect(()=>{
@@ -30,6 +46,28 @@ const HeaderView = ({navigation, id, dataSoal, question}) => {
         })
     }
 
+    function handleDelete(){
+        console.log('alert supposed to be triggered')
+        Alert.alert(
+          `Delete Item`,
+          `Delete ${dataSoal.title}?`,
+          [
+            {
+              text: 'Yes',
+              onPress: () => {
+                hideMenu()
+                deleteSetSoal(id, userid)
+                navigation.navigate('dash')
+            },
+            },
+            {
+              text: 'Cancel',
+              onPress: () => console.log('cancelled'),
+            },
+          ],
+          {cancelable: true},
+        );
+      }
     
 
     return (
@@ -47,10 +85,8 @@ const HeaderView = ({navigation, id, dataSoal, question}) => {
                         </View>
                     </TouchableOpacity>
                     <View style={{width : 70, alignItems : "flex-end"}}>
-                        <Button
-                        onPress={editData}
-                        title="edit"
-                        />
+                        <Entypo name='menu' size={25} color='white' onPress={onPress}/>
+                        <Text ref={textRef}/>
                     </View>
                 </View>
                 <View style={{alignItems: 'flex-start', justifyContent: 'center', marginTop: 30}}>
@@ -67,10 +103,21 @@ const HeaderView = ({navigation, id, dataSoal, question}) => {
                     </Text>
                     </View>
                 </View>
+
+                <Menu ref={setMenuRef}>
+                    <MenuItem onPress={hideMenu}>Edit</MenuItem>
+                    <MenuItem onPress={handleDelete}>Delete</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onPress={hideMenu}>Download CSV</MenuItem>
+                </Menu>
                 </LinearGradient>
             </ImageBackground>
         </View>
     )
 }
 
-export default withNavigation(HeaderView)
+const mapDispatchToProps = {
+    deleteSetSoal
+}
+
+export default connect(null, mapDispatchToProps)(withNavigation(HeaderView))

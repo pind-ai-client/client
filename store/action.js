@@ -128,14 +128,15 @@ export function editSetSoalKey (id, option) {
     }
 }
 
-export function deleteSetSoal (id, userId) {
+export function deleteSetSoal (id, userid) {
     return (dispatch, state) => {
         dispatch(loading())
         axios.delete(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
+            console.log(state.user, 'ini state XXXXXXXXXXXXXXXXXXXXXXXXX')
             console.log('success delete setSoal', data)
             dispatch(doneLoading())
-            console.log(state)
+            dispatch(fetchSetSoals(userid))
         })
         .catch(err => {
             dispatch(errorHitApi(err))
