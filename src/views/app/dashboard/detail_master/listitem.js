@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect , useState } from "react";
 import { View, Text, Dimensions } from "react-native";
 import {AnimatedCircularProgress} from 'react-native-circular-progress'
 import { TouchableOpacity } from "react-native-gesture-handler";

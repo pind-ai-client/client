@@ -66,7 +66,7 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
       </View>
       </ImageBackground>
       <View style={style.categories}>
-        <Text style={{color: 'white'}}>You have {masters.length} Answer Keys in total</Text>
+        <Text style={{color: 'white'}}>You have {setSoals.length} Answer Keys in total</Text>
       </View> 
       <View style={style.listcontainer}>
         
