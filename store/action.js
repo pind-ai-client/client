@@ -36,7 +36,7 @@ export function login (user, navigate) {
             photoUrl: user.photoUrl
         })
         .then(({ data }) => {
-            console.log(data)
+            // console.log(data)
             dispatch(successLogin(data))
             navigate('dashboard')
         })
@@ -63,13 +63,13 @@ export function fetchSetSoals (userId) {
 }
 
 export function fetchSetSoal (id) {
-    console.log('fetch soal dijalankan',id);
+    // console.log('fetch soal dijalankan',id);
 
     return (dispatch, state) => {
         dispatch(loading())
         axios.get(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
-            console.log('data actioooon', data);
+            // console.log('data actioooon', data);
             dispatch(successFetchSoal(data))
         })
         .catch(err => {
@@ -228,7 +228,11 @@ export function createAnswer (uri, setSoalId) {
 }
 
 export function updateAnswer (id, option) {
+    console.log('masuk update, ini idnya:', id)
+    console.log('masuk update, ini optionnya:', option)
+    console.log(baseUrl+'/answers/'+id)
     return (dispatch, state) => {
+        console.log('masuk return update')
         dispatch(loading())
         axios.put(baseUrl+'/answers/'+id, option)
         .then(({ data }) => {
@@ -310,6 +314,7 @@ export function successFetchAnswer(data) {
 }
 
 export function answerCreated(data) {
+    console.log('dari action =====', data.answers['1'])
     return {
         type: "SUCCESS_CREATE_ANSWER",
         data

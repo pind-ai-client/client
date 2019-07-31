@@ -34,7 +34,7 @@ const buttonNew = ({navigation, createAnswer}) => {
   };
 
   let askPermission = async () => {
-    console.log('masuk ask permission')
+    // console.log('masuk ask permission')
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     setCameraPermission(status === "granted");
   };
@@ -50,7 +50,7 @@ const buttonNew = ({navigation, createAnswer}) => {
   function toggleFlash() {
     if (flash === Camera.Constants.FlashMode.off) {
       setFlash(Camera.Constants.FlashMode.on);
-      console.log(Camera.Constants.FlashMode);
+      // console.log(Camera.Constants.FlashMode);
       console.log('flash on');
     } else {
       setFlash(Camera.Constants.FlashMode.off);
