@@ -22,9 +22,14 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
   let firstName = name[0]
   let lastName = name[1]
 
+  let getSoals = () => {
+    fetchSetSoals(user.UserId) 
+  }
+
   useEffect(() => {
     console.log('ini user dari redux', user)
-    fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
+    // ini ngefetch set soal based user id nya
+    getSoals()
   }, [])
 
   return (
@@ -77,7 +82,7 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
           renderItem={({ item }) => {
             return (
               <View>
-                <Listitem master={item} />
+                <Listitem master={item} getSoals={getSoals} />
               </View>
             );
           }}
