@@ -161,7 +161,7 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
             renderItem={({ item }) => {
               return (
                 <View>
-                  <Listitem master={item} getSoals={getSoals} />
+                  <Listitem master={item} getSoals={getSoals} sort={sortBy}/>
                 </View>
               );
             }}

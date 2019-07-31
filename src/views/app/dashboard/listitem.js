@@ -7,7 +7,7 @@ import {deleteSetSoal, fetchSetSoals} from '../../../../store/action'
 import {connect} from 'react-redux'
 
 
-const Listitem = ({ master, navigation, deleteSetSoal, user, getSoals }) => {
+const Listitem = ({ master, navigation, deleteSetSoal, user, getSoals, sort }) => {
   const[keyTotal,setKeyTotal] = useState(0)
 
 
@@ -21,6 +21,16 @@ const Listitem = ({ master, navigation, deleteSetSoal, user, getSoals }) => {
     console.log(keyTotal);
     
   },[])
+
+  useEffect(() => {
+    console.log('ini master di listItem', master);
+    key = 0
+    for(key in master.answerKey){
+        key+1
+    }
+    setKeyTotal(key)
+    console.log(keyTotal);
+  }, [sort])
 
 
   return (

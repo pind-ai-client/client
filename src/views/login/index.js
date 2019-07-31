@@ -92,11 +92,11 @@ const Login = ({ navigation, login }) => {
                   <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with google</Text>
                 </View>
               </TouchableNativeFeedback>
-              <TouchableNativeFeedback onPress={loginWithFacebook}>
+              {/* <TouchableNativeFeedback onPress={loginWithFacebook}>
                 <View style={{marginVertical: 10, borderRadius: 50, borderColor: 'white', borderWidth: 2, width: width - 40, padding: 20, height: 40, alignItems: 'center', justifyContent: 'center'}}>
                   <Text style={{color: 'white', fontSize: 15, fontFamily: 'montserrat-regular'}}>Sign in with facebook</Text>
                 </View>
-              </TouchableNativeFeedback>
+              </TouchableNativeFeedback> */}
             </>
             : <ActivityIndicator size="large" color="white" />
  
