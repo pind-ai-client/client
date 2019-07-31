@@ -31,8 +31,7 @@ const Login = ({ navigation, login }) => {
       const result = await Google.logInAsync({
         androidClientId:
           "304290495073-kltkc2u9c27gmvan6u2u60rpavh76eq1.apps.googleusercontent.com",
-        scopes: ["profile", "email"],
-        behavior: 'web'
+        scopes: ["profile", "email"]
       })
       if (result.type === "success") {
         const credential = await firebase.auth.GoogleAuthProvider.credential(result.idToken, result.accessToken)

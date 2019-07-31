@@ -9,8 +9,10 @@ import {
   Modal,
   TouchableHighlight,
   TouchableOpacity,
+  TouchableNativeFeedback,
   TextInput,
-  Image
+  Image,
+  Button
 } from "react-native";
 import axios from 'axios'
 import Listitem from './listitem'
@@ -110,7 +112,7 @@ const DetailAnswer = ({ navigation }) => {
   }, [modalVisible])
 
   editName = () => {
-    axios.put('http://35.240.166.155:3000/answers/'+ data._id, {name})
+    axios.put('http://35.240.166.155:3000/answers/'+ data._id, {name: name.toUpperCase()})
     .then(({data}) => {
       setModalVisible(false)
       fetchData()
@@ -129,6 +131,9 @@ const DetailAnswer = ({ navigation }) => {
         <View style={{ backgroundColor: 'rgba(0,0,0,0.75)', height: height - 60, width }}>
           <View style={{ height: height / 4, width: width, alignItems: 'center', justifyContent: 'center' }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableHighlight
+              onPress={() => setType('image')}
+            >
               <AnimatedCircularProgress
                 size={width/3}
                 width={30}
@@ -141,18 +146,19 @@ const DetailAnswer = ({ navigation }) => {
                   <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
                 )}
               </AnimatedCircularProgress>
+            </TouchableHighlight>
               <View style={{padding: 20}}>
                 <View>
                   <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <AntDesign name='edit' size={20} color='white' style={{marginRight: 10}}/>
-                      <Text style={{
+                    <Text 
+                      style={{
                         fontSize: 20,
                         fontFamily: 'montserrat-black',
-                        color: 'white',
-                        textTransform: 'uppercase'
-                      }}>{!answer.name ? 'loading...' : answer.name}</Text>
-                    </View>
+                        color: 'white'
+                      }}
+                    >
+                      {!answer.name ? 'loading...' : answer.name}
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>
@@ -175,7 +181,7 @@ const DetailAnswer = ({ navigation }) => {
           </View>
           {
             answer.length === 0 ?
-              <Text>Loading dulu masnya</Text>
+              <></>
               :
               <View>
                 <View style={{height: 50}}>
@@ -205,7 +211,8 @@ const DetailAnswer = ({ navigation }) => {
                         index={index} 
                         fullAnswer={answer.answers} 
                         fetchData={fetchData} 
-                        answerId={answer._id}>
+                        answerId={answer._id}
+                        number={index+1}>
                       </Listitem>
                     )}
                   />
@@ -219,65 +226,81 @@ const DetailAnswer = ({ navigation }) => {
         transparent={false}
         visible={modalVisible}
       >
+        <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
           <View style ={{
-            padding: 20
+            padding: 20,
+            height: '100%'
           }}>
           {
             type === 'edit' ?
             <>
-            <Text style = {{textAlign: 'center'}}>Edit Student Name</Text>
+            <Text style={{fontSize: 20, color: 'white', fontFamily: 'montserrat-black', textAlign:'center', marginTop: '30%', marginBottom: 30}}>Edit Student Name</Text>
             <TextInput
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, textTransform:'uppercase' }}
+              // style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, textTransform:'uppercase' }}
+              style={{ height: 70, fontSize: 15, color: 'white', borderColor: 'white', borderWidth: 3, padding: 10, marginBottom: 10, textTransform:'uppercase', textAlign:'center', borderRadius: 20 }}
               onChangeText={text => setName(text)}
               value={name}
             />
             <View style={{
               flexDirection: 'row',
-              justifyContent: 'space-around'
+              justifyContent: 'space-around',
+              marginTop:50
             }}>
               <TouchableHighlight
                 style={{
-                  backgroundColor: 'green',
+                  backgroundColor: 'white',
                   width: 150,
-                  padding: 5
+                  padding: 5,
+                  borderRadius: 20
                 }}
                 onPress={() => {
                   editName()
                 }}>
-                <Text style={{color: 'white'}}>Save</Text>
+                <Text style={{fontSize:15, color: 'green', fontFamily: 'montserrat-black', textAlign:'center'}}>Save</Text>
               </TouchableHighlight>
               <TouchableHighlight
                 style={{
-                  backgroundColor: 'yellow',
+                  backgroundColor: 'white',
                   width: 150,
-                  padding: 5
+                  padding: 5,
+                  borderRadius: 20
                 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
                 }}>
-                <Text>Cancel</Text>
+                <Text style={{fontSize:15, color: 'red', fontFamily: 'montserrat-black', textAlign:'center'}}>Cancel</Text>
               </TouchableHighlight>
             </View>
             </>
-            : <>
+            : <View>
+              <Text style={{fontSize:15, color: 'white', fontFamily: 'montserrat-black', textAlign:'center'}}>{answer.name}'s Answer</Text>
               <Image
                 source={{uri: answer.imageUrl}}
-                style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}
+                style={{width: '100%', height: '85%', resizeMode:'contain', borderRadius: 20, marginBottom: 15, marginTop: 15}}
               />
-              <TouchableHighlight
-                style={{
-                  backgroundColor: 'yellow',
-                  width: 150,
-                  padding: 5
-                }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
-                <Text>Back</Text>
-              </TouchableHighlight>
-            </>
+              {/* <Button
+                title='Back'
+                color='#2C5364'
+                onPress={() => setModalVisible(!modalVisible)}
+              /> */}
+              <View style={{flex:1, flexDirection:'row', justifyContent:'center'}}>
+                <TouchableHighlight
+                  style={{
+                    backgroundColor: 'white',
+                    width: 150,
+                    padding: 5,
+                    borderRadius: 20
+                  }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Text style={{fontSize:15, color: 'red', fontFamily: 'montserrat-black', textAlign:'center'}}>Back</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
           }
           </View>
+        </LinearGradient>
       </Modal>
     </LinearGradient>
   );

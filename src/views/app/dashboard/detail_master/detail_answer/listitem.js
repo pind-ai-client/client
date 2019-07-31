@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { withNavigation } from "react-navigation";
 import { View, Text, Alert, Modal, TouchableOpacity } from "react-native";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { LinearGradient } from 'expo-linear-gradient'
 import moment from "moment-with-locales-es6";
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import axios from "axios";
 
-const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, fetchData }) => {
+const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, fetchData, number }) => {
   const kamusHuruf = {
     A : 0,
     B : 1,
@@ -87,59 +88,66 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
         transparent={false}
         visible={modalVisible}
       >
-        <View style={{ marginTop: 22 }}>
-          <View>
-          <View style= {{
-            alignItems: "center",
-          }}>
-            <RadioForm
-              radio_props={radio_props}
-              initial={kamusHuruf[master[1]]}
-              formHorizontal={true}
-              labelHorizontal={false}
-              onPress={(value) => {setValue(value)}}
-            />
-          </View>
-          <View style={{
-            marginTop: 10,
-            flexDirection: 'row',
-            justifyContent: "space-around",
-            alignItems: 'center'
-          }}>
-            <TouchableOpacity 
-            style = {{
-              backgroundColor: 'green',
-              width: 150,
-              padding: 5
-            }}
-            onPress={() => {
-              saveUpdate()
-            }}
-            >
-              <Text style={{
-                textAlign: 'center'
-              }}>
-                Save
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            style = {{
-              backgroundColor: 'yellow',
-              width: 150,
-              padding: 5
-            }} 
-            onPress={() => {
-              setModalVisible(false)
+        <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
+          <View style={{ marginTop: '40%', height:'100%' }}>
+            <View>
+            <View style= {{
+              alignItems: "center"
             }}>
-              <Text style={{
-                textAlign: 'center'
+              <Text style={{fontFamily: 'montserrat-black', color: 'white', fontSize: 20, marginBottom: 20}}>Edit Answer</Text>
+              <View style={{flexDirection: 'row', marginBottom: 20}}>
+                <Text style={{fontFamily: 'montserrat-black', color: 'white', fontSize: 20,}}>{number}.</Text>
+                <RadioForm
+                  radio_props={radio_props}
+                  initial={kamusHuruf[master[1]]}
+                  formHorizontal={true}
+                  labelHorizontal={false}
+                  buttonColor={'white'}
+                  labelStyle={{fontSize: 15, fontFamily: 'montserrat-regular', color: 'white'}}
+                  onPress={(value) => {setValue(value)}}
+                />
+              </View>
+            </View>
+            <View style={{
+              marginTop: 10,
+              flexDirection: 'row',
+              justifyContent: "space-around",
+              alignItems: 'center',
+              marginBottom: 20
+            }}>
+              <TouchableOpacity 
+              style={{
+                backgroundColor: 'white',
+                width: 150,
+                padding: 5,
+                borderRadius: 20
+              }}
+              onPress={() => {
+                saveUpdate()
+              }}
+              >
+                <Text style={{fontSize:15, color: 'green', fontFamily: 'montserrat-black', textAlign:'center'}}>
+                  Save
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+              style={{
+                backgroundColor: 'white',
+                width: 150,
+                padding: 5,
+                borderRadius: 20
+              }}
+              onPress={() => {
+                setModalVisible(false)
               }}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
+                <Text style={{fontSize:15, color: 'red', fontFamily: 'montserrat-black', textAlign:'center'}}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+            </View>
           </View>
-          </View>
-        </View>
+        </LinearGradient>
       </Modal>
     </TouchableNativeFeedback>
   );
