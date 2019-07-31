@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, Button, ImageBackground } from "react-native";
+import { View, Text, Image, Button, ImageBackground, Dimensions } from "react-native";
 import style from "./style";
 import Listitem from "./listitem";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
@@ -13,8 +13,10 @@ import {LinearGradient} from 'expo-linear-gradient'
 import {connect} from 'react-redux';
 import { fetchSetSoals, successFetchSoals } from '../../../../store/action'
 
+let {width, height} = Dimensions.get('window')
 
 const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoals }) => {
+
   const [sortedSetsoals, setSortedSetsoals] = useState({data:setSoals})
   const [pickSortBy, setPickSortBy] = useState()
   const [sortBy, setSortBy] = useState({type: 'time', asc: false})
@@ -27,7 +29,7 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
   let lastName = name[1]
 
   let getSoals = () => {
-    fetchSetSoals(user.UserId) 
+    fetchSetSoals(user.UserId)
   }
 
   useEffect(() => {
@@ -142,18 +144,29 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
             </View>
           </TouchableNativeFeedback>
         </View>
-        <FlatList
-
-          keyExtractor={(item, index) => index.toString()}
-          data={sortedSetsoals.data}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <Listitem master={item} getSoals={getSoals} />
+        { sortedSetsoals.data.length === 0 ? (
+          <View style={{alignItems: 'center', justifyContent: 'center', height: ((height/3) * 2) - 60}}>
+            <AntDesign name='frowno' color='white' size={50}/>
+            <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 15, marginTop: 10}}>Your list is empty, let's change that!</Text>
+            <TouchableNativeFeedback onPress={() => navigation.navigate('New')}>
+              <View style={{padding: 10, borderColor: 'white', borderWidth: 2, borderRadius: 10, marginTop: 10}}>
+                <Text style={{color: 'white', fontFamily: 'montserrat-black', fontSize: 15}}>Add new answer key</Text>
               </View>
-            );
-          }}
-        />
+            </TouchableNativeFeedback>
+          </View>
+        ) : (
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={sortedSetsoals.data}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Listitem master={item} getSoals={getSoals} />
+                </View>
+              );
+            }}
+          />
+        ) }
       </View>
     </LinearGradient>
   );

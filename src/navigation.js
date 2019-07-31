@@ -19,6 +19,7 @@ import {
 // IMPORT VIEWS
 import Dash from "./views/app/dashboard";
 import DetailMaster from "./views/app/dashboard/detail_master";
+import EditMaster from "./views/app/dashboard/detail_master/edit_master/index";
 import DetailAnswer from "./views/app/dashboard/detail_master/detail_answer";
 import NewMaster from "./views/app/dashboard/new_master";
 import Settings from "./views/app/dashboard/settings";
@@ -28,6 +29,7 @@ import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
 import Account from './views/app/dashboard/settings/account'
 import Help from './views/app/dashboard/settings/help'
+import Test from './views/test'
 
 let showBottomTab = true
 
@@ -51,7 +53,7 @@ const Details = createStackNavigator({
 let Dashboard = createStackNavigator({
     dash: Dash,
     detail: Details,
-    edit : NewMaster
+    edit : EditMaster
   },
   no_appbar
 );
@@ -110,6 +112,7 @@ let BottomNav = createBottomTabNavigator({
 )
 
 let App = createSwitchNavigator({
+  // test: Test,
   splash: Splash,
   login: Login,
   dashboard: BottomNav

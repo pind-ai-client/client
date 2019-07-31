@@ -107,6 +107,7 @@ export function editSetSoal (id, option) {
         axios.put(baseUrl+'/setSoal/'+id, option)
         .then(({ data }) => {
             console.log('success edit setsoal', data)
+            dispatch(fetchSetSoals(option.UserId))
             dispatch(doneLoading())
         })
         .catch(err => {
@@ -129,14 +130,15 @@ export function editSetSoalKey (id, option) {
     }
 }
 
-export function deleteSetSoal (id, userId) {
+export function deleteSetSoal (id, userid) {
     return (dispatch, state) => {
         dispatch(loading())
         axios.delete(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
+            console.log(state.user, 'ini state XXXXXXXXXXXXXXXXXXXXXXXXX')
             console.log('success delete setSoal', data)
             dispatch(doneLoading())
-            console.log(state)
+            dispatch(fetchSetSoals(userid))
         })
         .catch(err => {
             dispatch(errorHitApi(err))
@@ -247,12 +249,13 @@ export function updateAnswer (id, option) {
     }
 }
 
-export function deleteAnswer (id) {
+export function deleteAnswer (id, UserId) {
     return (dispatch, state) => {
         dispatch(loading())
         axios.delete(baseUrl+'/answers/'+id)
         .then(({ data }) => {
             console.log('success delete answer', data)
+            dispatch(fetchSetSoals(UserId))
         })
         .catch(err => {
             dispatch(errorHitApi(err))

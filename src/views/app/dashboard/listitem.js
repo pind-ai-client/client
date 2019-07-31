@@ -22,34 +22,9 @@ const Listitem = ({ master, navigation, deleteSetSoal, user, getSoals }) => {
     
   },[])
 
-  function deleteHandler(id){
-    deleteSetSoal(id, user._id)
-    getSoals()
-  }
-
-  function showAlert(selected){
-    console.log('alert supposed to be triggered')
-    Alert.alert(
-      selected.title,
-      'What do you want to do?',
-      [
-        {text: 'Cancel', onPress: () => console.log('Ask me later pressed'), style: 'cancel'},
-        {
-          text: 'Edit',
-          onPress: () => console.log('Edit Pressed'),
-        },
-        {
-          text: 'Delete',
-          onPress: () => Alert.alert('Delete', 'Are you sure?', [{text: 'Yes', onPress: () => deleteHandler(selected._id)}, {text: 'Cancel'}]),
-        },
-      ],
-      {cancelable: true},
-    );
-  }
 
   return (
     <TouchableNativeFeedback
-      onLongPress={() => showAlert(master)}
       onPress={() => {
         console.log(master._id)
         navigation.navigate("detail", {
