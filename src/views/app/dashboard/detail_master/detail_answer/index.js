@@ -125,14 +125,16 @@ const DetailAnswer = ({ navigation }) => {
                   <Text style={{ color: 'white' }}>Answer</Text>
                   <Text style={{ color: 'white' }}>Key</Text>
                 </View>
-                <FlatList
-                  data={Object.entries(answer.answers)}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item, index }) => (
-                    <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
-                  )
-                  }
-                />
+                <View style={{height: ((height/3) *2) - 60}}>
+                  <FlatList
+                    data={Object.entries(answer.answers)}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                      <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
+                    )
+                    }
+                  />
+                </View>
               </View>
           }
         </View>
