@@ -7,12 +7,11 @@ import moment from 'moment-with-locales-es6'
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {masters} from '../../../../../mockdata'
 import Menu, { MenuItem, MenuDivider, Position } from 'react-native-enhanced-popup-menu'
-import {deleteSetSoal} from '../../../../../store/action'
+import {deleteSetSoal, generateCSV } from '../../../../../store/action'
 import {connect} from 'react-redux'
-import * as WebBrowser from 'expo-web-browser';
 
 
-const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid}) => {
+const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid, generateCSV}) => {
     let data = masters[id-1]
     let {height, width} = Dimensions.get('window')
 
@@ -27,8 +26,8 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
     
     const onPress = () => showMenu();
 
-    function generateCSV(){
-        WebBrowser.openBrowserAsync(`http://localhost:3000/answers/${dataSoal._id}/csv`)
+    function clickGenerateCSV(){
+        generateCSV(dataSoal._id)
     }
 
     function editData(){
@@ -99,7 +98,7 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
                     <MenuItem onPress={editData}>Edit</MenuItem>
                     <MenuItem onPress={handleDelete}>Delete</MenuItem>
                     <MenuDivider />
-                    <MenuItem onPress={generateCSV}>Download CSV</MenuItem>
+                    <MenuItem onPress={clickGenerateCSV}>Download CSV</MenuItem>
                 </Menu>
                 </LinearGradient>
             </ImageBackground>
@@ -108,7 +107,8 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
 }
 
 const mapDispatchToProps = {
-    deleteSetSoal
+    deleteSetSoal,
+    generateCSV
 }
 
 export default connect(null, mapDispatchToProps)(withNavigation(HeaderView))
