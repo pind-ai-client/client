@@ -34,38 +34,27 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
 
   useEffect(() => {
     console.log('##########################masuk set useeffect sorted')
-    // console.log('masuk sini', sortedClick)
-    let sorted
-    if (pickSortBy === 'newest') {
-      sorted = sortedSetsoals.data.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
-    } else if (pickSortBy === 'oldest') {
-      sorted = sortedSetsoals.data.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))
-    } else {
-      sorted = setSoals
-    }
-    console.log('ini picksortby', pickSortBy)
-    console.log('ini yang di sorted', sorted)
-    setSortedSetsoals({data: sorted})
-    // if (!sortedClick) {
-    // }
+    setSortedSetsoals({data: setSoals})
   }, [setSoals])
 
   const sortByNewest = () => {
-    console.log('##########################start newest brok')
     let sorted = setSoals.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
-    // console.log('ini sorted newests', sorted)
-    // successFetchSoals(sorted)
     setSortedSetsoals({data: sorted})
-    setPickSortBy('newest')
   }
 
   const sortByOldest = () => {
-    console.log('##########################start sortByOldest')
-    // console.log('ini sorted oldest', sorted)
-    // successFetchSoals(sorted)
     let sorted = setSoals.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))    
     setSortedSetsoals({data: sorted})
-    setPickSortBy('oldest')
+  }
+
+  const sortByAsc = () => {
+    let sorted = setSoals.sort((x, y) => x.title > y.title)    
+    setSortedSetsoals({data: sorted})
+  }
+
+  const sortByDesc = () => {
+    let sorted = setSoals.sort((x, y) => x.title < y.title)    
+    setSortedSetsoals({data: sorted})
   }
 
   return (
@@ -107,12 +96,14 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
       </View>
       </ImageBackground>
       <View style={style.categories}>
-        <Text style={{color: 'white'}}>You have {user.setSoal.length} Question Sets in total</Text>
+        <Text style={{color: 'white'}}>You have {sortedSetsoals.data.length} Question Sets in total</Text>
       </View> 
       <View style={style.listcontainer}>
         <View style={{ flexDirection: 'row' }}>
           <Button title="Latest" onPress={sortByNewest} />
           <Button title="Oldest" onPress={sortByOldest} />
+          <Button title="Asc" onPress={sortByAsc} />
+          <Button title="Desc" onPress={sortByDesc} />
         </View>
         <FlatList
 
