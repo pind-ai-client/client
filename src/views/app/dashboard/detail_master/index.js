@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Dimensions } from "react-native";
+import { NavigationEvents } from 'react-navigation'
 import ActionButton from "react-native-action-button";
 import { AntDesign } from "@expo/vector-icons";
 import style from "./style";
@@ -27,6 +28,9 @@ const DetailAnswer = (props) => {
 
   return (
     <>
+      <NavigationEvents
+        onWillFocus={() => props.fetchSetSoal(id) }
+      />
       { props.setSoal === {} ? (
         <View>
           <Text>Nothing to show</Text>

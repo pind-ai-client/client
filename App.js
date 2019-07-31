@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 const dimens = Dimensions.get('window')
-console.log(dimens, '====================')
+// console.log(dimens, '====================')
 
 export default function App() {
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function App() {
     });
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user, 'from appjs')
+        // console.log(user, 'from appjs')
       }
       // Do other things
     });

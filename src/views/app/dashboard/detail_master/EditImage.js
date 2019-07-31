@@ -1,12 +1,41 @@
-import React, {useState, useEffect} from 'react'
-import { View, Text, Image, ActivityIndicator, Button, ScrollView } from 'react-native'
+import React, {useState, useEffect, useRef} from 'react'
+import { 
+    View, 
+    Text, 
+    Image, 
+    ActivityIndicator, 
+    Button, 
+    ScrollView, 
+    Modal,
+    TextInput 
+} from 'react-native'
 
 import { connect } from 'react-redux'
+import { updateAnswer } from '../../../../../store/action'
 
-const EditImage = ({navigation, isLoading, error, createdAnswer}) => {
+const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) => {
     const [Info, setInfo] = useState('Loading')
+    const [modalVisible, setModalVisible] = useState(false)
+    const [back, setBack] = useState(false)
+    const [goBack, setGoBack] = useState(false)
+
+    const [updatedName, setUpdatedName] = useState('')
+
     let uri = navigation.getParam('uri')
-    console.log(uri);
+    // console.log(uri);
+
+    useEffect(() => {
+        if (back) {
+            setModalVisible(false)
+            setGoBack(true)
+        }
+    }, [back])
+
+    useEffect(() => {
+        if (goBack) {
+            navigation.navigate('detailmaster')
+        }
+    }, [goBack])
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,11 +60,47 @@ const EditImage = ({navigation, isLoading, error, createdAnswer}) => {
                         <Text>{Info}</Text>
                         <ActivityIndicator size="large" color="#0000ff" />
                     </View> 
-                    : error === undefined
+                    : createdAnswer.hasOwnProperty('answers') && error === undefined
                         ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                            <Text>Name: {createdAnswer.name}</Text>
-                            <Text>Answers: {JSON.stringify(createdAnswer.answers, null, 4)}</Text>
-                            </View>
+                            { !modalVisible && (setModalVisible(true)) }
+                            {/* { modalVisible && setUpdatedName(createdAnswer.name) } */}
+                            <Modal
+                                animationType="slide"
+                                transparent={false}
+                                visible={modalVisible}
+                            >
+                                <View style={{flex:1, justifyContent:'center', alignItems:'center', marginTop: 22}}>
+                                    <Text>Answer Preview</Text>
+                                    <View style={{flex:1, flexDirection:'row', height: 50}}>
+                                        <Text>Name:  </Text>
+                                        <TextInput 
+                                            placeholder={createdAnswer.name}
+                                            onChangeText={text => setUpdatedName(text)}
+                                            style={{height: 20, borderColor: 'gray', borderWidth: 1}}
+                                        />
+                                    </View>
+                                    <Text>Score: {createdAnswer.score}</Text>
+                                    <Text>Answers:</Text>
+                                    {
+                                        Object.keys(createdAnswer.answers).map((answer, i) => {
+                                            return (
+                                                <Text key={i}>{i+1}: {createdAnswer.answers[answer]}</Text>
+                                            )
+                                        })
+                                    }
+                                    <Button
+                                    title='Confirm Answer'
+                                    onPress={() => {
+                                        console.log(updatedName)
+                                        updateAnswer(createdAnswer._id, {
+                                            name: updatedName
+                                        })
+                                        setBack(true)
+                                    }}
+                                    />
+                                </View>
+                            </Modal>
+                        </View>
                         : <View>
                             <Text>Image cannot be processed</Text>
                             <Text>Please take the picture according to the guide line</Text>
@@ -43,6 +108,7 @@ const EditImage = ({navigation, isLoading, error, createdAnswer}) => {
                         </View>
                 }
                 </ScrollView>
+                
             </View>
         )
     }
@@ -60,4 +126,6 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(EditImage)
+const mapDispatchToProps = { updateAnswer }
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditImage)

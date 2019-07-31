@@ -13,19 +13,60 @@ import {LinearGradient} from 'expo-linear-gradient'
 import { data, usermock, masters } from "../../../../mockdata";
 import {connect} from 'react-redux';
 import axios from 'axios'
-import { fetchSetSoals } from '../../../../store/action'
+import { fetchSetSoals, successFetchSoals } from '../../../../store/action'
 
 
-const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
-  // console.log(user);
+const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoals }) => {
+  const [sortedSetsoals, setSortedSetsoals] = useState({data:setSoals})
+  const [pickSortBy, setPickSortBy] = useState()
+  console.log('###################################################3re render')
+  // console.log('ini di global setsoals y', setSoals);
+  console.log('ini di global srotedsetsoals', sortedSetsoals);
+  // console.log('ini di global user', user);
   let name = user.userName.split(' ')
   let firstName = name[0]
   let lastName = name[1]
 
   useEffect(() => {
-    console.log('ini user dari redux', user)
+    console.log('##########################masuk use effect user', user)
     fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
   }, [])
+
+  useEffect(() => {
+    console.log('##########################masuk set useeffect sorted')
+    // console.log('masuk sini', sortedClick)
+    let sorted
+    if (pickSortBy === 'newest') {
+      sorted = sortedSetsoals.data.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
+    } else if (pickSortBy === 'oldest') {
+      sorted = sortedSetsoals.data.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))
+    } else {
+      sorted = setSoals
+    }
+    console.log('ini picksortby', pickSortBy)
+    console.log('ini yang di sorted', sorted)
+    setSortedSetsoals({data: sorted})
+    // if (!sortedClick) {
+    // }
+  }, [setSoals])
+
+  const sortByNewest = () => {
+    console.log('##########################start newest brok')
+    let sorted = setSoals.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
+    // console.log('ini sorted newests', sorted)
+    // successFetchSoals(sorted)
+    setSortedSetsoals({data: sorted})
+    setPickSortBy('newest')
+  }
+
+  const sortByOldest = () => {
+    console.log('##########################start sortByOldest')
+    // console.log('ini sorted oldest', sorted)
+    // successFetchSoals(sorted)
+    let sorted = setSoals.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))    
+    setSortedSetsoals({data: sorted})
+    setPickSortBy('oldest')
+  }
 
   return (
     
@@ -66,14 +107,17 @@ const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
       </View>
       </ImageBackground>
       <View style={style.categories}>
-        <Text style={{color: 'white'}}>You have {setSoals.length} Answer Keys in total</Text>
+        <Text style={{color: 'white'}}>You have {user.setSoal.length} Question Sets in total</Text>
       </View> 
       <View style={style.listcontainer}>
-        
+        <View style={{ flexDirection: 'row' }}>
+          <Button title="Latest" onPress={sortByNewest} />
+          <Button title="Oldest" onPress={sortByOldest} />
+        </View>
         <FlatList
 
           keyExtractor={(item, index) => index.toString()}
-          data={setSoals}
+          data={sortedSetsoals.data}
           renderItem={({ item }) => {
             return (
               <View>
@@ -94,7 +138,8 @@ const MapStateToProps = state => {
   }
 }
 const mapDispatchtoProps = {
-  fetchSetSoals
+  fetchSetSoals,
+  successFetchSoals
 }
 
 // <Text style={style.username}>{user.name}</Text>
