@@ -17,6 +17,7 @@ import Listitem from './listitem'
 import { LinearGradient } from 'expo-linear-gradient'
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 import { withNavigation } from 'react-navigation'
+import { AntDesign } from "@expo/vector-icons";
 
 let baseurl = 'http://35.240.166.155:3000'
 
@@ -129,7 +130,7 @@ const DetailAnswer = ({ navigation }) => {
           <View style={{ height: height / 4, width: width, alignItems: 'center', justifyContent: 'center' }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <AnimatedCircularProgress
-                size={150}
+                size={width/3}
                 width={30}
                 fill={answer.score ? answer.score : 0}
                 tintColor={ !answer.score ? 'red' : answer.score < answer.setSoalId.passingGrade ? 'red' : '#00e0ff' }
@@ -143,11 +144,15 @@ const DetailAnswer = ({ navigation }) => {
               <View style={{padding: 20}}>
                 <View>
                   <TouchableOpacity onPress={() => setModalVisible(true)}>
-                    <Text style={{
-                      fontSize: 20,
-                      fontFamily: 'montserrat-black',
-                      color: 'white'
-                    }}>{!answer.name ? 'loading...' : answer.name}</Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <AntDesign name='edit' size={20} color='white' style={{marginRight: 10}}/>
+                      <Text style={{
+                        fontSize: 20,
+                        fontFamily: 'montserrat-black',
+                        color: 'white',
+                        textTransform: 'uppercase'
+                      }}>{!answer.name ? 'loading...' : answer.name}</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
                 <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>
@@ -222,8 +227,8 @@ const DetailAnswer = ({ navigation }) => {
             <>
             <Text style = {{textAlign: 'center'}}>Edit Student Name</Text>
             <TextInput
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10 }}
-              onChangeText={text => setName(text.toUpperCase())}
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, textTransform:'uppercase' }}
+              onChangeText={text => setName(text)}
               value={name}
             />
             <View style={{

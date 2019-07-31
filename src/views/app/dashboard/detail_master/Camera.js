@@ -118,7 +118,7 @@ const buttonNew = ({navigation, createAnswer}) => {
       justifyContent: 'space-around',
     },
     maskInner: {
-      width: 400,
+      width: width-20,
       backgroundColor: 'transparent',
       borderColor: 'white',
       borderWidth: 1,
@@ -133,7 +133,7 @@ const buttonNew = ({navigation, createAnswer}) => {
   });
 
   renderBottomBar = () => (
-    <View style={{backgroundColor: 'rgba(0,0,0,0.5)', alignContent:'center', justifyContent: 'center', height: 100}}>
+    <View style={{ alignContent:'center', justifyContent: 'center', height: 100, zIndex: 1}}>
       <View style={{flexDirection:'row', width: '100%', alignItems: 'center', justifyContent:'space-evenly'}}>
         <TouchableOpacity onPress={() => changeType()}>
           <MaterialCommunityIcons name="rotate-3d" size={30} color="white" />
@@ -190,11 +190,11 @@ const buttonNew = ({navigation, createAnswer}) => {
             </View>
           )}
           <View style={styles.maskOutter}>
-            <View style={[{ flex: maskRowHeight  }, styles.maskRow, styles.maskFrame]} />
-            <View style={[{ flex: 53 }, styles.maskCenter]}>
-              <View style={[{ width: maskColWidth }, styles.maskFrame]} />
+            <View style={[{ flex: maskRowHeight }, styles.maskRow, styles.maskFrame]} />
+            <View style={[{ flex: 63 }, styles.maskCenter]}>
+              <View style={[{ width: 10 }, styles.maskFrame]} />
               <View style={styles.maskInner} />
-              <View style={[{ width: maskColWidth }, styles.maskFrame]} />
+              <View style={[{ width: 10 }, styles.maskFrame]} />
             </View>
             <View style={[{ flex: maskRowHeight }, styles.maskRow, styles.maskFrame, {justifyContent: 'flex-end', }]}>
             {renderBottomBar()}

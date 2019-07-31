@@ -7,11 +7,16 @@ import {
     ActivityIndicator, 
     Button,
     Modal,
-    TextInput 
+    TextInput,
+    Dimensions
 } from 'react-native'
+import {LinearGradient} from 'expo-linear-gradient'
 
 import { connect } from 'react-redux'
 import { updateAnswer, createAnswer } from '../../../../../store/action'
+import { FlatList } from 'react-native-gesture-handler';
+
+const {width, height} = Dimensions.get('window')
 
 const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) => {
     const [Info, setInfo] = useState('Loading')
@@ -54,77 +59,86 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
 
     function _renderImage() {
         return (
-            <View style={{marginVertical: 20, alignItems: 'center', justifyContent: 'center'}}>
-                <ScrollView>
-
-                <Image
-                    source={{uri: uri}}
-                    style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}/>
-                {
-                    isLoading 
-                    ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                        <Text>{Info}</Text>
-                        <ActivityIndicator size="large" color="#0000ff" />
-                    </View> 
-                    : createdAnswer.hasOwnProperty('answers') && error === undefined
-                        ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                            { !modalVisible && (setModalVisible(true)) }
-                            {/* { modalVisible && setUpdatedName(createdAnswer.name) } */}
-                            <Modal
-                                animationType="slide"
-                                transparent={false}
-                                visible={modalVisible}
-                            >
-                                {/* {setUpdatedName(createdAnswer.name)} */}
-                                <ScrollView>
-
-                                    <View style={{flex:1, justifyContent:'center', alignItems:'center', marginTop: 22}}>
-                                        <Text>Answer Preview</Text>
-                                        <Image
-                                            source={{uri: uri}}
-                                            style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}
-                                        />
-                                        <View style={{flex:1, flexDirection:'row', justifyContent:'center', height: 25}}>
-                                            <Text>Name:  </Text>
-                                            <TextInput 
-                                                value={updatedName}
-                                                editable={true}
-                                                onChangeText={text => setUpdatedName(text.toUpperCase())}
-                                                style={{height: 20, width:150, borderColor: 'gray', borderWidth: 1}}
-                                            />
-                                        </View>
-                                        <Text>Score: {createdAnswer.score}</Text>
-                                        <Text>Answers:</Text>
-                                        {
-                                            Object.keys(createdAnswer.answers).map((answer, i) => {
-                                                return (
-                                                    <Text key={i}>{i+1}: {createdAnswer.answers[answer]}</Text>
-                                                )
-                                            })
-                                        }
-                                        <Button
-                                        title='Confirm Answer'
-                                        onPress={() => {
-                                            console.log(updatedName)
-                                            updateAnswer(createdAnswer._id, {
-                                                name: updatedName
-                                            })
-                                            setBack(true)
-                                        }}
-                                        />
-                                    </View>
-                                </ScrollView>
-                            </Modal>
-                        </View>
-                        : <View>
-                            <Text>Image cannot be processed</Text>
-                            <Text>Please take the picture according to the guide line</Text>
-                            <Button title="Take another picture" onPress={() => navigation.navigate('camera')}/>
-                        </View>
-                }
+            <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
+            <ScrollView style={{height: height}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', height}}>
+                    <Image
+                        source={{uri: uri}}
+                        style={{width: width/1.5, height: height/2, resizeMode:'cover', borderRadius: 20, borderColor: 'white', borderWidth: 2}}/>
+                    {
+                        isLoading 
+                        ? <View style={{justifyContent:'center', alignItems:'center'}}>
+                            <Text style={{color: 'white', fontFamily: 'montserrat-black', fontSize: 20}}>{Info}</Text>
+                            <ActivityIndicator size="large" color="orange" />
+                        </View> 
+                        : createdAnswer.hasOwnProperty('answers') && error === undefined
+                            ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+                                { !modalVisible && (setModalVisible(true)) }
+                                {/* { modalVisible && setUpdatedName(createdAnswer.name) } */}
+                                <Modal
+                                    animationType="slide"
+                                    transparent={false}
+                                    visible={modalVisible}
+                                >
+                                    {/* {setUpdatedName(createdAnswer.name)} */}
+                                    <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
+                                        
+                                            <View style={{justifyContent:'center', alignItems:'center', marginTop: 22}}>
+                                                <Text style={{fontSize: 20, fontFamily: 'montserrat-black', color: 'white'}}>Answer Preview</Text>
+                                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                                    <Image
+                                                        source={{uri: uri}}
+                                                        style={{width: width/3, height: height/4, resizeMode:'cover', borderRadius: 20, borderColor: 'white', borderWidth: 2, margin: 20}}
+                                                    />
+                                                    <View>
+                                                        <Text style={{fontSize: 15, fontFamily: 'montserrat-regular', color: 'white'}}>Name:  </Text>
+                                                        <TextInput 
+                                                        value={updatedName}
+                                                        editable={true}
+                                                        onChangeText={text => setUpdatedName(text.toUpperCase())}
+                                                        style={{height: 40, width:150, backgroundColor: 'white', borderRadius: 10, padding: 10}}
+                                                        />
+                                                        <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 20}}>Temporary Score: {createdAnswer.score}</Text>
+                                                    </View>
+                                                </View>
+                                                
+                                                
+                                                <Text>Answers:</Text>
+                                                <ScrollView style={{height: ((height/4)*3) - 100}}>
+                                                    {
+                                                        Object.keys(createdAnswer.answers).map((answer, i) => {
+                                                            return (
+                                                                <View key={i} style={{flexDirection: 'row', alignItems: 'center', height: 50, padding: 10}}>
+                                                                    <Text style={{color: 'white', fontSize: 20, fontFamily: 'montserrat-regular'}}>{i}. </Text>
+                                                                    <Text style={{color: 'white', fontSize: 20, fontFamily: 'montserrat-regular'}}>{createdAnswer.answers[answer]}</Text>
+                                                                </View>
+                                                            )
+                                                        })
+                                                    }
+                                                    <Button
+                                                    title='Confirm Answer'
+                                                    onPress={() => {
+                                                        console.log(updatedName)
+                                                        updateAnswer(createdAnswer._id, {
+                                                            name: updatedName
+                                                        })
+                                                        setBack(true)
+                                                    }}
+                                                    />
+                                                </ScrollView>
+                                            </View>
+                                    </LinearGradient>
+                                </Modal>
+                            </View>
+                            : <View>
+                                <Text>Image cannot be processed</Text>
+                                <Text>Please take the picture according to the guide line</Text>
+                                <Button title="Take another picture" onPress={() => navigation.navigate('camera')}/>
+                            </View>
+                    }
+                    </View>
                 </ScrollView>
-                
-            </View>
+            </LinearGradient>
         )
     }
 

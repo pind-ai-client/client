@@ -64,7 +64,7 @@ const NewMaster = ({navigation, editSetSoal, setSoal, user}) => {
     // setTitle('')
     // setArray(['A'])
     // setPassingGrade(70)
-    navigation.navigate('detail')
+    navigation.navigate('dash')
   }
 
   function handleChange(value, index){
