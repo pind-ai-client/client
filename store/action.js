@@ -87,7 +87,8 @@ export function createSetSoal (option){
             title: option.title,
             folderName: option.folderName,
             answerKey: option.answerKey,
-            answers: option.answers
+            answers: option.answers,
+            passingGrade : option.passingGrade
         })
         .then(({ data }) => {
             // console.warn('success create setSoal', data)
