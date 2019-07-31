@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, View, Text, Image, Alert, Modal, Button } from "react-native";
 import { FlatList, TouchableNativeFeedback } from "react-native-gesture-handler";
 import Listitem from './listItem'
 import style from "./style";
 import { connect } from 'react-redux'
 import firebase from '../../../../api/firebase'
+import * as FileSystem from 'expo-file-system'
+import * as WebBrowser from 'expo-web-browser';
 
 const Settings = (props) => {
   const { user } = props
   const [userLogin, setUserLogin] = useState(user)
+
+  useEffect(()=>{
+    console.log('user di setting ',user.userName.split(" "))
+  },[])
+
   let name = userLogin.userName.split(' ')
   let firstName = name[0]
   let lastName = name[1]
@@ -61,6 +68,23 @@ const Settings = (props) => {
     setModalVisible(!modalVisible)
   }
 
+  const generateReport = () => {
+
+    WebBrowser.openBrowserAsync(`http://localhost:3000/setSoal`)
+    // FileSystem.downloadAsync(
+    //   "http://localhost:3000/setSoal",
+    //   // FileSystem.documentDirectory +  "small.csv"
+    //   "file:///internal storage/Download/" + "test.csv"
+    // )
+    // .then(async ({uri})=>{
+    //   console.log('ini uri filesystem' ,uri);
+    //   // WebBrowser.openBrowserAsync(uri)
+    // })
+    // .catch(err =>{
+    //   console.log(err)
+    // })
+  }
+
   return (
     <View style={{ flexDirection: 'column' }}>
       <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
@@ -97,7 +121,7 @@ const Settings = (props) => {
                 style={style.formInput}
                 placeholder="Full Name"
                 onChangeText={(text) => setUserLogin({ ...userLogin, name: text })}
-                value={userLogin.name}
+                value={userLogin.userName}
               />
             </View>
             <View style={style.formContainer}>
@@ -132,6 +156,9 @@ const Settings = (props) => {
             </View>
             <View style={{ marginTop: 20 }}>
               <Button title="Update" onPress={sendUpdateProfile}/>
+            </View>
+            <View style={{ marginTop: 20 }}>
+              <Button title="generate report" onPress={generateReport}/>
             </View>
           </View>
         </View>
