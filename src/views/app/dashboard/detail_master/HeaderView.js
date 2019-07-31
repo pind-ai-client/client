@@ -9,6 +9,8 @@ import {masters} from '../../../../../mockdata'
 import Menu, { MenuItem, MenuDivider, Position } from 'react-native-enhanced-popup-menu'
 import {deleteSetSoal} from '../../../../../store/action'
 import {connect} from 'react-redux'
+import * as WebBrowser from 'expo-web-browser';
+
 
 const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid}) => {
     let data = masters[id-1]
@@ -26,18 +28,10 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
     
     const onPress = () => showMenu();
 
-    // const[keyTotal,setKeyTotal] = useState(0)
-    
-    // useEffect(()=>{
-    //     console.log(dataSoal,"=====");
-    //     key = 0
-    //     for(key in dataSoal.answerKey){
-    //         key+1
-    //     }
-    //     setKeyTotal(key)
-    //     console.log(keyTotal);
-        
-    // }, [])
+    function generateCSV(){
+        console.log(dataSoal._id);
+        WebBrowser.openBrowserAsync(`http://localhost:3000/answers/${dataSoal._id}/csv`)
+    }
 
     function editData(){
         console.log(dataSoal);
@@ -108,7 +102,7 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
                     <MenuItem onPress={hideMenu}>Edit</MenuItem>
                     <MenuItem onPress={handleDelete}>Delete</MenuItem>
                     <MenuDivider />
-                    <MenuItem onPress={hideMenu}>Download CSV</MenuItem>
+                    <MenuItem onPress={generateCSV}>Download CSV</MenuItem>
                 </Menu>
                 </LinearGradient>
             </ImageBackground>
