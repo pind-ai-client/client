@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Image, Dimensions, StyleSheet, ActivityIndicator } from "react-native";
+import { NavigationEvents } from 'react-navigation'
 import ActionButton from "react-native-action-button";
 import { MaterialCommunityIcons, Ionicons, Entypo, MaterialIcons } from "@expo/vector-icons";
 import * as Permissions from "expo-permissions";
@@ -10,6 +11,7 @@ import { connect } from 'react-redux'
 import { createAnswer } from '../../../../../store/action'
 
 const buttonNew = ({navigation, createAnswer}) => {
+  let id = navigation.getParam('id')
 
   const {height, width, scale} = Dimensions.get('window')
   const maskRowHeight = Math.round((height - 533)/20)
@@ -23,14 +25,16 @@ const buttonNew = ({navigation, createAnswer}) => {
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [ratio, setRatio] = useState();
   const [loading, setLoading] = useState(false)
+  const [loaded, setLoaded] = useState(true)
 
   let supportedRatio = async () => {
     let ratioNew = await camera.getSupportedRatiosAsync();
-    console.log(ratioNew);
+    // console.log('dari ratio====================', ratioNew);
     setRatio(ratioNew[ratioNew.length-1])
   };
 
   let askPermission = async () => {
+    console.log('masuk ask permission')
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     setCameraPermission(status === "granted");
   };
@@ -58,24 +62,24 @@ const buttonNew = ({navigation, createAnswer}) => {
       setLoading(true)
       let photo = await camera.takePictureAsync({
         base64: true,
-        quality: 1
+        quality: 0.75
       })
       // console.log('ini photo ======',photo);
-      let manipResult = await ImageManipulator.manipulateAsync(
-        photo.uri, 
-        [],
-        { compress: 1, format: ImageManipulator.SaveFormat.JPEG },
-      )
+      // let manipResult = await ImageManipulator.manipulateAsync(
+      //   photo.uri, 
+      //   [],
+      //   { compress: 1, format: ImageManipulator.SaveFormat.JPEG },
+      // )
+      // console.log(height, width);
+      // console.log('ini result ============', manipResult);
       setLoading(false)
-      console.log(height, width);
-      console.log('ini result ============', manipResult);
       const image = new File([photo.base64], 'answer.jpg', {type: 'image/jpeg'})
       console.log(image)
       let imageForm = new FormData()
       imageForm.append('image', JSON.stringify(image))
-      createAnswer(photo.uri)
+      createAnswer(photo.uri, id)
       navigation.navigate('postCapture', {
-        uri: manipResult.uri
+        uri: photo.uri
       })
     }
   }
@@ -88,7 +92,12 @@ const buttonNew = ({navigation, createAnswer}) => {
   }
 
   useEffect(() => {
+    console.log('dari cameraaaaaaa ', id)
+    // console.log(navigation)
+    // if (navigation.state.routeName === 'camera') {
+    console.log('masuk camera dari effect')
     askPermission();
+    // }
   }, []);
 
   const styles = StyleSheet.create({
@@ -151,34 +160,48 @@ const buttonNew = ({navigation, createAnswer}) => {
           flex: 1
         }}
       >
-        <Camera
-          style={{
-            flex: 1
+        <NavigationEvents
+          onWillFocus={() => {
+            console.log('masuk camera dari navigation')
+            setLoaded(true)
           }}
-          type={type}
-          onCameraReady={supportedRatio}
-          ratio={ratio}
-          flashMode={flash}
-          autoFocus='on'
-          ref={ref => {camera = ref}}
-        >
-        {loading && (
-          <View style={{height: height, width: width, alignItems:'center', justifyContent:'center', backgroundColor: 'rgba(0,0,0,0.8)'}}>
-            <ActivityIndicator size='large' color='white'/>
+          onDidBlur={() => {
+            console.log('keluar camera')
+            setLoaded(false)
+          }}
+        />
+        {loaded && (
+
+          <Camera
+            style={{
+              flex: 1
+            }}
+            type={type}
+            onCameraReady={supportedRatio}
+            ratio={ratio}
+            flashMode={flash}
+            autoFocus='on'
+            ref={ref => {camera = ref}}
+          >
+          
+          {loading && (
+            <View style={{height: height, width: width, alignItems:'center', justifyContent:'center', backgroundColor: 'rgba(0,0,0,0.8)'}}>
+              <ActivityIndicator size='large' color='white'/>
+            </View>
+          )}
+          <View style={styles.maskOutter}>
+            <View style={[{ flex: maskRowHeight  }, styles.maskRow, styles.maskFrame]} />
+            <View style={[{ flex: 53 }, styles.maskCenter]}>
+              <View style={[{ width: maskColWidth }, styles.maskFrame]} />
+              <View style={styles.maskInner} />
+              <View style={[{ width: maskColWidth }, styles.maskFrame]} />
+            </View>
+            <View style={[{ flex: maskRowHeight }, styles.maskRow, styles.maskFrame, {justifyContent: 'flex-end', }]}>
+            {renderBottomBar()}
+            </View>
           </View>
+          </Camera>
         )}
-        <View style={styles.maskOutter}>
-          <View style={[{ flex: maskRowHeight  }, styles.maskRow, styles.maskFrame]} />
-          <View style={[{ flex: 53 }, styles.maskCenter]}>
-            <View style={[{ width: maskColWidth }, styles.maskFrame]} />
-            <View style={styles.maskInner} />
-            <View style={[{ width: maskColWidth }, styles.maskFrame]} />
-          </View>
-          <View style={[{ flex: maskRowHeight }, styles.maskRow, styles.maskFrame, {justifyContent: 'flex-end', }]}>
-          {renderBottomBar()}
-          </View>
-        </View>
-        </Camera>
       </View>
     );
   } else{

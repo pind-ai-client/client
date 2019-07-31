@@ -4,6 +4,7 @@ const initialState = {
   user: {},
   answer: {},
   answers: [],
+  createdAnswer: {},
   setSoal: {},
   setSoals: [],
   error: undefined
@@ -71,6 +72,12 @@ export default (state = initialState, action) => {
         ...state,
         answer: action.data,
         isLoading: false
+      }
+
+    case "SUCCESS_CREATE_ANSWER":
+      return {
+        ...state,
+        createdAnswer: action.data
       }
 
     default:

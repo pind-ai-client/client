@@ -17,6 +17,12 @@ export default function App() {
       "montserrat-thin": require("./assets/fonts/Montserrat-Thin.ttf"),
       pacifico: require("./assets/fonts/Pacifico-Regular.ttf")
     });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user, 'from appjs')
+      }
+      // Do other things
+    });
   }, []);
   return (
     <Provider store={store} >

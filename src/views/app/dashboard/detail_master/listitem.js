@@ -8,8 +8,7 @@ const {width, height} = Dimensions.get('window')
 
 const ListItem = ({answer}) => {
   return (
-    
-      <View style={{margin: 10, padding: 20, backgroundColor: 'white', borderRadius: 25, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between'}}>
+    <View style={{margin: 10, padding: 20, backgroundColor: 'white', borderRadius: 25, flexDirection: 'row', alignItems: 'center', justifyContent:'space-between'}}>
         <Text style={{fontWeight: 'bold', fontSize: 15, color: '#2C5364'}}>{answer.name}</Text>
         <AnimatedCircularProgress
           size={50}

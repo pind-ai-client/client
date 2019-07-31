@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, Button, ImageBackground } from "react-native";
 import style from "./style";
 import Listitem from "./listitem";
@@ -12,14 +12,21 @@ import {
 import {LinearGradient} from 'expo-linear-gradient'
 import { data, usermock, masters } from "../../../../mockdata";
 import {connect} from 'react-redux';
+import axios from 'axios'
+import { fetchSetSoals } from '../../../../store/action'
 
 
-
-const Dashboard = ({ navigation, user }) => {
-  console.log(user);
+const Dashboard = ({ navigation, user, fetchSetSoals, setSoals }) => {
+  // console.log(user);
   let name = user.userName.split(' ')
   let firstName = name[0]
   let lastName = name[1]
+
+  useEffect(() => {
+    console.log('ini user dari redux', user)
+    fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
+  }, [])
+
   return (
     
     <LinearGradient colors={['#2C5364', '#203A43', '#0F2027']}>
@@ -60,13 +67,13 @@ const Dashboard = ({ navigation, user }) => {
       </ImageBackground>
       <View style={style.categories}>
         <Text style={{color: 'white'}}>You have {masters.length} Answer Keys in total</Text>
-      </View>
+      </View> 
       <View style={style.listcontainer}>
-        <View style={{height: 165}}/>
+        
         <FlatList
-          style={{paddingTop: 65}}
+
           keyExtractor={(item, index) => index.toString()}
-          data={masters}
+          data={setSoals}
           renderItem={({ item }) => {
             return (
               <View>
@@ -82,9 +89,13 @@ const Dashboard = ({ navigation, user }) => {
 
 const MapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    setSoals: state.setSoals
   }
+}
+const mapDispatchtoProps = {
+  fetchSetSoals
 }
 
 // <Text style={style.username}>{user.name}</Text>
-export default connect(MapStateToProps)(Dashboard);
+export default connect(MapStateToProps,mapDispatchtoProps)(Dashboard);

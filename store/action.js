@@ -4,7 +4,7 @@ import axios from 'axios'
 const baseUrl = 'http://192.168.43.111:3000'
 
 export function sendPicture(index) {
-    console.log("masuk");
+    // console.log("masuk");
     return async (dispatch, payload) => {
         dispatch({
             type: "LOADING_HIT_API"
@@ -26,9 +26,9 @@ export function sendPicture(index) {
 
 export function login (user, navigate) {
     return (dispatch, state) => {
-        console.log('masuk action')
+        // console.log('masuk action')
         dispatch(loading())
-        console.log(user, 'from action');
+        // console.log(user, 'from action');
         axios.post(baseUrl+'/users/login', {
             userName: user.userName,
             email: user.email,
@@ -47,13 +47,13 @@ export function login (user, navigate) {
     }
 }
 
-export function fetchSetSoals () {
+export function fetchSetSoals (userId) {
     
     return (dispatch, state) => {
         dispatch(loading())
-        axios.get(baseUrl+'/setSoal')
+        axios.get(baseUrl+'/setSoal/'+userId+'/users')
         .then(({ data }) => {
-            console.log('data actioooon soallls', data);
+            // console.log('data actioooon soallls', data);
             dispatch(successFetchSoals(data))
         })
         .catch(err => {
@@ -70,7 +70,6 @@ export function fetchSetSoal (id) {
         axios.get(baseUrl+'/setSoal/'+id)
         .then(({ data }) => {
             console.log('data actioooon', data);
-            
             dispatch(successFetchSoal(data))
         })
         .catch(err => {
@@ -91,7 +90,8 @@ export function createSetSoal (option){
             answers: option.answers
         })
         .then(({ data }) => {
-            console.warn('success create setSoal', data)
+            // console.warn('success create setSoal', data)
+            dispatch(fetchSetSoals(option.UserId))
             dispatch(doneLoading())
         })
         .catch(err => {
@@ -158,6 +158,7 @@ export function fetchAnswers () {
 
 export function fetchAnswer (id) {
     return (dispatch, state) => {
+        console.log('fetch answer nih bos',id)
         dispatch(loading())
         axios.get(baseUrl+'/answers/'+id)
         .then(({ data }) => {
@@ -169,18 +170,17 @@ export function fetchAnswer (id) {
     }
 }
 
-export function createAnswer (uri) {
+export function createAnswer (uri, setSoalId) {
     return (dispatch, state) => {
         console.log('masuk create answer client')
-        console.log('ini uri ==========', uri)
         dispatch(loading())
-        console.log(baseUrl+'/answers')
         let formData = new FormData()
         formData.append('image', {
             uri,
             name: 'image.jpg',
             type: 'image/jpg'
         })
+        formData.append('setSoalId', setSoalId)
         let options = {
             method: 'POST',
             body: formData,
@@ -198,6 +198,7 @@ export function createAnswer (uri) {
             if (data.status === 'success') {
                 dispatch(doneLoading())
                 console.log(data.data)
+                dispatch(answerCreated(data.data))
             } else {
                 console.log(data.data)
                 dispatch(errorHitApi(data))
@@ -303,6 +304,13 @@ export function successFetchAnswers(data) {
 export function successFetchAnswer(data) {
     return {
         type: "SUCCESS_FETCH_ANSWER",
+        data
+    }
+}
+
+export function answerCreated(data) {
+    return {
+        type: "SUCCESS_CREATE_ANSWER",
         data
     }
 }

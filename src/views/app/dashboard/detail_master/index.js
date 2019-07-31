@@ -16,8 +16,9 @@ const DetailAnswer = (props) => {
   let id = props.navigation.getParam("id");
 
   useEffect(()=>{
-    props.fetchSetSoal("5d3eb4af367de44569bf4b28")
-    console.log('ini detaillll trigger');
+    props.fetchSetSoal(id) 
+    // console.log('ini detaillll trigger');
+    console.log('dari detail  ', id)
     
   },[])
 
@@ -35,7 +36,7 @@ const DetailAnswer = (props) => {
           {/* <Text>{JSON.stringify(props.setSoal)}</Text> */}
           <View style={{alignItems: 'center', justifyContent: 'center', height: 10}}>
             <View style={{zIndex: 3}}>
-              <TouchableOpacity onPress={() => props.navigation.navigate('camera')} style={{zIndex: 2}}>
+              <TouchableOpacity onPress={() => props.navigation.navigate('camera', {id: id})} style={{zIndex: 2}}>
                 <View style={{zIndex: 1, borderColor: '#2C5364', borderWidth: 10, backgroundColor: 'white', borderRadius: 100, height: 75, width: 75, alignItems: 'center', justifyContent: 'center'}}>
                   <AntDesign name='camera' size={30} color='#2C5364' />
                 </View>
@@ -44,8 +45,8 @@ const DetailAnswer = (props) => {
           </View>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
-            data={data.answers}
-            renderItem={({ item }) => {
+            data={props.setSoal.answers}
+            renderItem={({ item,index }) => {
               return (
                 <TouchableNativeFeedback onPress={() => props.navigation.navigate('detailanswer', {data: item})}>
                   <Listitem answer={item} />

@@ -40,16 +40,16 @@ const HeaderView = ({navigation, id, dataSoal}) => {
                     </View>
                 </View>
                 <View style={{alignItems: 'flex-start', justifyContent: 'center', marginTop: 30}}>
-                    <Text style={{fontSize: 35, fontFamily: 'montserrat-black', color: 'white'}}>{data.name}</Text>
+                    <Text style={{fontSize: 35, fontFamily: 'montserrat-black', color: 'white'}}>{dataSoal.title}</Text>
                     <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
                     <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 15}}>
                         <AntDesign size={15} color='white' name='clockcircle'/>
                         {'  '}
-                        {moment(data.createdAt).fromNow()}
+                        {moment(dataSoal.updatedAt).fromNow()}
                     </Text>
                     <Text>{'    '}</Text>
                     <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 15}}>
-                        {'#'}{data.length} questions
+                        {'#'}{dataSoal.length} questions
                     </Text>
                     </View>
                 </View>
