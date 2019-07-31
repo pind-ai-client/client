@@ -87,7 +87,8 @@ export function createSetSoal (option){
             title: option.title,
             folderName: option.folderName,
             answerKey: option.answerKey,
-            answers: option.answers
+            answers: option.answers,
+            passingGrade: option.passingGrade
         })
         .then(({ data }) => {
             // console.warn('success create setSoal', data)
@@ -106,6 +107,7 @@ export function editSetSoal (id, option) {
         axios.put(baseUrl+'/setSoal/'+id, option)
         .then(({ data }) => {
             console.log('success edit setsoal', data)
+            dispatch(fetchSetSoals(option.UserId))
             dispatch(doneLoading())
         })
         .catch(err => {

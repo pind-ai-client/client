@@ -19,6 +19,7 @@ import {
 // IMPORT VIEWS
 import Dash from "./views/app/dashboard";
 import DetailMaster from "./views/app/dashboard/detail_master";
+import EditMaster from "./views/app/dashboard/detail_master/edit_master/index";
 import DetailAnswer from "./views/app/dashboard/detail_master/detail_answer";
 import NewMaster from "./views/app/dashboard/new_master";
 import Settings from "./views/app/dashboard/settings";
@@ -51,7 +52,7 @@ const Details = createStackNavigator({
 let Dashboard = createStackNavigator({
     dash: Dash,
     detail: Details,
-    edit : NewMaster
+    edit : EditMaster
   },
   no_appbar
 );
