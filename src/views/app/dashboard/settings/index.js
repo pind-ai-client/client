@@ -66,26 +66,6 @@ const Settings = (props) => {
     setModalVisible(!modalVisible)
   }
 
-<<<<<<< HEAD
-  const generateReport = () => {
-
-    WebBrowser.openBrowserAsync(`http://35.240.166.155:3000/setSoal`)
-    // FileSystem.downloadAsync(
-    //   "http://35.240.166.155:3000/setSoal",
-    //   // FileSystem.documentDirectory +  "small.csv"
-    //   "file:///internal storage/Download/" + "test.csv"
-    // )
-    // .then(async ({uri})=>{
-    //   console.log('ini uri filesystem' ,uri);
-    //   // WebBrowser.openBrowserAsync(uri)
-    // })
-    // .catch(err =>{
-    //   console.log(err)
-    // })
-  }
-
-=======
->>>>>>> delete generate report in settings
   return (
     <View style={{ flexDirection: 'column' }}>
       <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
