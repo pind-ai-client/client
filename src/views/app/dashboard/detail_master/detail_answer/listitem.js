@@ -44,6 +44,7 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
     {label: 'D', value: 3 },
     {label: 'E', value: 4 }
   ]
+  console.log(answerKey[index],'07070707======70707070')
   return (
     <TouchableNativeFeedback
       onPress={() =>
