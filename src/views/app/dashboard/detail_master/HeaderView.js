@@ -30,7 +30,7 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
 
     function generateCSV(){
         console.log(dataSoal._id);
-        WebBrowser.openBrowserAsync(`http://localhost:3000/answers/${dataSoal._id}/csv`)
+        WebBrowser.openBrowserAsync(`http://35.240.166.155:3000/answers/${dataSoal._id}/csv`)
     }
 
     function editData(){

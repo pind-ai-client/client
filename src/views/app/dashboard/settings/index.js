@@ -71,9 +71,9 @@ const Settings = (props) => {
 
   const generateReport = () => {
 
-    WebBrowser.openBrowserAsync(`http://localhost:3000/setSoal`)
+    WebBrowser.openBrowserAsync(`http://35.240.166.155:3000/setSoal`)
     // FileSystem.downloadAsync(
-    //   "http://localhost:3000/setSoal",
+    //   "http://35.240.166.155:3000/setSoal",
     //   // FileSystem.documentDirectory +  "small.csv"
     //   "file:///internal storage/Download/" + "test.csv"
     // )

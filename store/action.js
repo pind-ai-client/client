@@ -1,7 +1,7 @@
 import {mock} from '../src/api/pindai'
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://35.240.166.155:3000'
 
 export function sendPicture(index) {
     // console.log("masuk");
@@ -249,13 +249,14 @@ export function updateAnswer (id, option) {
     }
 }
 
-export function deleteAnswer (id, UserId) {
+export function deleteAnswer (id, UserId, navigate) {
     return (dispatch, state) => {
         dispatch(loading())
         axios.delete(baseUrl+'/answers/'+id)
         .then(({ data }) => {
             console.log('success delete answer', data)
-            dispatch(fetchSetSoals(UserId))
+            // dispatch(fetchSetSoals(UserId))
+            navigate('dash')
         })
         .catch(err => {
             dispatch(errorHitApi(err))

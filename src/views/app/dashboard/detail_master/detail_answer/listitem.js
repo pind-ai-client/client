@@ -28,7 +28,7 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
   saveUpdate = () => {
     setModalVisible(false)
     fullAnswer[index + 1] = kamusAngka[value]
-    axios.put(`http://172.16.4.24:3000/answers/${answerId}`, { answers: fullAnswer })
+    axios.put(`http://35.240.166.155:3000/answers/${answerId}`, { answers: fullAnswer })
     .then(({ data }) => {
       fetchData()
     })
