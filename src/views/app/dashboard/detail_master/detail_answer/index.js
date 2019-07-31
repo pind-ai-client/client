@@ -80,7 +80,11 @@ const DetailAnswer = ({ navigation }) => {
   }
 
   fetchData = () => {
+<<<<<<< HEAD
     axios.get(`http://35.240.166.155:3000/answers/${data._id}`)
+=======
+    axios.get(`${baseurl}/answers/${data._id}`)
+>>>>>>> 1506fca098d956b2c187b0cb8bdc80ca9f117d9e
       .then(({ data }) => {
         setAnswer(data)
         console.log(data, 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
@@ -109,7 +113,11 @@ const DetailAnswer = ({ navigation }) => {
   }, [modalVisible])
 
   editName = () => {
+<<<<<<< HEAD
     axios.put('http://35.240.166.155:3000/answers/'+ data._id, {name})
+=======
+    axios.put(`${baseurl}/answers/`+ data._id, {name})
+>>>>>>> 1506fca098d956b2c187b0cb8bdc80ca9f117d9e
     .then(({data}) => {
       setModalVisible(false)
       fetchData()
@@ -160,6 +168,7 @@ const DetailAnswer = ({ navigation }) => {
                 <View style={{flexDirection: 'row'}}>
                   <View style={{width: 15, height: 15, backgroundColor: 'yellow', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
                   <Text style={{color: 'white', fontFamily: 'montserrat-regular'}}>{answerCount.wrong} Wrong</Text>
+<<<<<<< HEAD
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <View style={{width: 15, height: 15, backgroundColor: 'red', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
@@ -188,6 +197,36 @@ const DetailAnswer = ({ navigation }) => {
                     <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>Key</Text>
                   </View>
                 </View>
+=======
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <View style={{width: 15, height: 15, backgroundColor: 'red', borderRadius: 50, marginRight: 15, marginBottom: 5}}/>     
+                  <Text style={{color: 'white', fontFamily: 'montserrat-regular'}}>{answerCount.empty} Empty</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          {
+            answer.length === 0 ?
+              <Text>Loading dulu masnya</Text>
+              :
+              <View>
+                <View style={{height: 50}}>
+                  
+                  <View style={{
+                    justifyContent: 'space-around',
+                    backgroundColor: 'white',
+                    flexDirection: 'row',
+                    margin: 10,
+                    padding: 5,
+                    borderRadius: 7
+                  }}>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>No</Text>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>Answer</Text>
+                    <Text style={{ color: 'rgba(0,0,0,0.75)', fontFamily: 'montserrat-regular', fontSize: 18 }}>Key</Text>
+                  </View>
+                </View>
+>>>>>>> 1506fca098d956b2c187b0cb8bdc80ca9f117d9e
                 <View style={{height: ((height/4) *3) - 145}}>
                   <FlatList
                     data={Object.entries(answer.answers)}
