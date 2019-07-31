@@ -8,7 +8,7 @@ import { deleteAnswer } from '../../../../../store/action'
 
 const {width, height} = Dimensions.get('window')
 
-const ListItem = ({ answer, user, deleteAnswer }) => {
+const ListItem = ({ answer, user, deleteAnswer, navigation }) => {
 
   function deleteHandler(selected){
     deleteAnswer(selected._id, selected.UserId)
