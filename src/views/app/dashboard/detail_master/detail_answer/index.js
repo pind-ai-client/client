@@ -9,7 +9,8 @@ import {
   Modal,
   TouchableHighlight,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Image
 } from "react-native";
 import axios from 'axios'
 import Listitem from './listitem'
@@ -48,6 +49,7 @@ const DetailAnswer = ({ navigation }) => {
 
   const [answer, setAnswer] = useState('')
   const [modalVisible, setModalVisible] = useState(false)
+  const [type, setType] = useState('edit')
   const [name, setName] = useState('')
 
   fetchData = () => {
@@ -65,6 +67,18 @@ const DetailAnswer = ({ navigation }) => {
   useEffect(() => {
     fetchData()
   }, [])
+
+  useEffect(() => {
+    if (type === 'image') {
+      setModalVisible(true)
+    }
+  }, [type])
+
+  useEffect(() => {
+    if (modalVisible === false) {
+      setType('edit')
+    }
+  }, [modalVisible])
 
   editName = () => {
     axios.put('http://localhost:3000/answers/'+ data._id, {name})
@@ -85,23 +99,27 @@ const DetailAnswer = ({ navigation }) => {
       >
         <View style={{ backgroundColor: 'rgba(0,0,0,0.75)', height: height - 60, width }}>
           <View style={{ height: height / 3, width: width, alignItems: 'center', justifyContent: 'center' }}>
-            <AnimatedCircularProgress
-              size={150}
-              width={30}
-              fill={answer.score ? answer.score : 0}
-              tintColor={ !answer.score ? 'red' : answer.score < 60 ? 'red' : '#00e0ff' }
-              onAnimationComplete={() => console.log('onAnimationComplete')}
-              backgroundColor='#3d5875'
+            <TouchableHighlight
+              onPress={() => setType('image')}
             >
-              {() => (
-                <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
-              )}
-            </AnimatedCircularProgress>
+              <AnimatedCircularProgress
+                size={150}
+                width={30}
+                fill={answer.score ? answer.score : 0}
+                tintColor={ !answer.score ? 'red' : answer.score < 60 ? 'red' : '#00e0ff' }
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor='#3d5875'
+              >
+                {() => (
+                  <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
+                )}
+              </AnimatedCircularProgress>
+            </TouchableHighlight>
             <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>{!answer.score ? 'loading...' : answer.score<60 ? 'Failed' : 'Passed' }</Text>
           </View>
           {
             answer.length === 0 ?
-              <Text>Loading dulu masnya</Text>
+              <></>
               :
               <View>
                 <View style={styles.detailStudent}>
@@ -147,10 +165,13 @@ const DetailAnswer = ({ navigation }) => {
           <View style ={{
             padding: 20
           }}>
+          {
+            type === 'edit' ?
+            <>
             <Text style = {{textAlign: 'center'}}>Edit Student Name</Text>
             <TextInput
               style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10 }}
-              onChangeText={text => setName(text)}
+              onChangeText={text => setName(text.toUpperCase())}
               value={name}
             />
             <View style={{
@@ -180,6 +201,25 @@ const DetailAnswer = ({ navigation }) => {
                 <Text>Cancel</Text>
               </TouchableHighlight>
             </View>
+            </>
+            : <>
+              <Image
+                source={{uri: answer.imageUrl}}
+                style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}
+              />
+              <TouchableHighlight
+                style={{
+                  backgroundColor: 'yellow',
+                  width: 150,
+                  padding: 5
+                }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Text>Back</Text>
+              </TouchableHighlight>
+            </>
+          }
           </View>
       </Modal>
     </LinearGradient>
