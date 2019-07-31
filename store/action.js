@@ -248,12 +248,13 @@ export function updateAnswer (id, option) {
     }
 }
 
-export function deleteAnswer (id) {
+export function deleteAnswer (id, UserId) {
     return (dispatch, state) => {
         dispatch(loading())
         axios.delete(baseUrl+'/answers/'+id)
         .then(({ data }) => {
             console.log('success delete answer', data)
+            dispatch(fetchSetSoals(UserId))
         })
         .catch(err => {
             dispatch(errorHitApi(err))

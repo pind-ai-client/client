@@ -54,9 +54,12 @@ const DetailAnswer = (props) => {
             data={props.setSoal.answers}
             renderItem={({ item,index }) => {
               return (
-                <TouchableNativeFeedback onPress={() => props.navigation.navigate('detailanswer', {data: item})}>
+                // <TouchableNativeFeedback onPress={() => props.navigation.navigate('detailanswer', {data: item})}>
+                //   <Listitem answer={item} />
+                // </TouchableNativeFeedback>
+                <View>
                   <Listitem answer={item} />
-                </TouchableNativeFeedback>
+                </View>
               );
             }}
           />
