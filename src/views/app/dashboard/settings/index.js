@@ -20,6 +20,7 @@ const Settings = (props) => {
   let firstName = name[0]
   let lastName = name[1]
   const [modalVisible, setModalVisible] = useState(false)
+  const [csv, setCsv] = useState('')
 
   const logoutFirebase = () => {
     firebase.auth().signOut().then(function() {
@@ -163,6 +164,8 @@ const Settings = (props) => {
           </View>
         </View>
       </Modal>
+      <Button title='generate report' onPress={generateReport}/>
+      <Text>{csv}</Text>
     </View>
   );
 };

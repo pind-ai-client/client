@@ -2,23 +2,22 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, Button, ImageBackground } from "react-native";
 import style from "./style";
 import Listitem from "./listitem";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import {
-  TouchableHighlight,
   TouchableWithoutFeedback,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  TouchableNativeFeedback
 } from "react-native-gesture-handler";
 import {LinearGradient} from 'expo-linear-gradient'
-import { data, usermock, masters } from "../../../../mockdata";
 import {connect} from 'react-redux';
-import axios from 'axios'
 import { fetchSetSoals, successFetchSoals } from '../../../../store/action'
 
 
 const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoals }) => {
   const [sortedSetsoals, setSortedSetsoals] = useState({data:setSoals})
   const [pickSortBy, setPickSortBy] = useState()
+  const [sortBy, setSortBy] = useState({type: 'time', asc: false})
   console.log('###################################################3re render')
   // console.log('ini di global setsoals y', setSoals);
   console.log('ini di global srotedsetsoals', sortedSetsoals);
@@ -27,45 +26,56 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
   let firstName = name[0]
   let lastName = name[1]
 
+  let getSoals = () => {
+    fetchSetSoals(user.UserId) 
+  }
+
   useEffect(() => {
-    console.log('##########################masuk use effect user', user)
-    fetchSetSoals(user.UserId) // ini ngefetch set soal based user id nya
+    getSoals()
   }, [])
 
   useEffect(() => {
     console.log('##########################masuk set useeffect sorted')
-    // console.log('masuk sini', sortedClick)
-    let sorted
-    if (pickSortBy === 'newest') {
-      sorted = sortedSetsoals.data.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
-    } else if (pickSortBy === 'oldest') {
-      sorted = sortedSetsoals.data.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))
-    } else {
-      sorted = setSoals
-    }
-    console.log('ini picksortby', pickSortBy)
-    console.log('ini yang di sorted', sorted)
-    setSortedSetsoals({data: sorted})
-    // if (!sortedClick) {
-    // }
+    // getSoals()
+    setSortedSetsoals({data: setSoals})
+    sortByNewest()
   }, [setSoals])
 
   const sortByNewest = () => {
-    console.log('##########################start newest brok')
     let sorted = setSoals.sort((x, y) => new Date(y.createdAt) - new Date(x.createdAt))
-    // console.log('ini sorted newests', sorted)
-    // successFetchSoals(sorted)
     setSortedSetsoals({data: sorted})
-    setPickSortBy('newest')
   }
 
   const sortByOldest = () => {
-    console.log('##########################start sortByOldest')
-    // console.log('ini sorted oldest', sorted)
-    // successFetchSoals(sorted)
     let sorted = setSoals.sort((x, y) => new Date(x.createdAt) - new Date(y.createdAt))    
     setSortedSetsoals({data: sorted})
-    setPickSortBy('oldest')
+  }
+
+  const sortByAsc = () => {
+    let sorted = setSoals.sort((x, y) => x.title > y.title)    
+    setSortedSetsoals({data: sorted})
+  }
+
+  const sortByDesc = () => {
+    let sorted = setSoals.sort((x, y) => x.title < y.title)    
+    setSortedSetsoals({data: sorted})
+  }
+
+  const handleSort = (type) => {
+    setSortBy({type: type, asc: !sortBy.asc})
+    if(sortBy.type === 'time'){
+      if(sortBy.asc){
+        sortByNewest()
+      }else{
+        sortByOldest()
+      }
+    }else{
+      if(sortBy.asc){
+        sortByAsc()
+      }else{
+        sortByDesc()
+      }
+    }
   }
 
   return (
@@ -107,12 +117,30 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
       </View>
       </ImageBackground>
       <View style={style.categories}>
-        <Text style={{color: 'white'}}>You have {user.setSoal.length} Question Sets in total</Text>
+        <Text style={{color: 'white'}}>You have {sortedSetsoals.data.length} Question Sets in total</Text>
       </View> 
       <View style={style.listcontainer}>
-        <View style={{ flexDirection: 'row' }}>
-          <Button title="Latest" onPress={sortByNewest} />
-          <Button title="Oldest" onPress={sortByOldest} />
+        <View style={{ flexDirection: 'row', alignItems:'center', padding: 10}}>
+          <Text style={{color: 'white', marginRight: 10}}>Sort: </Text>
+          <TouchableNativeFeedback onPress={() => handleSort('time')} style={{marginRight: 10}}>
+            <View style={{flexDirection: 'row'}}>
+              <AntDesign name="clockcircleo" size={20} color='white'/>
+              { sortBy.asc && sortBy.type === 'time' ? (
+                <FontAwesome name='sort-up' size={20} color='white'/>
+              ) : (
+                <FontAwesome name='sort-down' size={20} color='white'/>
+              ) }
+            </View>
+          </TouchableNativeFeedback>
+          <TouchableNativeFeedback onPress={() => handleSort('alphabet')}>
+            <View style={{flexDirection: 'row'}}>
+              { sortBy.asc && sortBy.type === 'alphabet' ? (
+                <FontAwesome name='sort-alpha-desc' size={20} color='white'/>
+              ) : (
+                <FontAwesome name='sort-alpha-asc' size={20} color='white'/>
+              ) }
+            </View>
+          </TouchableNativeFeedback>
         </View>
         <FlatList
 
@@ -121,7 +149,7 @@ const Dashboard = ({ successFetchSoals, navigation, user, fetchSetSoals, setSoal
           renderItem={({ item }) => {
             return (
               <View>
-                <Listitem master={item} />
+                <Listitem master={item} getSoals={getSoals} />
               </View>
             );
           }}

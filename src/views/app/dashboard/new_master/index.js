@@ -4,6 +4,7 @@ import Select from "./answerSelect"
 import { connect } from 'react-redux'
 import {LinearGradient} from 'expo-linear-gradient'
 import {createSetSoal} from '../../../../../store/action'
+import { TouchableNativeFeedback, TouchableOpacity } from "react-native-gesture-handler";
 
 let {width, height} = Dimensions.get('window')
 
@@ -11,9 +12,10 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
   const [totalKey, setTotal] = useState("1")
   const [array, setArray] = useState(["A"])
   const [selected, setSelected] = useState("A")
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState('Untitled')
   const [folderName, setfolderName] = useState('')
   const [dataEdit2, setEdit] = useState({})
+  const [passingGrade, setPassingGrade] = useState(70)
 
 
   let dataEdit = {}
@@ -55,8 +57,13 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
       UserId: user.UserId,
       title: title,
       answerKey: newobj,
-      answers: []
+      answers: [],
+      passingGrade
     })
+    setTotal('')
+    setTitle('')
+    setArray(['A'])
+    setPassingGrade(70)
     navigation.navigate('Dashboard')
   }
 
@@ -117,21 +124,39 @@ const NewMaster = ({navigation, createSetSoal, setSoal, user}) => {
               value={title}
               onChangeText={(e) => setTitle(e)}
               style={{borderColor : "white", borderWidth : 2, padding : 5, borderRadius: 10, color: 'white', textAlign: 'center'}}
-              placeholder="Number of questions"
+              placeholder="Subject Name"
             />
           </View>
-          <View style={{width: '100%', marginBottom: 10}}>
-            <Text style={{color: 'white', fontFamily: 'montserrat-regular', marginBottom: 10, textAlign: 'center'}}># of Questions: </Text>  
-            <TextInput
-              onChangeText={text => handleInput(text)}
-              value={totalKey}
-              keyboardType="numeric"
-              style={{borderColor : "white", borderWidth : 2, padding : 5, borderRadius: 10, color: 'white', textAlign: 'center'}}
-              placeholder="Number of questions"
-            />
+          <View style={{width: '100%', marginBottom: 10, flexDirection:'row'}}>
+            <View style={{flex: 0.5, width: '90%'}}>
+              <Text style={{color: 'white', fontFamily: 'montserrat-regular', marginBottom: 10, textAlign: 'center'}}># of Questions: </Text>  
+              <TextInput
+                onChangeText={text => handleInput(text)}
+                value={totalKey}
+                required={true}
+                keyboardType="numeric"
+                style={{borderColor : "white", borderWidth : 2, padding : 5, borderRadius: 10, color: 'white', textAlign: 'center'}}
+                placeholder="Number of questions"
+              />
+            </View>
+            <View style={{flex: 0.5, width: '90%'}}>
+              <Text style={{color: 'white', fontFamily: 'montserrat-regular', marginBottom: 10, textAlign: 'center'}}>Passing Grade: </Text>  
+              <TextInput
+                onChangeText={text => setPassingGrade(text)}
+                value={passingGrade.toString()}
+                keyboardType="numeric"
+                required={true}
+                style={{borderColor : "white", borderWidth : 2, padding : 5, borderRadius: 10, color: 'white', textAlign: 'center'}}
+                placeholder="Passing grade"
+              />
+            </View>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-            <Button title="save" onPress={save}/>
+            <TouchableOpacity onPress={save}>
+              <View style={{width: 100, backgroundColor: 'white', borderRadius: 50, padding: 10, alignItems:'center', justifyContent:'center'}}>
+                <Text style={{color: '#2C5364', fontFamily:'montserrat-black', fontSize: 20}}>Save</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={{backgroundColor: 'white', borderRadius: 10, padding: 20, height: height - 20 - (height/3)}}>

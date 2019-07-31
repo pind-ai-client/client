@@ -54,6 +54,7 @@ const DetailAnswer = ({ navigation }) => {
     axios.get(`http://localhost:3000/answers/${data._id}`)
       .then(({ data }) => {
         setAnswer(data)
+        console.log(data)
         setName(data.name)
       })
       .catch(err => {
@@ -87,8 +88,8 @@ const DetailAnswer = ({ navigation }) => {
             <AnimatedCircularProgress
               size={150}
               width={30}
-              fill={86}
-              tintColor="#00e0ff"
+              fill={answer.score ? answer.score : 0}
+              tintColor={ !answer.score ? 'red' : answer.score < 60 ? 'red' : '#00e0ff' }
               onAnimationComplete={() => console.log('onAnimationComplete')}
               backgroundColor='#3d5875'
             >
@@ -96,7 +97,7 @@ const DetailAnswer = ({ navigation }) => {
                 <Text style={{ fontFamily: 'montserrat-black', color: 'white', fontSize: 30 }}>{answer.score}</Text>
               )}
             </AnimatedCircularProgress>
-            <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>Passed</Text>
+            <Text style={{ fontFamily: 'montserrat-black', fontSize: 30, color: 'white' }}>{!answer.score ? 'loading...' : answer.score<60 ? 'Failed' : 'Passed' }</Text>
           </View>
           {
             answer.length === 0 ?
@@ -124,14 +125,16 @@ const DetailAnswer = ({ navigation }) => {
                   <Text style={{ color: 'white' }}>Answer</Text>
                   <Text style={{ color: 'white' }}>Key</Text>
                 </View>
-                <FlatList
-                  data={Object.entries(answer.answers)}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={({ item, index }) => (
-                    <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
-                  )
-                  }
-                />
+                <View style={{height: ((height/3) *2) - 60}}>
+                  <FlatList
+                    data={Object.entries(answer.answers)}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item, index }) => (
+                      <Listitem master={item} answerKey={Object.entries(answer.setSoalId.answerKey)} index={index} fullAnswer={answer.answers} fetchData={fetchData} answerId={answer._id}></Listitem>
+                    )
+                    }
+                  />
+                </View>
               </View>
           }
         </View>

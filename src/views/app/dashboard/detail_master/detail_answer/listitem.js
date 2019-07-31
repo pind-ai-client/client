@@ -28,7 +28,7 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
   saveUpdate = () => {
     setModalVisible(false)
     fullAnswer[index + 1] = kamusAngka[value]
-    axios.put(`http://localhost:3000/answers/${answerId}`, { answers: fullAnswer })
+    axios.put(`http://172.16.4.24:3000/answers/${answerId}`, { answers: fullAnswer })
     .then(({ data }) => {
       fetchData()
     })
@@ -44,7 +44,7 @@ const Listitem = ({ master, navigation, answerId, answerKey, index, fullAnswer, 
     {label: 'D', value: 3 },
     {label: 'E', value: 4 }
   ]
-  console.log(answerKey[index],'07070707======70707070')
+  // console.log(answerKey[index],'07070707======70707070')
   return (
     <TouchableNativeFeedback
       onPress={() =>
