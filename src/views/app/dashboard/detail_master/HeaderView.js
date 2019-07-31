@@ -22,26 +22,23 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
     const setMenuRef = ref => menuRef = ref;
     const hideMenu = () => menuRef.hide();
     const showMenu = () => {
-        console.log('triggered menu');
         menuRef.show(textRef.current, stickTo = Position.TOP_LEFT)
     };
     
     const onPress = () => showMenu();
 
     function generateCSV(){
-        console.log(dataSoal._id);
-        WebBrowser.openBrowserAsync(`http://35.240.166.155:3000/answers/${dataSoal._id}/csv`)
+        WebBrowser.openBrowserAsync(`http://localhost:3000/answers/${dataSoal._id}/csv`)
     }
 
     function editData(){
-        console.log(dataSoal);
+        hideMenu()
         navigation.navigate("edit", {
             data : dataSoal
         })
     }
 
     function handleDelete(){
-        console.log('alert supposed to be triggered')
         Alert.alert(
           `Delete Item`,
           `Delete ${dataSoal.title}?`,
@@ -99,7 +96,7 @@ const HeaderView = ({navigation, id, dataSoal, question, deleteSetSoal, userid})
                 </View>
 
                 <Menu ref={setMenuRef}>
-                    <MenuItem onPress={hideMenu}>Edit</MenuItem>
+                    <MenuItem onPress={editData}>Edit</MenuItem>
                     <MenuItem onPress={handleDelete}>Delete</MenuItem>
                     <MenuDivider />
                     <MenuItem onPress={generateCSV}>Download CSV</MenuItem>
