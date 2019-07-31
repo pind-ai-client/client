@@ -84,7 +84,7 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                             source={{uri: uri}}
                                             style={{width: 280, height: 373.1, resizeMode:'contain', borderRadius: 20}}
                                         />
-                                        <View style={{flex:1, flexDirection:'row', justifyContent:'center', height: 50}}>
+                                        <View style={{flex:1, flexDirection:'row', justifyContent:'center', height: 25}}>
                                             <Text>Name:  </Text>
                                             <TextInput 
                                                 value={updatedName}
