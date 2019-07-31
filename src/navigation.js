@@ -29,6 +29,7 @@ import Camera from "./views/app/dashboard/detail_master/Camera";
 import EditImage from "./views/app/dashboard/detail_master/EditImage";
 import Account from './views/app/dashboard/settings/account'
 import Help from './views/app/dashboard/settings/help'
+import Test from './views/test'
 
 let showBottomTab = true
 
@@ -111,6 +112,7 @@ let BottomNav = createBottomTabNavigator({
 )
 
 let App = createSwitchNavigator({
+  // test: Test,
   splash: Splash,
   login: Login,
   dashboard: BottomNav
