@@ -3,13 +3,10 @@ import axios from 'axios'
 import * as WebBrowser from 'expo-web-browser';
 
 const baseUrl = 'http://35.240.166.155:3000'
-<<<<<<< HEAD
 
 export function generateCSV(soalId) {
     WebBrowser.openBrowserAsync(`${baseUrl}/answers/${soalId}/csv`)
 }
-=======
->>>>>>> dion edit answer detail
 
 export function sendPicture(index) {
     // console.log("masuk");
