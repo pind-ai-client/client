@@ -85,7 +85,7 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                         style={{width: width/1.5, height: height/2, resizeMode:'cover', borderRadius: 20, borderColor: 'white', borderWidth: 2}}/>
                     {
                         isLoading 
-                        ? <View style={{justifyContent:'center', alignItems:'center'}}>
+                        ? <View style={{justifyContent:'center', alignItems:'center', marginTop:10}}>
                             <Text style={{color: 'white', fontFamily: 'montserrat-black', fontSize: 20}}>{Info}</Text>
                             <ActivityIndicator size="large" color="orange" />
                         </View> 
@@ -122,8 +122,8 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                                 </View>
                                                 
                                                 
-                                                <Text>Answers:</Text>
-                                                <ScrollView style={{height: ((height/4)*3) - 100}}>
+                                                <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 15}}>Answers:</Text>
+                                                <ScrollView style={{height: ((height/4)*3) - 150, marginBottom: 20}}>
                                                     {
                                                         Object.keys(createdAnswer.answers).map((answer, i) => {
                                                             return (
@@ -149,9 +149,9 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                     </LinearGradient>
                                 </Modal>
                             </View>
-                            : <View>
-                                <Text>Image cannot be processed</Text>
-                                <Text>Please take the picture according to the guide line</Text>
+                            : <View style={{marginTop:20}}>
+                                <Text style={{textAlign:'center', color: 'white', fontFamily: 'montserrat-black', fontSize: 15}}>Image cannot be processed</Text>
+                                <Text style={{textAlign:'center', color: 'white', fontFamily: 'montserrat-black', fontSize: 15, marginBottom: 10}}>Please take the picture according to the guide line</Text>
                                 <Button title="Take another picture" onPress={() => navigation.navigate('camera')}/>
                             </View>
                     }
