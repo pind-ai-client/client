@@ -15,6 +15,7 @@ import {LinearGradient} from 'expo-linear-gradient'
 import { connect } from 'react-redux'
 import { updateAnswer, createAnswer } from '../../../../../store/action'
 import { FlatList } from 'react-native-gesture-handler';
+import {debounce} from 'lodash'
 
 const {width, height} = Dimensions.get('window')
 
@@ -25,6 +26,8 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
     const [goBack, setGoBack] = useState(false)
 
     const [updatedName, setUpdatedName] = useState('')
+
+    // const [updateN]
 
     let uri = navigation.getParam('uri')
     // console.log(uri);
@@ -44,6 +47,9 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
 
     useEffect(() => {
         if (createdAnswer.hasOwnProperty('name')) {
+            console.log('ke trigger setupdated name')
+            // updatedName.current.value = createdAnswer.name
+            
             setUpdatedName(createdAnswer.name)
         }
     }, [createdAnswer])
@@ -56,6 +62,18 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
             }, 5000)
         }, 5000)
     }, [])
+
+     function onChangeEditName(text){
+        console.log('ini dari text ====================', text)
+
+        setUpdatedName(text)
+    }
+
+
+    useEffect(() => {
+        console.log('ini dari updatedName ====================', updatedName);
+    }, [updatedName])
+
 
     function _renderImage() {
         return (
@@ -93,9 +111,10 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                                     <View>
                                                         <Text style={{fontSize: 15, fontFamily: 'montserrat-regular', color: 'white'}}>Name:  </Text>
                                                         <TextInput 
+                                                        // ref={component => updatedName.current = component}
                                                         value={updatedName}
-                                                        editable={true}
-                                                        onChangeText={text => setUpdatedName(text.toUpperCase())}
+                                                        // editable={true}
+                                                        onChangeText={onChangeEditName}
                                                         style={{height: 40, width:150, backgroundColor: 'white', borderRadius: 10, padding: 10}}
                                                         />
                                                         <Text style={{color: 'white', fontFamily: 'montserrat-regular', fontSize: 20}}>Temporary Score: {createdAnswer.score}</Text>
@@ -109,7 +128,7 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                                         Object.keys(createdAnswer.answers).map((answer, i) => {
                                                             return (
                                                                 <View key={i} style={{flexDirection: 'row', alignItems: 'center', height: 50, padding: 10}}>
-                                                                    <Text style={{color: 'white', fontSize: 20, fontFamily: 'montserrat-regular'}}>{i}. </Text>
+                                                                    <Text style={{color: 'white', fontSize: 20, fontFamily: 'montserrat-regular'}}>{i+1}. </Text>
                                                                     <Text style={{color: 'white', fontSize: 20, fontFamily: 'montserrat-regular'}}>{createdAnswer.answers[answer]}</Text>
                                                                 </View>
                                                             )
@@ -118,9 +137,9 @@ const EditImage = ({navigation, isLoading, error, createdAnswer, updateAnswer}) 
                                                     <Button
                                                     title='Confirm Answer'
                                                     onPress={() => {
-                                                        console.log(updatedName)
+                                                        // console.log(updatedName.current.value, 'waktu submit')
                                                         updateAnswer(createdAnswer._id, {
-                                                            name: updatedName
+                                                            name: updatedName.toUpperCase()
                                                         })
                                                         setBack(true)
                                                     }}

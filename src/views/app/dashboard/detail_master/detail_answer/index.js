@@ -236,7 +236,7 @@ const DetailAnswer = ({ navigation }) => {
             <>
             <Text style={{fontSize: 20, color: 'white', fontFamily: 'montserrat-black', textAlign:'center', marginTop: '30%', marginBottom: 30}}>Edit Student Name</Text>
             <TextInput
-              // style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10, textTransform:'uppercase' }}
+              // style={{ height: 40, borderColor: 'gray', borderWidth: 1, padding: 10, marginBottom: 10}}
               style={{ height: 70, fontSize: 15, color: 'white', borderColor: 'white', borderWidth: 3, padding: 10, marginBottom: 10, textTransform:'uppercase', textAlign:'center', borderRadius: 20 }}
               onChangeText={text => setName(text)}
               value={name}
